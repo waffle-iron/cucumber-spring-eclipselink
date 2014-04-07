@@ -27,17 +27,15 @@
   <bean id="entityManagerFactory"
     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
-    <property name="packagesToScan" value="es.cukerecip"/>
+    <property name="packagesToScan" value="info.cukes"/>
     <!-- <label id="code.spring.bean"/> -->
 
     <property name="dataSource" ref="dataSource"/>
 
     <property name="jpaVendorAdapter">
-      <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> &lt;!&ndash; <label id="code.spring.hibernate"/> &ndash;&gt;-->
       <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
         <property name="showSql" value="${hibernate.show_sql}"/>
         <property name="generateDdl" value="true"/>
-        <!--<property name="databasePlatform" value="${hibernate.dialect}"/>-->
         <property name="databasePlatform"
           value="org.eclipse.persistence.platform.database.HSQLPlatform"/>
       </bean>

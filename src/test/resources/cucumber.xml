@@ -9,7 +9,7 @@
 
   <import resource="classpath:applicationContext.xml"/>
 
-  <context:component-scan base-package="es.cukerecip"/>
+  <context:component-scan base-package="info.cukes"/>
 
   <context:annotation-config/>
 

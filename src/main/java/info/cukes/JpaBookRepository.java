@@ -3,9 +3,7 @@ package info.cukes;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,11 +27,8 @@ public class JpaBookRepository implements BookRepository
   @Override
   public List<Book> findAllBooks()
   {
-    @SuppressWarnings("JpaQlInspection")
     Query query = entityManager.createQuery("SELECT b FROM Book b");
 
-    List<Book> bookList = query.getResultList();
-
-    return bookList;
+    return query.getResultList();
   }
 }

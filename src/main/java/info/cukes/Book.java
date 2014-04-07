@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "book")
 public class Book
 {
   @Id
@@ -39,7 +41,7 @@ public class Book
     return id;
   }
 
-  static Function<Book, String> extractTitles = new Function<Book, String>()
+  public static Function<Book, String> extractTitles = new Function<Book, String>()
   {
     @Override
     public String apply(Book book)
@@ -54,7 +56,6 @@ public class Book
 
     return titlesOfBooks;
   }
-
 
   @Override
   public boolean equals(Object o)
