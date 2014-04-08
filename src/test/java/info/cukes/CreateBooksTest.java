@@ -54,7 +54,7 @@ public class CreateBooksTest
 
     bookTitles.add(bookTitle);
 
-    List<Book> books = bookRepository.findAllBooks();
+    List<Book> books = bookRepository.findAll();
 
     List<String> allBookTitles = Book.getListOfTitles(books);
 

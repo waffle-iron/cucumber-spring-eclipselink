@@ -36,7 +36,7 @@ public class BookStepdefs
   public void a_writer_has_contributed_to_the_following_books( // <label id="code.spring.param"/>
     List<Book> books) throws Throwable
   {
-    List<Book> booksInDatabase = bookRepository.findAllBooks();
+    List<Book> booksInDatabase = bookRepository.findAll();
 
     booksInDatabaseAtTestStart = booksInDatabase.size();
 
@@ -65,7 +65,7 @@ public class BookStepdefs
   @When("^someone fetches the books$")
   public void someone_fetches_the_books() throws Throwable
   {
-    books = bookRepository.findAllBooks();
+    books = bookRepository.findAll();
   }
 
   @Then("^(\\d+) books named as above have been added to the database$")
@@ -75,7 +75,7 @@ public class BookStepdefs
 
     Assert.assertEquals(booksInDatabaseAtTestStart + arg1, books.size());
 
-    List<Book> listOfBooksInDatabase = bookRepository.findAllBooks();
+    List<Book> listOfBooksInDatabase = bookRepository.findAll();
 
     List<String> titlesOfBooksInDatabase = Book.getListOfTitles(listOfBooksInDatabase);
 
