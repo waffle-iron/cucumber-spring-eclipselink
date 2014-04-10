@@ -34,7 +34,6 @@ public class AuthorStepDefs
 
   @Given("^\"(.*?)\" and \"(.*?)\" are authors$")
   public void and_are_authors(String arg1, String arg2) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
     Author firstAuthor = new Author(arg1);
     Author secondAuthor = new Author(arg2);
 

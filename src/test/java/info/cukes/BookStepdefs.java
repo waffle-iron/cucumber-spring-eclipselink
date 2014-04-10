@@ -12,7 +12,6 @@ import java.util.List;
 
 import java.lang.invoke.MethodHandles;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
