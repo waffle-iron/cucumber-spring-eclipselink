@@ -3,6 +3,7 @@ package info.cukes;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "book")
 public class Book
@@ -31,7 +33,7 @@ public class Book
   @JoinTable(name = "book_authors",
     joinColumns = @JoinColumn(name = "book"),
     inverseJoinColumns = @JoinColumn(name = "author"))
-  private List<Author> bookAuthors;
+  private List<Author> bookAuthors = new ArrayList<>();
 
   public Book() {}
 
