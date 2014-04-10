@@ -15,11 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * @author glick
  */
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
+@Table(name = "author")
 public class Author
 {
   @Id
@@ -44,6 +47,7 @@ public class Author
     this.authorName = authorName;
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public Long getAuthor()
   {
     return author;
@@ -54,6 +58,7 @@ public class Author
     return authorName;
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public void setAuthorName(String authorName)
   {
     this.authorName = authorName;
@@ -71,7 +76,7 @@ public class Author
     return authoredBooks;
   }
 
-  private static Function<Author, String> extractTitles = new Function<Author, String>()
+  private static Function<Author, String> authorNameExtractor = new Function<Author, String>()
   {
     @Override
     public String apply(Author author)
@@ -80,10 +85,48 @@ public class Author
     }
   };
 
-  public static List<String> getListOfTitles(List<Author> authorList)
+  @SuppressWarnings("UnusedDeclaration")
+  public static List<String> getListOfAuthorNames(List<Author> authorList)
   {
-    List<String> titlesOfAuthorNames = Lists.transform(authorList, extractTitles);
+    List<String> listOfAuthorNames = Lists.transform(authorList, authorNameExtractor);
 
-    return titlesOfAuthorNames;
+    return listOfAuthorNames;
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o)
+    {
+      return true;
+    }
+    if (!(o instanceof Author))
+    {
+      return false;
+    }
+
+    Author author = (Author) o;
+
+    return authorName.equals(author.authorName)
+      && !(authorOf != null ? !authorOf.equals(author.authorOf) : author.authorOf != null);
+
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = authorName.hashCode();
+    result = 31 * result + (authorOf != null ? authorOf.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "Author{" +
+      "author=" + author +
+      ", authorName='" + authorName + '\'' +
+      ", authorOf=" + authorOf +
+      '}';
   }
 }

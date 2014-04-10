@@ -33,7 +33,7 @@ public class Book
     inverseJoinColumns = @JoinColumn(name = "author"))
   private List<Author> bookAuthors;
 
-  public Book() {};
+  public Book() {}
 
   public Book(String bookTitle)
   {
@@ -87,13 +87,17 @@ public class Book
 
     Book book = (Book) o;
 
-    return title.equals(book.title);
+    return !(bookAuthors != null ? !bookAuthors.equals(book.bookAuthors) : book.bookAuthors != null)
+      && title.equals(book.title);
+
   }
 
   @Override
   public int hashCode()
   {
-    return title.hashCode();
+    int result = title.hashCode();
+    result = 31 * result + (bookAuthors != null ? bookAuthors.hashCode() : 0);
+    return result;
   }
 
   @Override
@@ -102,6 +106,7 @@ public class Book
     return "Book{" +
       "book=" + book +
       ", title='" + title + '\'' +
+      ", bookAuthors=" + bookAuthors +
       '}';
   }
 }
