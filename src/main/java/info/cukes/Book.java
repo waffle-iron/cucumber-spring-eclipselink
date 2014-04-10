@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,10 +22,23 @@ public class Book
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name= "book")
-  private Long id;
+  private Long book;
 
   @Column(name = "title", nullable = false)
   private String title;
+
+  @ManyToMany
+  @JoinTable(name = "book_authors",
+    joinColumns = @JoinColumn(name = "book"),
+    inverseJoinColumns = @JoinColumn(name = "author"))
+  private List<Author> bookAuthors;
+
+  public Book() {};
+
+  public Book(String bookTitle)
+  {
+    setTitle(bookTitle);
+  }
 
   @SuppressWarnings("UnusedDeclaration")
   public String getTitle()
@@ -36,12 +52,12 @@ public class Book
   }
 
   @SuppressWarnings("UnusedDeclaration")
-  public Long getId()
+  public Long getBook()
   {
-    return id;
+    return book;
   }
 
-  public static Function<Book, String> extractTitles = new Function<Book, String>()
+  private static Function<Book, String> extractTitles = new Function<Book, String>()
   {
     @Override
     public String apply(Book book)
@@ -72,7 +88,6 @@ public class Book
     Book book = (Book) o;
 
     return title.equals(book.title);
-
   }
 
   @Override
@@ -85,7 +100,7 @@ public class Book
   public String toString()
   {
     return "Book{" +
-      "id=" + id +
+      "book=" + book +
       ", title='" + title + '\'' +
       '}';
   }

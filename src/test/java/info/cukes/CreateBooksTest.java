@@ -1,5 +1,8 @@
 package info.cukes;
 
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,18 @@ public class CreateBooksTest
 
   @Autowired
   BookRepository bookRepository;
+
+  @Before
+  public void setUp()
+  {
+    bookRepository.deleteAll();
+  }
+
+  @After
+  public void tearDown()
+  {
+    bookRepository.deleteAll();
+  }
 
   @Test
   public void testSpringEclipselink()

@@ -12,6 +12,9 @@ import java.util.List;
 
 import java.lang.invoke.MethodHandles;
 
+import cucumber.api.PendingException;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -32,9 +35,14 @@ public class BookStepdefs
   @Autowired
   private BookRepository bookRepository;
 
+  @Before
+  public void beforeStepDefs()
+  {
+    bookRepository.deleteAll();
+  }
+
   @Given("^a writer has contributed to the following books:$")
-  public void a_writer_has_contributed_to_the_following_books( // <label id="code.spring.param"/>
-    List<Book> books) throws Throwable
+  public void a_writer_has_contributed_to_the_following_books(List<Book> books) throws Throwable
   {
     List<Book> booksInDatabase = bookRepository.findAll();
 
@@ -88,5 +96,11 @@ public class BookStepdefs
     Assert.assertTrue(titlesOfBooksInDatabase.containsAll(bookTitles));
 
     LOGGER.info("and they each appear in the database");
+  }
+
+  @After
+  public void afterStepDefs()
+  {
+    LOGGER.info("\n\nin method BookStepdefs afterStepDefs\n\n");
   }
 }
