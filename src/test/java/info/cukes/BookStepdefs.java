@@ -40,10 +40,11 @@ public class BookStepdefs
     bookRepository.deleteAll();
   }
 
-  @Given("^a writer has contributed to the following books:$")
-  public void a_writer_has_contributed_to_the_following_books(List<Book> books) throws Throwable
+  @Given("^a writer has contributed to the following titles?:$")
+  public void a_writer_has_contributed_to_the_following_titles(List<Book> books) throws Throwable
   {
     List<Book> booksInDatabase = bookRepository.findAll();
+
 
     booksInDatabaseAtTestStart = booksInDatabase.size();
 
@@ -75,8 +76,8 @@ public class BookStepdefs
     books = bookRepository.findAll();
   }
 
-  @Then("^(\\d+) books named as above have been added to the database$")
-  public void books_named_as_above_have_been_added_to_the_database(int arg1) throws Throwable
+  @Then("^(\\d+) titles named as above have been added to the database$")
+  public void titles_named_as_above_have_been_added_to_the_database(int arg1) throws Throwable
   {
     LOGGER.info("the number of books is " + books.size());
 
