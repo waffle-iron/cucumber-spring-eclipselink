@@ -52,9 +52,15 @@ public class CreateAuthorsWithBookTest
 
     List<Author> authors = authorRepository.findAll();
 
+    Assert.assertEquals(2, authors.size());
+
     List<String> persistentAuthorNameList = Author.getListOfAuthorNames(authors);
 
     List<String> expectedAuthorNameList = Author.getListOfAuthorNames(expectedAuthorList);
+
+    Assert.assertEquals(2, persistentAuthorNameList.size());
+
+    Assert.assertEquals(2, expectedAuthorNameList.size());
 
     Assert.assertTrue(expectedAuthorNameList.containsAll(persistentAuthorNameList));
 
@@ -72,9 +78,14 @@ public class CreateAuthorsWithBookTest
 
     authoredBook = new Book("Spring in Action");
 
+    bookRepository.save(authoredBook);
+
     andyGlick.addAuthoredBook(authoredBook);
 
     jimLaSpada.addAuthoredBook(authoredBook);
+
+    authorRepository.save(andyGlick);
+    authorRepository.save(jimLaSpada);
 
     expectedAuthorList.add(andyGlick);
     expectedAuthorList.add(jimLaSpada);
