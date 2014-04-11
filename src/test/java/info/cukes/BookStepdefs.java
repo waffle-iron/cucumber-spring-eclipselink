@@ -45,7 +45,6 @@ public class BookStepdefs
   {
     List<Book> booksInDatabase = bookRepository.findAll();
 
-
     booksInDatabaseAtTestStart = booksInDatabase.size();
 
     Assert.assertNotNull("book list must not be null", books);
