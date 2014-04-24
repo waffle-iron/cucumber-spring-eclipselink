@@ -10,11 +10,10 @@
   http://www.springframework.org/schema/data/jpa
   http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-  <!-- START:cucumber -->
   <context:component-scan base-package="info.cukes"/>
 
   <jpa:repositories base-package="info.cukes"/>
 
   <import resource="persistenceContext.xml"/>
-  <!-- END:cucumber -->
+
 </beans>
