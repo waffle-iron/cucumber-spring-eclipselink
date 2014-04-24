@@ -1,6 +1,7 @@
 package info.cukes;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -53,6 +54,18 @@ public class Book
     this.title = title;
   }
 
+  public List<Author> getBookAuthors()
+  {
+    List<Author> immutableAuthors = ImmutableList.copyOf(bookAuthors);
+
+    return immutableAuthors;
+  }
+
+  public void addAnAuthor(Author author)
+  {
+    bookAuthors.add(author);
+  }
+
   @SuppressWarnings("UnusedDeclaration")
   public Long getBook()
   {
@@ -91,7 +104,6 @@ public class Book
 
     return !(bookAuthors != null ? !bookAuthors.equals(book.bookAuthors) : book.bookAuthors != null)
       && title.equals(book.title);
-
   }
 
   @Override

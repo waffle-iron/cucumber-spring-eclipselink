@@ -1,18 +1,19 @@
 package info.cukes;
 
-import org.junit.Assert;
+import org.apache.commons.lang3.StringUtils;
 
+import org.fest.assertions.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import java.lang.invoke.MethodHandles;
 
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,85 +22,95 @@ import cucumber.api.java.en.When;
 @ContextConfiguration(locations = "/cucumber.xml")
 public class BookStepdefs
 {
+  @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   List<Book> books = null;
 
-  List<String> bookTitles = new ArrayList<>();
+  List<Author> authors = new ArrayList<>();
 
-  List<Book> booksAddedByCucumber;
+  List<String> bookTitles = null;
 
-  int booksInDatabaseAtTestStart = 0;
+  List<String> authorNames;
+
+  int booksAdded = 0;
+
+  int authorsAdded = 0;
 
   @Autowired
   private BookRepository bookRepository;
+
+  @Autowired
+  private AuthorRepository authorRepository;
 
   @Before
   public void beforeStepDefs()
   {
     bookRepository.deleteAll();
+    authorRepository.deleteAll();
   }
 
-  @Given("^a writer has contributed to the following titles?:$")
-  public void a_writer_has_contributed_to_the_following_titles(List<Book> books) throws Throwable
+  @Transactional
+  @Given("^\"(.*?)\" has contributed to the following titles:$")
+  public void has_contributed_to_the_following_titles(String author, List<Book> books) throws Throwable
   {
-    List<Book> booksInDatabase = bookRepository.findAll();
+    Assertions.assertThat(books.size()).isEqualTo(2);
 
-    booksInDatabaseAtTestStart = booksInDatabase.size();
+    Assertions.assertThat((StringUtils.isNotBlank(author)));
 
-    Assert.assertNotNull("book list must not be null", books);
+    booksAdded = books.size();
 
-    Assert.assertTrue("book list must contain at least one book", books.size() > 0);
+    bookTitles = Book.getListOfTitles(books);
 
-    LOGGER.info("the size of the book list is " + books.size());
+    authorsAdded = 1;
 
-    for (Book b : books)
+    Author anAuthor = new Author(author);
+
+    authorRepository.save(anAuthor);
+
+    List<Author> authorList = new ArrayList<>();
+
+    authorList.add(anAuthor);
+
+    authorNames = Author.getListOfAuthorNames(authorList);
+
+    for (Book book : books)
     {
-      bookTitles.add(b.getTitle());
-      LOGGER.info("one book is " + b);
+      book.addAnAuthor(anAuthor);
+      bookRepository.save(book);
     }
-
-    Assert.assertNotNull("the bookRepository must not be null", bookRepository);
-
-    for (Book b : books)
-    {
-      bookRepository.save(b);
-    }
-
-    booksAddedByCucumber = books;
   }
 
   @When("^someone fetches the books$")
   public void someone_fetches_the_books() throws Throwable
   {
     books = bookRepository.findAll();
+
+    Assertions.assertThat(books.size()).isEqualTo(booksAdded);
+
+    authors = authorRepository.findAll();
+
+    Assertions.assertThat(authors.size()).isEqualTo(authorsAdded);
   }
 
-  @Then("^(\\d+) titles named as above have been added to the database$")
-  public void titles_named_as_above_have_been_added_to_the_database(int arg1) throws Throwable
+  @Then("^(\\d+) titles named as above have been stored persistently$")
+  public void titles_named_as_above_have_been_stored_persistently(int booksStored) throws Throwable
   {
-    LOGGER.info("the number of books is " + books.size());
+    Assertions.assertThat(books.size()).isEqualTo(booksStored);
 
-    Assert.assertEquals(booksInDatabaseAtTestStart + arg1, books.size());
+    List<String> localBookTitles = Book.getListOfTitles(books);
 
-    List<Book> listOfBooksInDatabase = bookRepository.findAll();
+    Assertions.assertThat(localBookTitles.size()).isEqualTo(bookTitles.size());
 
-    List<String> titlesOfBooksInDatabase = Book.getListOfTitles(listOfBooksInDatabase);
-
-    Assert.assertEquals(booksInDatabaseAtTestStart + arg1, titlesOfBooksInDatabase.size());
-
-    LOGGER.info("the names of the book that were added to the database are " + bookTitles);
-
-    LOGGER.info("the names of all books in database are " + titlesOfBooksInDatabase);
-
-    Assert.assertTrue(titlesOfBooksInDatabase.containsAll(bookTitles));
-
-    LOGGER.info("and they each appear in the database");
+    Assertions.assertThat(localBookTitles.containsAll(bookTitles));
   }
 
-  @After
-  public void afterStepDefs()
+  @Then("^have \"(.*?)\" as an author$")
+  public void have_as_an_author(String author) throws Throwable
   {
-    LOGGER.info("\n\nin method BookStepdefs afterStepDefs\n\n");
+    for (Book aBook : books)
+    {
+      Assertions.assertThat(Author.getListOfAuthorNames(aBook.getBookAuthors()).contains(author));
+    }
   }
 }
