@@ -1,7 +1,6 @@
 package info.cukes;
 
-import org.junit.Assert;
-
+import org.fest.assertions.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,50 +26,87 @@ public class AuthorStepDefs
 
   List<String> authorNames = new ArrayList<>();
 
-  Book firstBook = null;
-
   @Autowired
   private AuthorRepository authorRepository;
 
-  @Given("^\"(.*?)\" and \"(.*?)\" are authors$")
-  public void and_are_authors(String arg1, String arg2) throws Throwable {
-    Author firstAuthor = new Author(arg1);
-    Author secondAuthor = new Author(arg2);
+  @Autowired
+  private BookRepository bookRepository;
 
-    authorNames.add(arg1);
-    authorNames.add(arg2);
+  private int authorsAdded;
+  private int booksAdded;
+
+  /**
+   * capture the author names in the authorNames list for later use
+   * save the 2 authors persistently
+   *
+   * @param firstAuthorName   author name
+   * @param secondAuthorName  author name
+   * @throws Throwable
+   */
+  @Given("^\"(.*?)\" and \"(.*?)\" are authors$")
+  public void and_are_authors(String firstAuthorName, String secondAuthorName) throws Throwable {
+
+    authorsAdded = 2;
+
+    Author firstAuthor = new Author(firstAuthorName);
+    Author secondAuthor = new Author(secondAuthorName);
+
+    authorNames.add(firstAuthorName);
+    authorNames.add(secondAuthorName);
 
     authorRepository.save(firstAuthor);
     authorRepository.save(secondAuthor);
   }
 
+  /**
+   * create the book
+   * fetch the authors from the persistent store
+   * add the book to each author
+   * add each author to the book
+   * store the book persistently
+   * spring/eclipselink dirty checking will cause the authors to be updated
+   * @param bookTitle   the book title
+   * @throws Throwable
+   */
   @When("^they write a book entitled \"(.*?)\"$")
-  public void they_write_a_book_entitled(String arg1) throws Throwable {
-    // Write code here that turns the phrase above into concrete actions
-    firstBook = new Book(arg1);
+  public void they_write_a_book_entitled(String bookTitle) throws Throwable {
+
+    Book localBook = new Book(bookTitle);
 
     List<Author> authorList = authorRepository.findAll();
 
     for (Author author : authorList)
     {
-      author.addAuthoredBook(firstBook);
+      author.addAuthoredBook(localBook);
+      localBook.addAnAuthor(author);
     }
+
+    bookRepository.save(localBook);
+
+    booksAdded = 1;
   }
 
-  @Then("^their names should be associated with that title$")
-  public void their_names_should_be_associated_with_that_title() throws Throwable {
+  @Then("^their names should be associated with that title in the persistent store$")
+  public void their_names_should_be_associated_with_that_title_in_the_persistent_store() throws Throwable
+  {
+    List<Author> authors = authorRepository.findAll();
 
-    List<Author> authorList = authorRepository.findAll();
+    Assertions.assertThat(authors.size()).isEqualTo(authorsAdded);
 
-    List<Book> books = new ArrayList<>();
+    List<Book> books = bookRepository.findAll();
 
-    books.add(firstBook);
+    Assertions.assertThat(books.size()).isEqualTo(booksAdded);
 
-    for (Author author : authorList)
+    for (Author author : authors)
     {
-      Assert.assertTrue(authorNames.contains(author.getAuthorName()));
+      Assertions.assertThat(authorNames.contains(author.getAuthorName()));
 
-      Assert.assertTrue(books.containsAll(author.getAuthoredBooks()));
+      Assertions.assertThat(books.containsAll(author.getAuthoredBooks()));
+
+      for (Book book : books)
+      {
+        Assertions.assertThat(book.getBookAuthors().contains(author));
+      }
     }
   }
 }

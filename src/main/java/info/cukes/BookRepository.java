@@ -1,6 +1,7 @@
 package info.cukes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 /**
  * <p>BookRepository interface.</p>
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author andy
  * @version $Id: $Id
  */
-public interface BookRepository extends JpaRepository<Book, Long>
+public interface BookRepository extends JpaRepository<Book, Long>, QueryDslPredicateExecutor
 {
 
 }
