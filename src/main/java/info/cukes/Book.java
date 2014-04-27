@@ -17,6 +17,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/**
+ * <p>Book class.</p>
+ *
+ * @author andy
+ * @version $Id: $Id
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "book")
@@ -36,24 +42,47 @@ public class Book
     inverseJoinColumns = @JoinColumn(name = "author"))
   private List<Author> bookAuthors = new ArrayList<>();
 
+  /**
+   * <p>Constructor for Book.</p>
+   */
   public Book() {}
 
+  /**
+   * <p>Constructor for Book.</p>
+   *
+   * @param bookTitle a {@link java.lang.String} object.
+   */
   public Book(String bookTitle)
   {
     setTitle(bookTitle);
   }
 
+  /**
+   * <p>Getter for the field <code>title</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   @SuppressWarnings("UnusedDeclaration")
   public String getTitle()
   {
     return title;
   }
 
+  /**
+   * <p>Setter for the field <code>title</code>.</p>
+   *
+   * @param title a {@link java.lang.String} object.
+   */
   public void setTitle(String title)
   {
     this.title = title;
   }
 
+  /**
+   * <p>Getter for the field <code>bookAuthors</code>.</p>
+   *
+   * @return a {@link java.util.List} object.
+   */
   public List<Author> getBookAuthors()
   {
     List<Author> immutableAuthors = ImmutableList.copyOf(bookAuthors);
@@ -61,11 +90,21 @@ public class Book
     return immutableAuthors;
   }
 
+  /**
+   * <p>addAnAuthor.</p>
+   *
+   * @param author a {@link info.cukes.Author} object.
+   */
   public void addAnAuthor(Author author)
   {
     bookAuthors.add(author);
   }
 
+  /**
+   * <p>Getter for the field <code>book</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object.
+   */
   @SuppressWarnings("UnusedDeclaration")
   public Long getBook()
   {
@@ -81,6 +120,12 @@ public class Book
     }
   };
 
+  /**
+   * <p>getListOfTitles.</p>
+   *
+   * @param bookList a {@link java.util.List} object.
+   * @return a {@link java.util.List} object.
+   */
   public static List<String> getListOfTitles(List<Book> bookList)
   {
     List<String> titlesOfBooks = Lists.transform(bookList, extractTitles);
@@ -88,6 +133,7 @@ public class Book
     return titlesOfBooks;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o)
   {
@@ -106,6 +152,7 @@ public class Book
       && title.equals(book.title);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode()
   {
@@ -114,6 +161,7 @@ public class Book
     return result;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString()
   {

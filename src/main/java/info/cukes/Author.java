@@ -18,7 +18,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
+ * <p>Author class.</p>
+ *
  * @author glick
+ * @version $Id: $Id
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -39,36 +42,69 @@ public class Author
     inverseJoinColumns = @JoinColumn(name="book"))
   private List<Book> authorOf = new ArrayList<>();
 
+  /**
+   * <p>Constructor for Author.</p>
+   */
   public Author()
   {}
 
+  /**
+   * <p>Constructor for Author.</p>
+   *
+   * @param authorName a {@link java.lang.String} object.
+   */
   public Author(String authorName)
   {
     this.authorName = authorName;
   }
 
+  /**
+   * <p>Getter for the field <code>author</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object.
+   */
   @SuppressWarnings("UnusedDeclaration")
   public Long getAuthor()
   {
     return author;
   }
 
+  /**
+   * <p>Getter for the field <code>authorName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String getAuthorName()
   {
     return authorName;
   }
 
+  /**
+   * <p>Setter for the field <code>authorName</code>.</p>
+   *
+   * @param authorName a {@link java.lang.String} object.
+   */
   @SuppressWarnings("UnusedDeclaration")
   public void setAuthorName(String authorName)
   {
     this.authorName = authorName;
   }
 
+  /**
+   * <p>addAuthoredBook.</p>
+   *
+   * @param book a {@link info.cukes.Book} object.
+   */
   public void addAuthoredBook(Book book)
   {
     authorOf.add(book);
   }
 
+  /**
+   * <p>getAuthoredBooks.</p>
+   *
+   * @return a {@link java.util.List} object.
+   */
   public List<Book> getAuthoredBooks()
   {
     List<Book> authoredBooks = Collections.unmodifiableList(authorOf);
@@ -85,6 +121,12 @@ public class Author
     }
   };
 
+  /**
+   * <p>getListOfAuthorNames.</p>
+   *
+   * @param authorList a {@link java.util.List} object.
+   * @return a {@link java.util.List} object.
+   */
   @SuppressWarnings("UnusedDeclaration")
   public static List<String> getListOfAuthorNames(List<Author> authorList)
   {
@@ -93,6 +135,7 @@ public class Author
     return listOfAuthorNames;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o)
   {
@@ -112,6 +155,7 @@ public class Author
 
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode()
   {
@@ -120,6 +164,7 @@ public class Author
     return result;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString()
   {
