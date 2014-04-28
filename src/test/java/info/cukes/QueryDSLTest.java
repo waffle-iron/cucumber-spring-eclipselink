@@ -65,9 +65,6 @@ public class QueryDSLTest
 
     List<String> authorNamesToFind = Arrays.asList("Andy Glick", "Jim Laspada", "Jeffrey Braxton");
 
-    System.out.println(authorNameList);
-    System.out.println(authorNamesToFind);
-
     Assertions.assertThat(authorNameList.size()).isEqualTo(authorNamesToFind.size());
 
     Assertions.assertThat(authorNameList.containsAll(authorNamesToFind));
@@ -120,10 +117,10 @@ public class QueryDSLTest
 
     Assertions.assertThat(allBooks.size()).isEqualTo(3);
 
-    BooleanExpression findBookUsingAuthor = book.bookAuthors.contains(anAuthor);
+    BooleanExpression findBookByAuthor = book.bookAuthors.contains(anAuthor);
 
     @SuppressWarnings("unchecked")
-    Iterable<Book> locatedBooks = bookRepository.findAll(findBookUsingAuthor);
+    Iterable<Book> locatedBooks = bookRepository.findAll(findBookByAuthor);
 
     List<Book> locatedBookList = new ArrayList<>();
 

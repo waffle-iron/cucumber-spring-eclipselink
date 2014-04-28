@@ -1,10 +1,10 @@
 package info.cukes;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,7 +21,6 @@ import javax.persistence.Table;
  * <p>Author class.</p>
  *
  * @author glick
- * @version $Id: $Id
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -63,7 +62,6 @@ public class Author
    *
    * @return a {@link java.lang.Long} object.
    */
-  @SuppressWarnings("UnusedDeclaration")
   public Long getAuthor()
   {
     return author;
@@ -84,7 +82,6 @@ public class Author
    *
    * @param authorName a {@link java.lang.String} object.
    */
-  @SuppressWarnings("UnusedDeclaration")
   public void setAuthorName(String authorName)
   {
     this.authorName = authorName;
@@ -107,9 +104,9 @@ public class Author
    */
   public List<Book> getAuthoredBooks()
   {
-    List<Book> authoredBooks = Collections.unmodifiableList(authorOf);
+    List<Book> immutableListOfBooksAuthored = ImmutableList.copyOf(authorOf);
 
-    return authoredBooks;
+    return immutableListOfBooksAuthored;
   }
 
   private static Function<Author, String> authorNameExtractor = new Function<Author, String>()
@@ -127,7 +124,6 @@ public class Author
    * @param authorList a {@link java.util.List} object.
    * @return a {@link java.util.List} object.
    */
-  @SuppressWarnings("UnusedDeclaration")
   public static List<String> getListOfAuthorNames(List<Author> authorList)
   {
     List<String> listOfAuthorNames = Lists.transform(authorList, authorNameExtractor);
