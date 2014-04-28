@@ -4,7 +4,7 @@ using Spring for dependency injection and for managing JPA persistence using Spr
 Eclipselink and writes persistent data to an HSQL in memory DB
 
 There are 2 entity classes Book and Author. There is a bidirectional many to many relationship between them
- as a Book will have one or more Authors, and an Author may contribute to zero or more Books
+as a Book will have one or more Authors, and an Author may contribute to zero or more Books
 
 The system has 2 features a first concerning Authors and the other concerning Books
 
