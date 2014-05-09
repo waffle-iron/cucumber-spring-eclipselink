@@ -14,7 +14,10 @@ Found the beginnings of this example in the book Cucumber Recipes
 There are 2 libraries in use here that aren't being used by TopNG, they are the AssertJ assertions library
 and the QueryDSL JPA querying library.
 
-AssertJ allows for more expressive fluent assertions even over a fluent library such as fest.
+AssertJ allows for even more expressive fluent assertions than the fest assertions library,
+which I tried out but abandoned it once I realized how much more powerful AssertJ is.
+(http://joel-costigliola.github.io/assertj/)
+ .
 
 As example difference is the following:
 
@@ -26,8 +29,11 @@ using AssertJ:
 
     Assertions.assertThat(authorNameList).hasSameSizeAs(authorNamesToFind);
 
+
 QueryDSL allows a good deal more flexibility in querying persistent data allowing us to derive even more
-benefits from the use of Spring Data JPA. An example query follows:
+benefits from the use of Spring Data JPA. (http://www.querydsl.com/)
+
+An example query follows:
 
     QAuthor author = QAuthor.author1;
 
