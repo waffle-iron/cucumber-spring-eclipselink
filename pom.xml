@@ -19,19 +19,20 @@
 
   <prerequisites>
     <maven>3.2.1</maven>
-   </prerequisites>
+  </prerequisites>
 
   <properties>
     <cucumber.jvm.version>1.1.6</cucumber.jvm.version>
     <eclipselink.version>2.5.1</eclipselink.version>
-    <hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
+    <hibernate.validator.version>5.1.1.Final</hibernate.validator.version>
     <javax.persistence.version>2.1.0</javax.persistence.version>
     <logback.version>1.1.2</logback.version>
+    <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <querydsl.version>3.3.2</querydsl.version>
-    <spring.version>4.0.3.RELEASE</spring.version>
+    <querydsl.version>3.3.3</querydsl.version>
+    <spring.version>4.0.4.RELEASE</spring.version>
     <slf4j.version>1.7.7</slf4j.version>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
@@ -76,6 +77,20 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>com.ethlo.persistence.tools</groupId>
+        <artifactId>eclipselink-maven-plugin</artifactId>
+        <version>1.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>weave</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>weave</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -130,18 +145,17 @@
       <artifactId>querydsl-jpa</artifactId>
       <version>${querydsl.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.mysema.querydsl</groupId>
+      <artifactId>querydsl-apt</artifactId>
+      <version>${querydsl.version}</version>
+      <classifier>jpa</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.umlgraph</groupId>
       <artifactId>umlgraph</artifactId>
       <version>5.6.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.mysema.querydsl</groupId>
-      <artifactId>querydsl-apt</artifactId>
-      <version>3.3.2</version>
-      <classifier>jpa</classifier>
     </dependency>
 
     <dependency>
@@ -175,7 +189,7 @@
 
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
+      <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
       <version>${eclipselink.version}</version>
     </dependency>
 
@@ -191,6 +205,21 @@
       <version>3.3.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -226,11 +255,16 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <!--<dependency>-->
+      <!--<groupId>org.easytesting</groupId>-->
+      <!--<artifactId>fest-assert</artifactId>-->
+      <!--<version>1.4</version>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
     <dependency>
-      <groupId>org.easytesting</groupId>
-      <artifactId>fest-assert</artifactId>
-      <version>1.4</version>
-      <scope>test</scope>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>1.6.0</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

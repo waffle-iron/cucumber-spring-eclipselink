@@ -1,13 +1,12 @@
 package info.cukes;
 
-import org.apache.commons.lang3.StringUtils;
-
-import org.fest.assertions.Assertions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.assertj.core.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +53,9 @@ public class BookStepdefs
   @Given("^\"(.*?)\" has contributed to the following titles:$")
   public void has_contributed_to_the_following_titles(String author, List<Book> books) throws Throwable
   {
-    Assertions.assertThat(books.size()).isEqualTo(2);
+    Assertions.assertThat(books).hasSize(2);
 
-    Assertions.assertThat((StringUtils.isNotBlank(author)));
+    Assertions.assertThat(author).isNotEmpty();
 
     booksAdded = books.size();
 
@@ -86,31 +85,31 @@ public class BookStepdefs
   {
     books = bookRepository.findAll();
 
-    Assertions.assertThat(books.size()).isEqualTo(booksAdded);
+    Assertions.assertThat(books).hasSize(booksAdded);
 
     authors = authorRepository.findAll();
 
-    Assertions.assertThat(authors.size()).isEqualTo(authorsAdded);
+    Assertions.assertThat(authors).hasSize(authorsAdded);
   }
 
   @Then("^(\\d+) titles named as above have been stored persistently$")
   public void titles_named_as_above_have_been_stored_persistently(int booksStored) throws Throwable
   {
-    Assertions.assertThat(books.size()).isEqualTo(booksStored);
+    Assertions.assertThat(books).hasSize(booksStored);
 
     List<String> localBookTitles = Book.getListOfTitles(books);
 
-    Assertions.assertThat(localBookTitles.size()).isEqualTo(bookTitles.size());
+    Assertions.assertThat(localBookTitles).hasSameSizeAs(bookTitles);
 
-    Assertions.assertThat(localBookTitles.containsAll(bookTitles));
+    Assertions.assertThat(localBookTitles).containsAll(bookTitles);
   }
 
   @Then("^have \"(.*?)\" as an author$")
-  public void have_as_an_author(String author) throws Throwable
+  public void have_as_an_author(String authorName) throws Throwable
   {
     for (Book aBook : books)
     {
-      Assertions.assertThat(Author.getListOfAuthorNames(aBook.getBookAuthors()).contains(author));
+      Assertions.assertThat(Author.getListOfAuthorNames(aBook.getBookAuthors())).contains(authorName);
     }
   }
 }

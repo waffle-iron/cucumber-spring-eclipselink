@@ -1,6 +1,6 @@
 package info.cukes;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,21 +91,21 @@ public class AuthorStepDefs
   {
     List<Author> authors = authorRepository.findAll();
 
-    Assertions.assertThat(authors.size()).isEqualTo(authorsAdded);
+    Assertions.assertThat(authors).hasSize(authorsAdded);
 
     List<Book> books = bookRepository.findAll();
 
-    Assertions.assertThat(books.size()).isEqualTo(booksAdded);
+    Assertions.assertThat(books).hasSize(booksAdded);
 
     for (Author author : authors)
     {
-      Assertions.assertThat(authorNames.contains(author.getAuthorName()));
+      Assertions.assertThat(authorNames).contains(author.getAuthorName());
 
-      Assertions.assertThat(books.containsAll(author.getAuthoredBooks()));
+      Assertions.assertThat(books).containsAll(author.getAuthoredBooks());
 
       for (Book book : books)
       {
-        Assertions.assertThat(book.getBookAuthors().contains(author));
+        Assertions.assertThat(book.getBookAuthors()).contains(author);
       }
     }
   }

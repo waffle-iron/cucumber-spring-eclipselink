@@ -1,23 +1,24 @@
 package info.cukes;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+
+import org.assertj.core.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import java.lang.invoke.MethodHandles;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 
 /**
  * @author glick
@@ -48,7 +49,7 @@ public class CreateBooksTest
   {
     List<String> bookTitles = new ArrayList<>();
 
-    Assert.assertEquals(0, bookTitles.size());
+    Assertions.assertThat(bookTitles).hasSize(0);
 
     Book book = new Book();
 
@@ -77,6 +78,6 @@ public class CreateBooksTest
     LOGGER.info("all book titles are " + allBookTitles);
     LOGGER.info("book titles written are " + bookTitles);
 
-    Assert.assertTrue(allBookTitles.containsAll(bookTitles));
+    Assertions.assertThat(allBookTitles).containsAll(bookTitles);
   }
 }

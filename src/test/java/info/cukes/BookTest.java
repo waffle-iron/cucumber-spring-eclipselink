@@ -3,7 +3,7 @@ package info.cukes;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class BookTest
     book.addAnAuthor(aFirstAuthor);
     book.addAnAuthor(aSecondAuthor);
 
-    Assertions.assertThat(book.getBookAuthors().size()).isEqualTo(2);
+    Assertions.assertThat(book.getBookAuthors()).hasSize(2);
   }
 
   @Test(expected = UnsupportedOperationException.class)

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import org.assertj.core.api.Assertions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,21 +54,23 @@ public class CreateAuthorsWithBookTest
 
     List<Author> authors = authorRepository.findAll();
 
-    Assert.assertEquals(2, authors.size());
+    Assertions.assertThat(authors).hasSize(2);
 
     List<String> persistentAuthorNameList = Author.getListOfAuthorNames(authors);
 
     List<String> expectedAuthorNameList = Author.getListOfAuthorNames(expectedAuthorList);
 
-    Assert.assertEquals(2, persistentAuthorNameList.size());
+    Assertions.assertThat(persistentAuthorNameList).hasSameSizeAs(authors);
 
-    Assert.assertEquals(2, expectedAuthorNameList.size());
+    Assertions.assertThat(persistentAuthorNameList).hasSameSizeAs(expectedAuthorNameList);
+
+    Assertions.assertThat(expectedAuthorNameList).containsAll(persistentAuthorNameList);
 
     Assert.assertTrue(expectedAuthorNameList.containsAll(persistentAuthorNameList));
 
     for (Author author : authors)
     {
-      Assert.assertTrue(author.getAuthoredBooks().contains(authoredBook));
+      Assertions.assertThat(author.getAuthoredBooks()).contains(authoredBook);
     }
   }
 

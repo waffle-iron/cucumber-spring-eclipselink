@@ -3,7 +3,7 @@ package info.cukes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import org.fest.assertions.Assertions;
+import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -47,7 +47,7 @@ public class QueryDSLTest
 
     List<Author> allPersistentAuthors = authorRepository.findAll();
 
-    Assertions.assertThat(allPersistentAuthors.size()).isEqualTo(moreAuthorNamesCount);
+    Assertions.assertThat(allPersistentAuthors).hasSize(moreAuthorNamesCount);
 
     QAuthor author = QAuthor.author1;
 
@@ -64,11 +64,11 @@ public class QueryDSLTest
 
     List<String> authorNamesToFind = Arrays.asList("Andy Glick", "Jim Laspada", "Jeffrey Braxton");
 
-    Assertions.assertThat(authorNameList.size()).isEqualTo(authorNamesToFind.size());
+    Assertions.assertThat(authorNameList).hasSameSizeAs(authorNamesToFind);
 
-    Assertions.assertThat(authorNameList.containsAll(authorNamesToFind));
+    Assertions.assertThat(authorNameList).containsAll(authorNamesToFind);
 
-    Assertions.assertThat(authorNamesToFind.containsAll(authorNameList));
+    Assertions.assertThat(authorNamesToFind).containsAll(authorNameList);
   }
 
   @Test
@@ -114,7 +114,7 @@ public class QueryDSLTest
 
     List<Book> allBooks = bookRepository.findAll();
 
-    Assertions.assertThat(allBooks.size()).isEqualTo(3);
+    Assertions.assertThat(allBooks).hasSize(3);
 
     BooleanExpression findBookByAuthor = book.bookAuthors.contains(anAuthor);
 
@@ -124,8 +124,8 @@ public class QueryDSLTest
 
     Iterables.addAll(locatedBookList, locatedBooks);
 
-    Assertions.assertThat(locatedBookList.size()).isEqualTo(1);
+    Assertions.assertThat(locatedBookList).hasSize(1);
 
-    Assertions.assertThat(locatedBookList.get(0).getBookAuthors().contains(anAuthor));
+    Assertions.assertThat(locatedBookList.get(0).getBookAuthors()).contains(anAuthor);
   }
 }
