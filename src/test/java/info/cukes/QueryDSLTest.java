@@ -54,7 +54,6 @@ public class QueryDSLTest
     BooleanExpression authorsToLookup = author.authorName.eq("Andy Glick")
       .or(author.authorName.eq("Jim Laspada")).or(author.authorName.eq("Jeffrey Braxton"));
 
-    @SuppressWarnings("unchecked")
     Iterable<Author> locatedAuthors = authorRepository.findAll(authorsToLookup);
 
     List<Author> authorList = new ArrayList<>();
@@ -119,7 +118,6 @@ public class QueryDSLTest
 
     BooleanExpression findBookByAuthor = book.bookAuthors.contains(anAuthor);
 
-    @SuppressWarnings("unchecked")
     Iterable<Book> locatedBooks = bookRepository.findAll(findBookByAuthor);
 
     List<Book> locatedBookList = new ArrayList<>();

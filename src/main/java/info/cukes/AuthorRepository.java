@@ -9,6 +9,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  * @author glick
  * @version $Id: $Id
  */
-public interface AuthorRepository extends JpaRepository<Author, Long>, QueryDslPredicateExecutor
+public interface AuthorRepository extends JpaRepository<Author, Long>, QueryDslPredicateExecutor<Author>
 {
 }
