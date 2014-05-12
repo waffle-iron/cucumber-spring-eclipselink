@@ -1,21 +1,21 @@
 package info.cukes;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.assertj.core.api.Assertions;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import org.assertj.core.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import java.lang.invoke.MethodHandles;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -24,7 +24,7 @@ import cucumber.api.java.Before;
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:cucumber.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class CreateBooksTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

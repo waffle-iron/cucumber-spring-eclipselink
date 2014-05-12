@@ -20,7 +20,7 @@ import java.util.List;
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:cucumber.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class CreateAuthorsWithBookTest
 {
   Book authoredBook;

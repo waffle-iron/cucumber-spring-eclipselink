@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -36,10 +34,7 @@ public class Book
   @Column(name = "title", nullable = false)
   private String title;
 
-  @ManyToMany
-  @JoinTable(name = "book_authors",
-    joinColumns = @JoinColumn(name = "book"),
-    inverseJoinColumns = @JoinColumn(name = "author"))
+  @ManyToMany(mappedBy = "booksAuthored")
   private List<Author> bookAuthors = new ArrayList<>();
 
   /**
@@ -168,7 +163,27 @@ public class Book
     return "Book{" +
       "book=" + book +
       ", title='" + title + '\'' +
-      ", bookAuthors=" + bookAuthors +
+      ", bookAuthors=" + recursionSafeAuthorsToString(bookAuthors) +
       '}';
+  }
+
+  public String recursionSafeAuthorsToString(List<Author> authors)
+  {
+    StringBuilder builder = new StringBuilder();
+
+    String delimiter = "";
+
+    for (Author author : authors)
+    {
+      builder.append(delimiter)
+        .append(author.getAuthor())
+        .append(", '")
+        .append(author.getAuthorName())
+        .append("'}");
+
+      delimiter = ", ";
+    }
+
+    return builder.toString();
   }
 }

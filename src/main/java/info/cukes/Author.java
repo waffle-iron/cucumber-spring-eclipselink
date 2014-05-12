@@ -39,7 +39,7 @@ public class Author
   @JoinTable(name = "book_authors",
     joinColumns = @JoinColumn(name = "author"),
     inverseJoinColumns = @JoinColumn(name="book"))
-  private List<Book> authorOf = new ArrayList<>();
+  private List<Book> booksAuthored = new ArrayList<>();
 
   /**
    * <p>Constructor for Author.</p>
@@ -94,7 +94,7 @@ public class Author
    */
   public void addAuthoredBook(Book book)
   {
-    authorOf.add(book);
+    booksAuthored.add(book);
   }
 
   /**
@@ -104,7 +104,7 @@ public class Author
    */
   public List<Book> getAuthoredBooks()
   {
-    List<Book> immutableListOfBooksAuthored = ImmutableList.copyOf(authorOf);
+    List<Book> immutableListOfBooksAuthored = ImmutableList.copyOf(booksAuthored);
 
     return immutableListOfBooksAuthored;
   }
@@ -147,7 +147,7 @@ public class Author
     Author author = (Author) o;
 
     return authorName.equals(author.authorName)
-      && !(authorOf != null ? !authorOf.equals(author.authorOf) : author.authorOf != null);
+      && !(booksAuthored != null ? !booksAuthored.equals(author.booksAuthored) : author.booksAuthored != null);
 
   }
 
@@ -156,7 +156,7 @@ public class Author
   public int hashCode()
   {
     int result = authorName.hashCode();
-    result = 31 * result + (authorOf != null ? authorOf.hashCode() : 0);
+    result = 31 * result + (booksAuthored != null ? booksAuthored.hashCode() : 0);
     return result;
   }
 
@@ -167,7 +167,27 @@ public class Author
     return "Author{" +
       "author=" + author +
       ", authorName='" + authorName + '\'' +
-      ", authorOf=" + authorOf +
+      ", booksAuthored=" + recursionSafeBooksToString(booksAuthored) +
       '}';
+  }
+
+  public String recursionSafeBooksToString(List<Book> books)
+  {
+    StringBuilder builder = new StringBuilder();
+
+    String delimiter = "";
+
+    for (Book book : books)
+    {
+      builder.append(delimiter)
+        .append(book.getBook())
+        .append(", '")
+        .append(book.getTitle())
+        .append("'}");
+
+      delimiter = ", ";
+    }
+
+    return builder.toString();
   }
 }

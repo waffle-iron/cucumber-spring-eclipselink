@@ -13,7 +13,7 @@ import java.util.List;
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:cucumber.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class AuthorTest
 {
   @Autowired
@@ -62,4 +62,6 @@ public class AuthorTest
 
     books.remove(0);
   }
+
+
 }
