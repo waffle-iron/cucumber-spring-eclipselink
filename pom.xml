@@ -14,8 +14,25 @@
     <repository>
       <id>ethlo</id>
       <url>http://ethlo.com/maven</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>fail</checksumPolicy>
+      </snapshots>
     </repository>
   </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+        <id>ethlo</id>
+        <url>http://ethlo.com/maven</url>
+        <snapshots>
+          <enabled>true</enabled>
+          <updatePolicy>never</updatePolicy>
+          <checksumPolicy>fail</checksumPolicy>
+        </snapshots>
+      </pluginRepository>
+  </pluginRepositories>
 
   <prerequisites>
     <maven>3.2.1</maven>
@@ -141,6 +158,7 @@
   </profiles>
 
   <dependencies>
+
     <dependency>
       <groupId>com.mysema.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
