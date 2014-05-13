@@ -110,10 +110,10 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version>
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+        <!--<version>2.9.1</version>-->
         <!--<configuration>-->
           <!--<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>-->
           <!--<docletArtifact>-->
@@ -124,7 +124,7 @@
           <!--<additionalparam>-views -all</additionalparam>-->
           <!--<useStandardDocletOptions>true</useStandardDocletOptions>-->
         <!--</configuration>-->
-      </plugin>
+      <!--</plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -171,11 +171,11 @@
       <classifier>jpa</classifier>
     </dependency>
 
-    <dependency>
-      <groupId>org.umlgraph</groupId>
-      <artifactId>umlgraph</artifactId>
-      <version>5.6.6</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.umlgraph</groupId>-->
+      <!--<artifactId>umlgraph</artifactId>-->
+      <!--<version>5.6.6</version>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>org.hsqldb</groupId>
