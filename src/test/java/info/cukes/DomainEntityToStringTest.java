@@ -68,7 +68,6 @@ public class DomainEntityToStringTest
     System.out.println("The Search should produce a legal string " + theSearch);
   }
 
-
   @Test
   public void testBook_MultipleAuthor_To_String()
   {

@@ -18,9 +18,17 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import javax.inject.Inject;
+
 @ContextConfiguration(locations = "/cucumber.xml")
 public class BookStepdefs
 {
+  @Inject
+  BookDelegate bookDelegate;
+
+  @Inject
+  AuthorDelegate authorDelegate;
+
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -59,7 +67,7 @@ public class BookStepdefs
 
     booksAdded = books.size();
 
-    bookTitles = Book.getListOfTitles(books);
+    bookTitles = bookDelegate.getListOfTitles(books);
 
     authorsAdded = 1;
 
@@ -71,7 +79,7 @@ public class BookStepdefs
 
     authorList.add(anAuthor);
 
-    authorNames = Author.getListOfAuthorNames(authorList);
+    authorNames = authorDelegate.getListOfAuthorNames(authorList);
 
     for (Book book : books)
     {
@@ -97,7 +105,7 @@ public class BookStepdefs
   {
     Assertions.assertThat(books).hasSize(booksStored);
 
-    List<String> localBookTitles = Book.getListOfTitles(books);
+    List<String> localBookTitles = bookDelegate.getListOfTitles(books);
 
     Assertions.assertThat(localBookTitles).hasSameSizeAs(bookTitles);
 
@@ -109,7 +117,7 @@ public class BookStepdefs
   {
     for (Book aBook : books)
     {
-      Assertions.assertThat(Author.getListOfAuthorNames(aBook.getBookAuthors())).contains(authorName);
+      Assertions.assertThat(authorDelegate.getListOfAuthorNames(aBook.getBookAuthors())).contains(authorName);
     }
   }
 }

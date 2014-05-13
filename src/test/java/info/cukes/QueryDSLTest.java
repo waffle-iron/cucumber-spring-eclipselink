@@ -4,21 +4,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.assertj.core.api.Assertions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.Iterables;
 import com.mysema.query.types.expr.BooleanExpression;
+
+import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import java.lang.invoke.MethodHandles;
+import javax.inject.Inject;
 
 /**
  * @author glick
@@ -27,13 +29,17 @@ import java.lang.invoke.MethodHandles;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class QueryDSLTest
 {
+  @SuppressWarnings("UnusedDeclaration")
   private static final transient Logger LOGGER
     = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Autowired
+  @Inject
+  AuthorDelegate authorDelegate;
+
+  @Inject
   AuthorRepository authorRepository;
 
-  @Autowired
+  @Inject
   BookRepository bookRepository;
 
   @Test
@@ -71,7 +77,7 @@ public class QueryDSLTest
 
     Iterables.addAll(authorList, locatedAuthors);
 
-    List<String> authorNameList = Author.getListOfAuthorNames(authorList);
+    List<String> authorNameList = authorDelegate.getListOfAuthorNames(authorList);
 
     List<String> authorNamesToFind = Arrays.asList("Andy Glick", "Jim Laspada", "Jeffrey Braxton");
 
@@ -81,62 +87,4 @@ public class QueryDSLTest
 
     Assertions.assertThat(authorNamesToFind).containsAll(authorNameList);
   }
-
-//  @Test
-//  public void testQueryDSLQuery()
-//  {
-//    QBook book = QBook.book1;
-//
-//    Author anAuthor = new Author("Dick Francis");
-//
-//    authorRepository.save(anAuthor);
-//
-//    Book aBook = new Book();
-//
-//    aBook.setTitle("Dead Run");
-//
-//    aBook.addAnAuthor(anAuthor);
-//
-//    bookRepository.save(aBook);
-//
-//    anAuthor = new Author("Isaac Asimov");
-//
-//    authorRepository.save(anAuthor);
-//
-//    aBook = new Book();
-//
-//    aBook.setTitle("I Robot");
-//
-//    aBook.addAnAuthor(anAuthor);
-//
-//    bookRepository.save(aBook);
-//
-//    anAuthor = new Author("Andy Glick");
-//
-//    authorRepository.save(anAuthor);
-//
-//    aBook = new Book();
-//
-//    aBook.setTitle("The Cucumber Relish Experience");
-//
-//    aBook.addAnAuthor(anAuthor);
-//
-//    bookRepository.save(aBook);
-//
-//    List<Book> allBooks = bookRepository.findAll();
-//
-//    Assertions.assertThat(allBooks).hasSize(3);
-//
-//    BooleanExpression findBookByAuthor = book.bookAuthors.contains(anAuthor);
-//
-//    Iterable<Book> locatedBooks = bookRepository.findAll(findBookByAuthor);
-//
-//    List<Book> locatedBookList = new ArrayList<>();
-//
-//    Iterables.addAll(locatedBookList, locatedBooks);
-//
-//    Assertions.assertThat(locatedBookList).hasSize(1);
-//
-//    Assertions.assertThat(locatedBookList.get(0).getBookAuthors()).contains(anAuthor);
-//  }
 }

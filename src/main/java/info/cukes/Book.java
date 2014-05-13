@@ -1,8 +1,6 @@
 package info.cukes;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,28 +102,6 @@ public class Book
   public Long getBook()
   {
     return book;
-  }
-
-  private static Function<Book, String> extractTitles = new Function<Book, String>()
-  {
-    @Override
-    public String apply(Book book)
-    {
-      return book.getTitle();
-    }
-  };
-
-  /**
-   * <p>getListOfTitles.</p>
-   *
-   * @param bookList a {@link java.util.List} object.
-   * @return a {@link java.util.List} object.
-   */
-  public static List<String> getListOfTitles(List<Book> bookList)
-  {
-    List<String> titlesOfBooks = Lists.transform(bookList, extractTitles);
-
-    return titlesOfBooks;
   }
 
   /** {@inheritDoc} */

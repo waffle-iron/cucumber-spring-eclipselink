@@ -1,8 +1,6 @@
 package info.cukes;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,28 +105,6 @@ public class Author
     List<Book> immutableListOfBooksAuthored = ImmutableList.copyOf(booksAuthored);
 
     return immutableListOfBooksAuthored;
-  }
-
-  private static Function<Author, String> authorNameExtractor = new Function<Author, String>()
-  {
-    @Override
-    public String apply(Author author)
-    {
-      return author.getAuthorName();
-    }
-  };
-
-  /**
-   * <p>getListOfAuthorNames.</p>
-   *
-   * @param authorList a {@link java.util.List} object.
-   * @return a {@link java.util.List} object.
-   */
-  public static List<String> getListOfAuthorNames(List<Author> authorList)
-  {
-    List<String> listOfAuthorNames = Lists.transform(authorList, authorNameExtractor);
-
-    return listOfAuthorNames;
   }
 
   /** {@inheritDoc} */

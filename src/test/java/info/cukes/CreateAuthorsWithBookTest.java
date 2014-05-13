@@ -16,6 +16,8 @@ import org.assertj.core.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author glick
  */
@@ -23,6 +25,9 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class CreateAuthorsWithBookTest
 {
+  @Inject
+  AuthorDelegate authorDelegate;
+
   Book authoredBook;
 
   List<Author> expectedAuthorList = new ArrayList<>();
@@ -56,9 +61,9 @@ public class CreateAuthorsWithBookTest
 
     Assertions.assertThat(authors).hasSize(2);
 
-    List<String> persistentAuthorNameList = Author.getListOfAuthorNames(authors);
+    List<String> persistentAuthorNameList = authorDelegate.getListOfAuthorNames(authors);
 
-    List<String> expectedAuthorNameList = Author.getListOfAuthorNames(expectedAuthorList);
+    List<String> expectedAuthorNameList = authorDelegate.getListOfAuthorNames(expectedAuthorList);
 
     Assertions.assertThat(persistentAuthorNameList).hasSameSizeAs(authors);
 

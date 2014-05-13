@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 
 import org.assertj.core.api.Assertions;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,6 +15,8 @@ import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -29,7 +30,10 @@ public class CreateBooksTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Autowired
+  @Inject
+  BookDelegate bookDelegate;
+
+  @Inject
   BookRepository bookRepository;
 
   @Before
@@ -73,7 +77,7 @@ public class CreateBooksTest
 
     List<Book> books = bookRepository.findAll();
 
-    List<String> allBookTitles = Book.getListOfTitles(books);
+    List<String> allBookTitles = bookDelegate.getListOfTitles(books);
 
     LOGGER.info("all book titles are " + allBookTitles);
     LOGGER.info("book titles written are " + bookTitles);

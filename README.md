@@ -15,7 +15,7 @@ There are 2 libraries in use here that aren't being used by TopNG, they are the 
 and the QueryDSL JPA querying library.
 
 AssertJ allows for even more expressive fluent assertions than the fest assertions library,
-which I tried out but abandoned it once I realized how much more powerful AssertJ is.
+which I tried out but abandoned once I realized how much more powerful AssertJ is.
 (http://joel-costigliola.github.io/assertj/)
  .
 
@@ -30,7 +30,7 @@ using AssertJ:
     Assertions.assertThat(authorNameList).hasSameSizeAs(authorNamesToFind);
 
 
-QueryDSL allows a good deal more flexibility in querying persistent data allowing us to derive even more
+QueryDSL allows a good deal more flexibility in querying persistent data, allowing us to derive even more
 benefits from the use of Spring Data JPA. (http://www.querydsl.com/)
 
 An example query follows:
