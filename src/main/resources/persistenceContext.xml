@@ -15,7 +15,7 @@
 
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-  <bean id="dataSource" class="${datasource.class}"
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
     p:driverClassName="${database.driver}"
     p:url="${database.url}"
     p:username="${database.user}"
