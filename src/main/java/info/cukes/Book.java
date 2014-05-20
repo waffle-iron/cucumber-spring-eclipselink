@@ -25,6 +25,9 @@ import javax.persistence.Transient;
 @Table(name = "book")
 public class Book
 {
+  @Transient
+  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name= "book")
@@ -36,13 +39,10 @@ public class Book
   @ManyToMany(mappedBy = "booksAuthored")
   private List<Author> bookAuthors = new ArrayList<>();
 
-  @Transient
-  transient AuthorDelegate authorDelegate = new AuthorDelegateImpl();
-
   /**
    * <p>Constructor for Book.</p>
    */
-  public Book() {}
+  public Book(){}
 
   /**
    * <p>Constructor for Book.</p>
@@ -51,6 +51,7 @@ public class Book
    */
   public Book(String bookTitle)
   {
+    this();
     setTitle(bookTitle);
   }
 
@@ -151,24 +152,4 @@ public class Book
       ", bookAuthors=" + authorDelegate.recursionSafeAuthorsToString(bookAuthors) +
       '}';
   }
-
-//  public String recursionSafeAuthorsToString(final List<Author> authors)
-//  {
-//    StringBuilder builder = new StringBuilder();
-//
-//    String delimiter = "";
-//
-//    for (Author author : authors)
-//    {
-//      builder.append(delimiter)
-//        .append(author.getAuthor())
-//        .append(", '")
-//        .append(author.getAuthorName())
-//        .append("'}");
-//
-//      delimiter = ", ";
-//    }
-//
-//    return builder.toString();
-//  }
 }

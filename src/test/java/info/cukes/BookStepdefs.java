@@ -18,12 +18,16 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import javax.inject.Inject;
+
 @ContextConfiguration(locations = "/cucumber.xml")
 public class BookStepdefs
 {
-  BookDelegate bookDelegate = new BookDelegateImpl();
+  @Inject
+  BookDelegate bookDelegate;
 
-  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+  @Inject
+  AuthorDelegate authorDelegate;
 
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

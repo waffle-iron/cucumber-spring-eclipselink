@@ -30,7 +30,8 @@ public class CreateBooksTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  BookDelegate bookDelegate = new BookDelegateImpl();
+  @Inject
+  BookDelegate bookDelegate;
 
   @Inject
   BookRepository bookRepository;
@@ -77,6 +78,8 @@ public class CreateBooksTest
     List<Book> books = bookRepository.findAll();
 
     List<String> allBookTitles = bookDelegate.getListOfTitles(books);
+
+    Assertions.assertThat(allBookTitles).hasSize(2);
 
     LOGGER.info("all book titles are " + allBookTitles);
     LOGGER.info("book titles written are " + bookTitles);

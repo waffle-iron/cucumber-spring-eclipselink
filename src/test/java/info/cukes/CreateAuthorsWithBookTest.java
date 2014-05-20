@@ -16,6 +16,8 @@ import org.assertj.core.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author glick
  */
@@ -23,7 +25,8 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class CreateAuthorsWithBookTest
 {
-  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+  @Inject
+  AuthorDelegate authorDelegate;
 
   Book authoredBook;
 

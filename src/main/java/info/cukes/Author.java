@@ -26,6 +26,9 @@ import javax.persistence.Transient;
 @Table(name = "author")
 public class Author
 {
+  @Transient
+  BookDelegate bookDelegate = new BookDelegateImpl();
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "author")
@@ -40,14 +43,10 @@ public class Author
     inverseJoinColumns = @JoinColumn(name="book"))
   private List<Book> booksAuthored = new ArrayList<>();
 
-  @Transient
-  transient BookDelegate bookDelegate = new BookDelegateImpl();
-
   /**
    * <p>Constructor for Author.</p>
    */
-  public Author()
-  {}
+  public Author(){}
 
   /**
    * <p>Constructor for Author.</p>
@@ -56,6 +55,7 @@ public class Author
    */
   public Author(String authorName)
   {
+    this();
     this.authorName = authorName;
   }
 
@@ -150,6 +150,4 @@ public class Author
       ", booksAuthored=" + bookDelegate.recursionSafeBooksToString(booksAuthored) +
       '}';
   }
-
-
 }

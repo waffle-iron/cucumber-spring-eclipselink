@@ -33,7 +33,8 @@ public class QueryDSLTest
   private static final transient Logger LOGGER
     = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+  @Inject
+  AuthorDelegate authorDelegate;
 
   @Inject
   AuthorRepository authorRepository;
