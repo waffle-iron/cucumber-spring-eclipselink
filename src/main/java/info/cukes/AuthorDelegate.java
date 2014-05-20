@@ -8,4 +8,6 @@ import java.util.List;
 public interface AuthorDelegate
 {
   List<String> getListOfAuthorNames(List<Author> authorList);
+
+  String recursionSafeAuthorsToString(List<Author> authors);
 }

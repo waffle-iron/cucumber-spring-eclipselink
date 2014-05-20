@@ -10,6 +10,8 @@
   http://www.springframework.org/schema/data/jpa
   http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+  <context:annotation-config/>
+
   <context:component-scan base-package="info.cukes"/>
 
   <jpa:repositories base-package="info.cukes"/>

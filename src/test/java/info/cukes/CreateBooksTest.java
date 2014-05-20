@@ -30,8 +30,7 @@ public class CreateBooksTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Inject
-  BookDelegate bookDelegate;
+  BookDelegate bookDelegate = new BookDelegateImpl();
 
   @Inject
   BookRepository bookRepository;
