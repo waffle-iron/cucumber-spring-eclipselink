@@ -27,8 +27,10 @@
      p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"/>
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    p:persistenceUnitName="cucumber-spring-and-eclipselink"
     p:packagesToScan="info.cukes"
     p:dataSource-ref="dataSource"
+    p:persistenceProviderClass="org.eclipse.persistence.jpa.PersistenceProvider"
     p:jpaVendorAdapter-ref="jpaVendorAdapter">
     <property name="jpaDialect">
       <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>

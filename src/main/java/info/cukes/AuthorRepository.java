@@ -11,4 +11,5 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  */
 public interface AuthorRepository extends JpaRepository<Author, Long>, QueryDslPredicateExecutor<Author>
 {
+    Author findByAuthorName(String name);
 }

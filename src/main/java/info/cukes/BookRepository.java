@@ -11,5 +11,5 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  */
 public interface BookRepository extends JpaRepository<Book, Long>, QueryDslPredicateExecutor<Book>
 {
-
+  Book findByTitle(String title);
 }

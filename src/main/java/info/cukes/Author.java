@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,8 @@ import javax.persistence.Transient;
 public class Author
 {
   @Transient
+  // @Inject
+  // BookDelegate bookDelegate;
   BookDelegate bookDelegate = new BookDelegateImpl();
 
   @Id
@@ -37,7 +40,7 @@ public class Author
   @Column(name = "title", nullable = false)
   private String authorName;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "book_authors",
     joinColumns = @JoinColumn(name = "author"),
     inverseJoinColumns = @JoinColumn(name="book"))
