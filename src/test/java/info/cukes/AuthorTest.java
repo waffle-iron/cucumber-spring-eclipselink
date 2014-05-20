@@ -62,6 +62,4 @@ public class AuthorTest
 
     books.remove(0);
   }
-
-
 }

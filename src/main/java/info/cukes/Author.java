@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * <p>Author class.</p>
@@ -25,6 +26,9 @@ import javax.persistence.Table;
 @Table(name = "author")
 public class Author
 {
+  @Transient
+  BookDelegate bookDelegate = new BookDelegateImpl();
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "author")
@@ -42,8 +46,7 @@ public class Author
   /**
    * <p>Constructor for Author.</p>
    */
-  public Author()
-  {}
+  public Author(){}
 
   /**
    * <p>Constructor for Author.</p>
@@ -52,6 +55,7 @@ public class Author
    */
   public Author(String authorName)
   {
+    this();
     this.authorName = authorName;
   }
 
@@ -143,27 +147,7 @@ public class Author
     return "Author{" +
       "author=" + author +
       ", authorName='" + authorName + '\'' +
-      ", booksAuthored=" + recursionSafeBooksToString(booksAuthored) +
+      ", booksAuthored=" + bookDelegate.recursionSafeBooksToString(booksAuthored) +
       '}';
-  }
-
-  public String recursionSafeBooksToString(List<Book> books)
-  {
-    StringBuilder builder = new StringBuilder();
-
-    String delimiter = "";
-
-    for (Book book : books)
-    {
-      builder.append(delimiter)
-        .append(book.getBook())
-        .append(", '")
-        .append(book.getTitle())
-        .append("'}");
-
-      delimiter = ", ";
-    }
-
-    return builder.toString();
   }
 }

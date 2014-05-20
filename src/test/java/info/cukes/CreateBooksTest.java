@@ -79,6 +79,8 @@ public class CreateBooksTest
 
     List<String> allBookTitles = bookDelegate.getListOfTitles(books);
 
+    Assertions.assertThat(allBookTitles).hasSize(2);
+
     LOGGER.info("all book titles are " + allBookTitles);
     LOGGER.info("book titles written are " + bookTitles);
 

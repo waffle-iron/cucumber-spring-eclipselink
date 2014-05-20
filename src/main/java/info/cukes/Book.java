@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * <p>Book class.</p>
@@ -24,6 +25,9 @@ import javax.persistence.Table;
 @Table(name = "book")
 public class Book
 {
+  @Transient
+  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name= "book")
@@ -38,22 +42,23 @@ public class Book
   /**
    * <p>Constructor for Book.</p>
    */
-  public Book() {}
+  public Book(){}
 
   /**
    * <p>Constructor for Book.</p>
    *
-   * @param bookTitle a {@link java.lang.String} object.
+   * @param bookTitle a {@link String} object.
    */
   public Book(String bookTitle)
   {
+    this();
     setTitle(bookTitle);
   }
 
   /**
    * <p>Getter for the field <code>title</code>.</p>
    *
-   * @return a {@link java.lang.String} object.
+   * @return a {@link String} object.
    */
   @SuppressWarnings("UnusedDeclaration")
   public String getTitle()
@@ -64,7 +69,7 @@ public class Book
   /**
    * <p>Setter for the field <code>title</code>.</p>
    *
-   * @param title a {@link java.lang.String} object.
+   * @param title a {@link String} object.
    */
   public void setTitle(String title)
   {
@@ -96,7 +101,7 @@ public class Book
   /**
    * <p>Getter for the field <code>book</code>.</p>
    *
-   * @return a {@link java.lang.Long} object.
+   * @return a {@link Long} object.
    */
   @SuppressWarnings("UnusedDeclaration")
   public Long getBook()
@@ -136,30 +141,15 @@ public class Book
   @Override
   public String toString()
   {
+    if (authorDelegate == null)
+    {
+      throw new RuntimeException("authorDelegate may not be null");
+    }
+
     return "Book{" +
       "book=" + book +
       ", title='" + title + '\'' +
-      ", bookAuthors=" + recursionSafeAuthorsToString(bookAuthors) +
+      ", bookAuthors=" + authorDelegate.recursionSafeAuthorsToString(bookAuthors) +
       '}';
-  }
-
-  public String recursionSafeAuthorsToString(List<Author> authors)
-  {
-    StringBuilder builder = new StringBuilder();
-
-    String delimiter = "";
-
-    for (Author author : authors)
-    {
-      builder.append(delimiter)
-        .append(author.getAuthor())
-        .append(", '")
-        .append(author.getAuthorName())
-        .append("'}");
-
-      delimiter = ", ";
-    }
-
-    return builder.toString();
   }
 }

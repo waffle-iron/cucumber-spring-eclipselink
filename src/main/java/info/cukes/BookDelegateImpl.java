@@ -1,13 +1,10 @@
 package info.cukes;
 
-import org.springframework.stereotype.Component;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
-@Component
 public class BookDelegateImpl implements BookDelegate
 {
   /**
@@ -29,5 +26,26 @@ public class BookDelegateImpl implements BookDelegate
     });
 
     return titlesOfBooks;
+  }
+
+  @Override
+  public String recursionSafeBooksToString(List<Book> books)
+  {
+    StringBuilder builder = new StringBuilder();
+
+    String delimiter = "";
+
+    for (Book book : books)
+    {
+      builder.append(delimiter)
+        .append(book.getBook())
+        .append(", '")
+        .append(book.getTitle())
+        .append("'}");
+
+      delimiter = ", ";
+    }
+
+    return builder.toString();
   }
 }

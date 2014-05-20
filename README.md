@@ -44,4 +44,10 @@ An example query follows:
 
 The query returns only the entries specified in the BooleanExpression
 
+An odd finding: attempted to configure and use Author and Book Delegate classes via dependency injection.
+This worked successfully everywhere except in the Author and Book classes. I have a feeling that this issue
+has something to do with Eclipselink's processing of the class, but I'm not sure. Will have to investigate
+in a different context.
+
+
 

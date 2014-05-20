@@ -8,4 +8,6 @@ import java.util.List;
 public interface BookDelegate
 {
   List<String> getListOfTitles(List<Book> bookList);
+
+  String recursionSafeBooksToString(List<Book> books);
 }
