@@ -5,16 +5,17 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 /**
@@ -25,22 +26,34 @@ import javax.persistence.Transient;
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "author")
+@TableGenerator(name="author",
+  table="sequences",
+  pkColumnName = "sequenceKey",
+  valueColumnName = "sequenceValue",
+  pkColumnValue = "author",
+  initialValue = 0,
+  allocationSize = 1)
 public class Author
 {
+  // @InvestigateAnomaly
+  // due to something that I don't understand, attempting to get a
+  // BookDelegate to be injected by Spring consistently fails
+  // the class/object can be injected in every other class I have tried
+  // and it is the same for AuthorDelegate in the Book class
   @Transient
   // @Inject
   // BookDelegate bookDelegate;
   BookDelegate bookDelegate = new BookDelegateImpl();
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(generator = "author")
   @Column(name = "author")
   private Long author;
 
-  @Column(name = "title", nullable = false)
+  @Column(name = "authorName", nullable = false)
   private String authorName;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(name = "book_authors",
     joinColumns = @JoinColumn(name = "author"),
     inverseJoinColumns = @JoinColumn(name="book"))
@@ -114,6 +127,10 @@ public class Author
     return immutableListOfBooksAuthored;
   }
 
+  // ToDo: weak logic in equals and hashcode around the fact that there is a endless recursion opportunity
+  // ToDo: I chose a too aggressive work around, what should happen is that the booksAuthored comparison ought
+  // ToDo: to be handled in the delegate
+
   /** {@inheritDoc} */
   @Override
   public boolean equals(Object o)
@@ -130,8 +147,7 @@ public class Author
     Author author = (Author) o;
 
     return authorName.equals(author.authorName)
-      && !(booksAuthored != null ? !booksAuthored.equals(author.booksAuthored) : author.booksAuthored != null);
-
+      && booksAuthored.size() == author.getAuthoredBooks().size();
   }
 
   /** {@inheritDoc} */
@@ -139,7 +155,7 @@ public class Author
   public int hashCode()
   {
     int result = authorName.hashCode();
-    result = 31 * result + (booksAuthored != null ? booksAuthored.hashCode() : 0);
+    result = 31 * result + booksAuthored.size();
     return result;
   }
 
