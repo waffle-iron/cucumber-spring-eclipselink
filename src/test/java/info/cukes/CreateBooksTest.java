@@ -42,12 +42,6 @@ public class CreateBooksTest
     bookRepository.deleteAll();
   }
 
-  @After
-  public void tearDown()
-  {
-    bookRepository.deleteAll();
-  }
-
   @Test
   public void testSpringEclipselink()
   {

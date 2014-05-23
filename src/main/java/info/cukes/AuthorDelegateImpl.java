@@ -29,18 +29,37 @@ public class AuthorDelegateImpl implements AuthorDelegate
   }
 
   @Override
+  public List<Author> assignBookToAuthors(List<Author> authorList, final Book book)
+  {
+    List<Author> transformedAuthors = Lists.transform(authorList, new Function<Author, Author>()
+    {
+      @Override
+      public Author apply(Author author)
+      {
+        author.addAuthoredBook(book);
+
+        book.addAnAuthor(author);
+
+        return author;
+      }
+    });
+
+    return transformedAuthors;
+  }
+
+  @Override
   public String recursionSafeAuthorsToString(final List<Author> authors)
   {
     StringBuilder builder = new StringBuilder();
 
     String delimiter = "";
 
-    builder.append("Books{");
+    builder.append("{");
 
     for (Author author : authors)
     {
       builder.append(delimiter)
-        .append("Book{")
+        .append("Author{")
         .append(author.getAuthor())
         .append(", '")
         .append(author.getAuthorName())

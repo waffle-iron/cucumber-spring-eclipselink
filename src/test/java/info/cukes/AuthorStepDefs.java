@@ -1,19 +1,22 @@
 package info.cukes;
 
 import org.assertj.core.api.Assertions;
+
+import org.springframework.test.context.ContextConfiguration;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+
+import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java.lang.invoke.MethodHandles;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import javax.inject.Inject;
 
 /**
  * @author glick
@@ -24,20 +27,25 @@ public class AuthorStepDefs
   @SuppressWarnings("UnusedDeclaration")
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  List<String> authorNames = new ArrayList<>();
-
-  @Autowired
+  @Inject
   private AuthorRepository authorRepository;
 
-  @Autowired
+  @Inject
   private BookRepository bookRepository;
+
+  @Inject
+  AuthorDelegate authorDelegate;
+
+  List<String> authorNames = new ArrayList<>();
+
+  List<Author> authorList = new ArrayList<>();
 
   private int authorsAdded;
   private int booksAdded;
 
   /**
    * capture the author names in the authorNames list for later use
-   * save the 2 authors persistently
+   * and create Author objects and store in authorList
    *
    * @param firstAuthorName   author name
    * @param secondAuthorName  author name
@@ -46,16 +54,16 @@ public class AuthorStepDefs
   @Given("^\"(.*?)\" and \"(.*?)\" are authors$")
   public void and_are_authors(String firstAuthorName, String secondAuthorName) throws Throwable {
 
-    authorsAdded = 2;
-
     Author firstAuthor = new Author(firstAuthorName);
     Author secondAuthor = new Author(secondAuthorName);
 
+    authorList.add(firstAuthor);
+    authorList.add(secondAuthor);
+
+    authorsAdded = authorList.size();
+
     authorNames.add(firstAuthorName);
     authorNames.add(secondAuthorName);
-
-    authorRepository.save(firstAuthor);
-    authorRepository.save(secondAuthor);
   }
 
   /**
@@ -73,15 +81,9 @@ public class AuthorStepDefs
 
     Book localBook = new Book(bookTitle);
 
-    List<Author> authorList = authorRepository.findAll();
+    List<Author> transformedAuthorList =  authorDelegate.assignBookToAuthors(authorList, localBook);
 
-    for (Author author : authorList)
-    {
-      author.addAuthoredBook(localBook);
-      localBook.addAnAuthor(author);
-    }
-
-    bookRepository.save(localBook);
+    authorRepository.save(transformedAuthorList);
 
     booksAdded = 1;
   }
@@ -89,15 +91,15 @@ public class AuthorStepDefs
   @Then("^their names should be associated with that title in the persistent store$")
   public void their_names_should_be_associated_with_that_title_in_the_persistent_store() throws Throwable
   {
-    List<Author> authors = authorRepository.findAll();
+    List<Author> persistentAuthors = authorRepository.findAll();
 
-    Assertions.assertThat(authors).hasSize(authorsAdded);
+    Assertions.assertThat(persistentAuthors).hasSize(authorsAdded);
 
     List<Book> books = bookRepository.findAll();
 
     Assertions.assertThat(books).hasSize(booksAdded);
 
-    for (Author author : authors)
+    for (Author author : persistentAuthors)
     {
       Assertions.assertThat(authorNames).contains(author.getAuthorName());
 

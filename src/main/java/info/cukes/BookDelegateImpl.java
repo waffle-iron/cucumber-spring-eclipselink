@@ -33,7 +33,7 @@ public class BookDelegateImpl implements BookDelegate
   {
     StringBuilder builder = new StringBuilder();
 
-    String delimiter = "";
+    String delimiter = "{";
 
     for (Book book : books)
     {
@@ -45,6 +45,8 @@ public class BookDelegateImpl implements BookDelegate
 
       delimiter = ", ";
     }
+
+    builder.append("}");
 
     return builder.toString();
   }
