@@ -1,5 +1,6 @@
 package info.cukes;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,8 +19,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 
 /**
  * @author glick
