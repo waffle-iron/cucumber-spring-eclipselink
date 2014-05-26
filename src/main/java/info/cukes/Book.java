@@ -1,6 +1,14 @@
 package info.cukes;
 
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Configurable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.ImmutableList;
+
+import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +24,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
+import javax.annotation.PostConstruct;
+
 /**
  * <p>Book class.</p>
  *
@@ -23,6 +33,7 @@ import javax.persistence.Transient;
  * @version $Id: $Id
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
+@Configurable(autowire= Autowire.BY_TYPE, dependencyCheck=true)
 @Entity
 @TableGenerator(name="book",
   table="sequences",
@@ -34,11 +45,22 @@ import javax.persistence.Transient;
 @Table(name = "book")
 public class Book
 {
-  // @InvestigateAnomaly
-  // due to something that I don't understand, attempting to get a
-  // AuthorDelegate to be injected by Spring consistently fails
-  // the class/object can be injected in every other class I have tried
-  // and it is the same for BookDelegate in the Author class
+  private static transient final Logger LOGGER
+    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @PostConstruct
+  public void postConstruct()
+  {
+    LOGGER.warn("XXXXXXXX postConstruct executed XXXXXXXXX");
+  }
+
+  // @ToDo
+  // am looking for an alternate solution to the fact that Spring seemingly cannot directly inject
+  // into JPA container managed beans, so AuthorDelegate objects cannot be injected into Book instances
+  // and BookDelegate's cannot be injected into Author instances
+  // am looking into CDI to see if it offers a convenient work around
+  // my attempts to get aspectj weaving working, as has been suggested in a number of posts did not succeed,
+  // at least not so far
   @Transient
   // @Inject
   // AuthorDelegate authorDelegate;
@@ -125,7 +147,6 @@ public class Book
     return book;
   }
 
-
   // ToDo: weak logic in equals and hashcode around the fact that there is a endless recursion opportunity
   // ToDo: I chose a too aggressive work around, what should happen is that the bookAuthors comparison ought
   // ToDo: to be handled in the delegate
@@ -144,7 +165,8 @@ public class Book
 
     Book book = (Book) o;
 
-    return title.equals(book.title) && bookAuthors.size() == book.getBookAuthors().size();
+    return title.equals(book.title)
+      && authorDelegate.compareAuthorLists(getBookAuthors(), book.getBookAuthors());
   }
 
   /** {@inheritDoc} */

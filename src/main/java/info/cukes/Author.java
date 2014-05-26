@@ -1,6 +1,14 @@
 package info.cukes;
 
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Configurable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.ImmutableList;
+
+import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +26,15 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
+import javax.annotation.PostConstruct;
+
 /**
  * <p>Author class.</p>
  *
  * @author glick
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
+@Configurable(autowire= Autowire.BY_TYPE, dependencyCheck=true)
 @Entity
 @Table(name = "author")
 @TableGenerator(name="author",
@@ -35,11 +46,22 @@ import javax.persistence.Transient;
   allocationSize = 1)
 public class Author
 {
-  // @InvestigateAnomaly
-  // due to something that I don't understand, attempting to get a
-  // BookDelegate to be injected by Spring consistently fails
-  // the class/object can be injected in every other class I have tried
-  // and it is the same for AuthorDelegate in the Book class
+  private static transient final Logger LOGGER
+    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @PostConstruct
+  public void postConstruct()
+  {
+    LOGGER.warn("XXXXXXXX postConstruct executed XXXXXXXXX");
+  }
+
+  // @ToDo
+  // am looking for an alternate solution to the fact that Spring seemingly cannot directly inject
+  // into JPA container managed beans, so AuthorDelegate objects cannot be injected into Book instances
+  // and BookDelegate's cannot be injected into Author instances
+  // am looking into CDI to see if it offers a convenient work around
+  // my attempts to get aspectj weaving working, as has been suggested in a number of posts did not succeed,
+  // at least not so far
   @Transient
   // @Inject
   // BookDelegate bookDelegate;
@@ -147,7 +169,7 @@ public class Author
     Author author = (Author) o;
 
     return authorName.equals(author.authorName)
-      && booksAuthored.size() == author.getAuthoredBooks().size();
+      && bookDelegate.compareBookLists(getAuthoredBooks(), author.getAuthoredBooks());
   }
 
   /** {@inheritDoc} */

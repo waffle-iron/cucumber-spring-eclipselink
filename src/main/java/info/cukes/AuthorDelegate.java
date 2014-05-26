@@ -12,4 +12,6 @@ public interface AuthorDelegate
   List<Author> assignBookToAuthors(List<Author> authorList, Book book);
 
   String recursionSafeAuthorsToString(List<Author> authors);
+
+  boolean compareAuthorLists(List<Author> thisBooksAuthors, List<Author> thatBooksAuthors);
 }

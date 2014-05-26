@@ -33,26 +33,25 @@ public class DomainEntityToStringTest
     System.out.println("Tom Brown should produce a legal string " + tomBrown);
   }
 
+  @Test
+  public void testAuthor_MultipleBooks_To_String()
+  {
+    Author tomBrown = new Author("Tom Brown");
 
-    @Test
-    public void testAuthor_MultipleBooks_To_String()
-    {
-      Author tomBrown = new Author("Tom Brown");
+    Book theSearch = new Book("The Search");
 
-      Book theSearch = new Book("The Search");
+    tomBrown.addAuthoredBook(theSearch);
 
-      tomBrown.addAuthoredBook(theSearch);
+    theSearch.addAnAuthor(tomBrown);
 
-      theSearch.addAnAuthor(tomBrown);
+    Book theTracker = new Book("The Tracker");
 
-      Book theTracker = new Book("The Tracker");
+    tomBrown.addAuthoredBook(theTracker);
 
-      tomBrown.addAuthoredBook(theTracker);
+    theTracker.addAnAuthor(tomBrown);
 
-      theTracker.addAnAuthor(tomBrown);
-
-      System.out.println("Tom Brown should produce a legal string " + tomBrown);
-    }
+    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+  }
 
   @Test
   public void testBook_NoAuthor_ToString()

@@ -12,11 +12,9 @@
 
   <context:annotation-config/>
 
+  <context:spring-configured/>
+
   <context:component-scan base-package="info.cukes"/>
-
-  <bean id="authorDelegate" class="info.cukes.AuthorDelegateImpl"/>
-
-  <bean id="bookDelegate" class="info.cukes.BookDelegateImpl"/>
 
   <jpa:repositories base-package="info.cukes"/>
 
