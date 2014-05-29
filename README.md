@@ -44,10 +44,23 @@ An example query follows:
 
 The query returns only the entries specified in the BooleanExpression
 
-An odd finding: attempted to configure and use Author and Book Delegate classes via dependency injection.
-This worked successfully everywhere except in the Author and Book classes. I have a feeling that this issue
-has something to do with Eclipselink's processing of the class, but I'm not sure. Will have to investigate
-in a different context.
+An odd finding: attempted to configure and use AuthorDelegate and BookDelegate classes via Spring dependency injection.
+This worked successfully everywhere except in the Author and Book classes. It turns out that the JPA Entity classes 
+are not Spring beans managed by the Spring DI container, they are instead managed by the JPA container itself. I had 
+hoped that I could use the AspectJ weaving technique to do the injection, from what I read in the documentation there
+was a suggestion that AspectJ weaving could do injection into instances not managed by the Spring container but I 
+couldn't get that to work, and I don't know why, so that is worth further investigation.
 
+In addition I have attempted to configure CDI using a number of different CDI environments in particular the 
+DeltaSpike environment. I couldn't actually get a fully working environment configured using DeltaSpike. What was 
+interesting about running in the DeltaSpike environment is that the Spring Data JPA repository proxies seemed to be 
+recognized and may actually work, so there appears to be some non-trivial interoperability between Spring Data JPA 
+and CDI JPA and or Eclipselink JPA.
+
+What seems to be the underlying issue is the interoperability between the JPA container, and one or more of the DI 
+containers. I am not actually sure if the JPA managed Entities can be treated as beans managed by any of the DI 
+containers, that may be the problem. That said, I would have expected the AspectJ weaving to do the injection. I'll 
+have to do a better job of sorting out how AspectJ weaving is supposed to work for non-Spring managed beans and what 
+can be expected from it. 
 
 
