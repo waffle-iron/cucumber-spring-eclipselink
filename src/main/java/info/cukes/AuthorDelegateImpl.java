@@ -82,9 +82,9 @@ public class AuthorDelegateImpl implements AuthorDelegate
     for (Author author : authors)
     {
       builder.append(delimiter)
-        .append("Author{")
+        .append("Author{author=")
         .append(author.getAuthor())
-        .append(", '")
+        .append(", authorName='")
         .append(author.getAuthorName())
         .append("'}");
 
