@@ -6,8 +6,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 /**
  * <p>BookRepository interface.</p>
  *
- * @author andy
- * @version $Id: $Id
+ * @author glick
  */
 public interface BookRepository extends JpaRepository<Book, Long>, QueryDslPredicateExecutor<Book>
 {

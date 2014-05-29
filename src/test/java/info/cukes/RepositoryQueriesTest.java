@@ -1,27 +1,36 @@
 package info.cukes;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.assertj.core.api.Assertions;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
+/**
+ * <p>RepositoryQueriesTest test class.</p>
+ *
+ * @author glick
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @Transactional
 @EnableTransactionManagement
 public class RepositoryQueriesTest
 {
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   AuthorRepository authorRepository;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   BookRepository bookRepository;
 

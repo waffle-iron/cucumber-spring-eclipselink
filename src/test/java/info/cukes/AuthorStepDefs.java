@@ -4,29 +4,24 @@ import org.assertj.core.api.Assertions;
 
 import org.springframework.test.context.ContextConfiguration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import javax.inject.Inject;
-
 /**
+ * <p>AuthorStepDefs cucumber glue class.</p>
+ *
  * @author glick
  */
+@SuppressWarnings("CdiInjectionPointsInspection")
 @ContextConfiguration(locations = "/cucumber.xml")
 public class AuthorStepDefs
 {
-  @SuppressWarnings("UnusedDeclaration")
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
   @Inject
   private AuthorRepository authorRepository;
 

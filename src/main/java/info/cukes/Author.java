@@ -1,14 +1,6 @@
 package info.cukes;
 
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Configurable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.ImmutableList;
-
-import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Vetoed;
 
 /**
  * <p>Author class.</p>
@@ -34,7 +26,6 @@ import javax.annotation.PostConstruct;
  * @author glick
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
-@Configurable(autowire= Autowire.BY_TYPE, dependencyCheck=true)
 @Entity
 @Table(name = "author")
 @TableGenerator(name="author",
@@ -44,28 +35,26 @@ import javax.annotation.PostConstruct;
   pkColumnValue = "author",
   initialValue = 0,
   allocationSize = 1)
+@Vetoed
 public class Author
 {
-  private static transient final Logger LOGGER
-    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  @PostConstruct
-  public void postConstruct()
-  {
-    LOGGER.warn("XXXXXXXX postConstruct executed XXXXXXXXX");
-  }
-
-  // @ToDo
-  // am looking for an alternate solution to the fact that Spring seemingly cannot directly inject
-  // into JPA container managed beans, so AuthorDelegate objects cannot be injected into Book instances
-  // and BookDelegate's cannot be injected into Author instances
-  // am looking into CDI to see if it offers a convenient work around
-  // my attempts to get aspectj weaving working, as has been suggested in a number of posts did not succeed,
-  // at least not so far
+/*
+ *  had attempted to use injection to insert an AuthorDelegate, couldn't figure out how to do that,
+ *  attempted to use AspectJ static weaving using the aspectj-maven-plugin, couldn't get that to work and
+ *  don't know why it didn't
+ *
+ *  also attempted to use the CDI injection system, the @Vetoed annotation is a hold over from that, I didn't
+ *  understand how CDI ought to work. Want to explore that some more, used Apache DeltaSpike would like to
+ *  try it out in a more orderly
+ *
+ *  also want to explore hk2 as an injector and possibly guice
+ *
+ *  the issue is that because a JPA Entity is actually managed by the JPA container the "ordinary" dependency
+ *  injectors don't have access to those classes. I'm not sure what the secret sauce needs to be. once again
+ *  things militate on the side of the anemic domain model spooge
+ */
   @Transient
-  // @Inject
-  // BookDelegate bookDelegate;
-  BookDelegate bookDelegate = new BookDelegateImpl();
+  BookDelegate bookDelegate;
 
   @Id
   @GeneratedValue(generator = "author")
@@ -84,7 +73,16 @@ public class Author
   /**
    * <p>Constructor for Author.</p>
    */
-  public Author(){}
+  public Author()
+  {
+    bookDelegate = new BookDelegateImpl();
+
+    AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+
+    bookDelegate.setAuthorDelegate(authorDelegate);
+
+    authorDelegate.setBookDelegate(bookDelegate);
+  }
 
   /**
    * <p>Constructor for Author.</p>
@@ -148,10 +146,6 @@ public class Author
 
     return immutableListOfBooksAuthored;
   }
-
-  // ToDo: weak logic in equals and hashcode around the fact that there is a endless recursion opportunity
-  // ToDo: I chose a too aggressive work around, what should happen is that the booksAuthored comparison ought
-  // ToDo: to be handled in the delegate
 
   /** {@inheritDoc} */
   @Override

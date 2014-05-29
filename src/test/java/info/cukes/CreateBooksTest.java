@@ -21,6 +21,8 @@ import javax.inject.Inject;
 
 
 /**
+ * <p>CreateBooksTest test class.</p>
+ *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,6 +34,7 @@ public class CreateBooksTest
   @Inject
   BookDelegate bookDelegate;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   BookRepository bookRepository;
 

@@ -11,10 +11,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
+
+/**
+ * <p>BookDelegateImpl class.</p>
+ *
+ * @author glick
+ */
+@ApplicationScoped
 @Component
 public class BookDelegateImpl implements BookDelegate
 {
-  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+  AuthorDelegate authorDelegate;
+
+  @Override
+  public void setAuthorDelegate(AuthorDelegate authorDelegate)
+  {
+    this.authorDelegate = authorDelegate;
+  }
 
   /**
    * <p>getListOfTitles.</p>
@@ -47,8 +61,9 @@ public class BookDelegateImpl implements BookDelegate
     for (Book book : books)
     {
       builder.append(delimiter)
+        .append("Book{book=")
         .append(book.getBook())
-        .append(", '")
+        .append(", title='")
         .append(book.getTitle())
         .append("'}");
 
@@ -60,33 +75,44 @@ public class BookDelegateImpl implements BookDelegate
     return builder.toString();
   }
 
+  /**
+   * start with the lists of the books of the current author and that of the author to compare,
+   * if the size of the lists differ no match - return false
+   *
+   * for matching lists then for each of the books find the authors of that book and put the
+   * results in a map book -> authors
+   * compare the maps of the books and their authors using the Maps.difference method from the
+   * Guava libraries return true if they are the same else false
+   */
   @Override
-  public boolean compareBookLists(List<Book> thisAuthorsBooks, List<Book> thatAuthorsBooks)
+  public boolean compareBookLists(List<Book> booksOfThisAuthor, List<Book> booksOfThatAuthor)
   {
-    if (thisAuthorsBooks.size() != thatAuthorsBooks.size())
+    if (booksOfThisAuthor.size() != booksOfThatAuthor.size())
     {
       return false;
     }
-    else if (thisAuthorsBooks.size() > 0)
+    else if (booksOfThisAuthor.size() > 0)
     {
-      List<String> thisBookTitlesList = getListOfTitles(thisAuthorsBooks);
+      List<String> titlesForBooksOfThisAuthor = getListOfTitles(booksOfThisAuthor);
 
-      List<String> thatBookTitlesList = getListOfTitles(thatAuthorsBooks);
+      List<String> titlesForBooksOfThatAuthor = getListOfTitles(booksOfThatAuthor);
 
-      if (!thisBookTitlesList.containsAll(thatBookTitlesList)
-        || !thatBookTitlesList.containsAll(thisBookTitlesList))
+      if (!titlesForBooksOfThisAuthor.containsAll(titlesForBooksOfThatAuthor)
+        || !titlesForBooksOfThatAuthor.containsAll(titlesForBooksOfThisAuthor))
       {
         return false;
       }
       else
       {
-        Map<String, List<String>> thisAuthorsBooksMap = getTitleToAuthorsMap(thisAuthorsBooks);
-        Map<String, List<String>> thatAuthorsBooksMap = getTitleToAuthorsMap(thatAuthorsBooks);
+        Map<String, List<String>> thisAuthorsTitlesToTheirAuthorsMap
+          = getTitleToAuthorsMap(booksOfThisAuthor);
+        Map<String, List<String>> thatAuthorsTitlesToTheirAuthorsMap
+          = getTitleToAuthorsMap(booksOfThatAuthor);
 
-        MapDifference<String, List<String>> booksMapDifferences
-          = Maps.difference(thisAuthorsBooksMap, thatAuthorsBooksMap);
+        MapDifference<String, List<String>> titlesMapDifferences
+          = Maps.difference(thisAuthorsTitlesToTheirAuthorsMap, thatAuthorsTitlesToTheirAuthorsMap);
 
-        if (!booksMapDifferences.areEqual())
+        if (!titlesMapDifferences.areEqual())
         {
           return false;
         }
@@ -96,13 +122,11 @@ public class BookDelegateImpl implements BookDelegate
     return true;
   }
 
-  // @InvestigateAnomaly
-  // there is/was a weirdness here -- when I attempted to @Inject the AuthorDelegate it failed to work when
-  // referenced in this method. The object was injected in the rest of the methods in this class, but not
-  // when the logic hit this method. How weird is that???
-  //
-  // Anyway, it is now working this way. When I sort out what CDI may be able to add, if I ever do,
-  // will return to this.
+  /**
+   * given a list of books
+   * @param books list
+   * @return a Map which represents a list of authors per title for each title in the list
+   */
   private Map<String, List<String>> getTitleToAuthorsMap(List<Book> books)
   {
     Map<String, List<String>> titleToAuthorsMap = new HashMap<>();
@@ -111,7 +135,7 @@ public class BookDelegateImpl implements BookDelegate
     {
       List<String> authorNameList = authorDelegate.getListOfAuthorNames(book.getBookAuthors());
 
-        titleToAuthorsMap.put(book.getTitle(), authorNameList);
+      titleToAuthorsMap.put(book.getTitle(), authorNameList);
     }
 
     return titleToAuthorsMap;

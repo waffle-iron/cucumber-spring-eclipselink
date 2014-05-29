@@ -2,33 +2,32 @@ package info.cukes;
 
 import org.springframework.stereotype.Component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
-import java.lang.invoke.MethodHandles;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 
+/**
+ * <p>AuthorDelegateImpl class.</p>
+ *
+ * @author glick
+ */
+@ApplicationScoped
 @Component
 public class AuthorDelegateImpl implements AuthorDelegate
 {
-  @SuppressWarnings("UnusedDeclaration")
-  private static transient final Logger LOGGER
-    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  BookDelegate bookDelegate;
 
-  @PostConstruct
-  public void postConstruct()
+  @Override
+  public void setBookDelegate(BookDelegate bookDelegate)
   {
-    LOGGER.warn("XXXXXXXX postConstruct executed XXXXXXXXX");
+    this.bookDelegate = bookDelegate;
   }
 
   /**
@@ -97,27 +96,37 @@ public class AuthorDelegateImpl implements AuthorDelegate
     return builder.toString();
   }
 
+  /**
+   * start with the lists of the authors of the current book and the book to compare, if the size of the
+   * lists differ then the lists don't match
+   *
+   * for matching lists then for each of the authors find the books that person authored and put the results
+   * in a map
+   * author -> books authored
+   * compare the maps of the authors and their titles using the Maps.difference method from the
+   * Guava libraries return true if they are the same else false
+   */
   @Override
-  public boolean compareAuthorLists(List<Author> thisBooksAuthors, List<Author> thatBooksAuthors)
+  public boolean compareAuthorLists(List<Author> authorsOfThisBook, List<Author> authorsOfThatBook)
   {
-    if (thisBooksAuthors.size() != thatBooksAuthors.size())
+    if (authorsOfThisBook.size() != authorsOfThatBook.size())
     {
       return false;
     }
-    else if (thisBooksAuthors.size() > 0)
+    else if (authorsOfThisBook.size() > 0)
     {
-      List<String> thisBookAuthorsList = getListOfAuthorNames(thisBooksAuthors);
-      List<String> thatBookAuthorsList = getListOfAuthorNames(thatBooksAuthors);
+      List<String> namesOfAuthorsOfThisBook = getListOfAuthorNames(authorsOfThisBook);
+      List<String> namesOfAuthorsOfThatBook = getListOfAuthorNames(authorsOfThatBook);
 
-      if (!thisBookAuthorsList.containsAll(thatBookAuthorsList)
-        || !thatBookAuthorsList.containsAll(thisBookAuthorsList))
+      if (!namesOfAuthorsOfThisBook.containsAll(namesOfAuthorsOfThatBook)
+        || !namesOfAuthorsOfThatBook.containsAll(namesOfAuthorsOfThisBook))
       {
         return false;
       }
       else
       {
-        Map<String, List<String>> thisBookAuthorsMap = authorToTitlesMap(thisBooksAuthors);
-        Map<String, List<String>> thatBookAuthorsMap = authorToTitlesMap(thatBooksAuthors);
+        Map<String, List<String>> thisBookAuthorsMap = authorToTitlesMap(authorsOfThisBook);
+        Map<String, List<String>> thatBookAuthorsMap = authorToTitlesMap(authorsOfThatBook);
 
         MapDifference<String, List<String>> authorsMapDifferences
           = Maps.difference(thisBookAuthorsMap, thatBookAuthorsMap);
@@ -132,30 +141,20 @@ public class AuthorDelegateImpl implements AuthorDelegate
     return true;
   }
 
-  // @InvestigateAnomaly
-  // found a strange happenstance WRT the BookDelegate in the context of this class, using a BookDelegate,
-  // rather than unpacking it and using it's getAuthorList method rather thn the unwound version which works
-  // was seeing NPE's. Not sure why. There is probably an interaction between the AuthorDelegate and the
-  // BookDelegate that I'm not aware of. First noticed the issue when I was using an injected BookDelegate,
-  // which was failing, but that isn't it.
+  /**
+   * given a list of authors
+   * @param authors list
+   * @return a Map which represents a list of titles per author for each author in the list
+   */
   private Map<String, List<String>> authorToTitlesMap(List<Author> authors)
   {
-    Map<String, List<String>> authorToBooksMap = new HashMap<>();
+    Map<String, List<String>> authorToBooksMap = new LinkedHashMap<>();
 
     for (Author author : authors)
     {
-      List<String> authorTitleList = Lists.transform(author.getAuthoredBooks(), new Function<Book, String>()
-      {
-        @Override
-        public String apply(Book book)
-        {
-          return book.getTitle();
-        }
-      });
+      List<String> listOfTitlesByAuthor = bookDelegate.getListOfTitles(author.getAuthoredBooks());
 
-//      List<String> authorTitleList = bookDelegate.getListOfTitles(author.getAuthoredBooks());
-
-      authorToBooksMap.put(author.getAuthorName(), authorTitleList);
+      authorToBooksMap.put(author.getAuthorName(), listOfTitlesByAuthor);
     }
 
     return authorToBooksMap;

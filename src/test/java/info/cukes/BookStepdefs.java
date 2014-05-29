@@ -5,11 +5,6 @@ import org.assertj.core.api.Assertions;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,22 +15,25 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * <p>BookStepdefs cucumber glue class.</p>
+ *
+ * @author glick
+ */
 @ContextConfiguration(locations = "/cucumber.xml")
 public class BookStepdefs
 {
-  @SuppressWarnings("UnusedDeclaration")
-  private static final transient Logger LOGGER
-    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
   @Inject
   BookDelegate bookDelegate;
 
   @Inject
   AuthorDelegate authorDelegate;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   private BookRepository bookRepository;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   private AuthorRepository authorRepository;
 

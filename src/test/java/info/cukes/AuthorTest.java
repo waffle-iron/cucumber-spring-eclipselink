@@ -11,12 +11,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * <p>AuthorTest test class.</p>
+ *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class AuthorTest
 {
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   AuthorRepository authorRepository;
 

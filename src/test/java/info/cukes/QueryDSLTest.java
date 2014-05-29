@@ -8,13 +8,8 @@ import org.assertj.core.api.Assertions;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.collect.Iterables;
 import com.mysema.query.types.expr.BooleanExpression;
-
-import java.lang.invoke.MethodHandles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,22 +18,22 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * <p>QueryDSLTest test class.</p>
+ *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class QueryDSLTest
 {
-  @SuppressWarnings("UnusedDeclaration")
-  private static final transient Logger LOGGER
-    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
   @Inject
   AuthorDelegate authorDelegate;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   AuthorRepository authorRepository;
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   BookRepository bookRepository;
 

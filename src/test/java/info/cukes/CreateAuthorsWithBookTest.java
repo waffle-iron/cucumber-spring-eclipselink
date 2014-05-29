@@ -13,11 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,17 +20,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * <p>CreateAuthorsWithBookTest test class.</p>
+ *
  * @author glick
  */
+@SuppressWarnings("CdiInjectionPointsInspection")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @Transactional
 @EnableTransactionManagement
 public class CreateAuthorsWithBookTest
 {
-  private static transient final Logger LOGGER
-    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
   @Inject
   AuthorDelegate authorDelegate;
 
@@ -70,11 +65,13 @@ public class CreateAuthorsWithBookTest
 
     List<Author> persistentAuthors = authorRepository.findAll();
 
+    Assertions.assertThat(persistentAuthors).isNotNull();
+    Assertions.assertThat(persistentAuthors).hasSize(2);
+
     Book persistentBook = bookRepository.findByTitle("Spring in Action");
 
-    LOGGER.warn("AUTHORS RETRIEVED FROM PERSISTENT STORE " + persistentAuthors);
-
-    LOGGER.warn("BOOK RETRIEVED FROM PERSISTENT STORE " + persistentBook);
+    Assertions.assertThat(persistentBook).isNotNull();
+    Assertions.assertThat(persistentBook.getTitle()).isEqualTo("Spring in Action");
 
     Assertions.assertThat(persistentAuthors).hasSize(2);
 

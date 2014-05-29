@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 
 /**
+ * <p>DelegateInjectionTest test class.</p>
+ *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -8,6 +8,8 @@ import org.assertj.core.api.Assertions;
 import java.util.List;
 
 /**
+ * <p>BookTest test class.</p>
+ *
  * @author glick
  */
 public class BookTest
@@ -27,6 +29,10 @@ public class BookTest
 
     book.addAnAuthor(aFirstAuthor);
     book.addAnAuthor(aSecondAuthor);
+
+    Assertions.assertThat(book.getTitle()).isNotEmpty();
+
+    Assertions.assertThat(book.getBook()).isNull();
 
     Assertions.assertThat(book.getBookAuthors()).hasSize(2);
   }
