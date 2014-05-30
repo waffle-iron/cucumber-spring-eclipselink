@@ -2,6 +2,11 @@ package info.cukes;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+
 /**
  * <p>DomainEntityToStringNoDatabaseTest test class.</p>
  *
@@ -9,12 +14,15 @@ import org.junit.Test;
  */
 public class DomainEntityToStringNoDatabaseTest
 {
+  private static transient final Logger LOGGER
+    = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  
   @Test
   public void testAuthor_NoBooks_ToString()
   {
     Author tomBrown = new Author("Tom Brown");
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.warn("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -26,7 +34,7 @@ public class DomainEntityToStringNoDatabaseTest
 
     tomBrown.addAuthoredBook(theSearch);
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.warn("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -46,7 +54,7 @@ public class DomainEntityToStringNoDatabaseTest
 
     theTracker.addAnAuthor(tomBrown);
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.warn("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -54,7 +62,7 @@ public class DomainEntityToStringNoDatabaseTest
   {
     Book theSearch = new Book("The Search");
 
-    System.out.println("The Search should produce a legal string " + theSearch);
+    LOGGER.warn("The Search should produce a legal string " + theSearch);
   }
 
   @Test
@@ -66,7 +74,7 @@ public class DomainEntityToStringNoDatabaseTest
 
     theSearch.addAnAuthor(tomBrown);
 
-    System.out.println("The Search should produce a legal string " + theSearch);
+    LOGGER.warn("The Search should produce a legal string " + theSearch);
   }
 
   @Test
@@ -80,12 +88,24 @@ public class DomainEntityToStringNoDatabaseTest
 
     theMoteInGodsEye.addAnAuthor(larryNiven);
 
-    theMoteInGodsEye.addAnAuthor(larryNiven);
+    theMoteInGodsEye.addAnAuthor(jerryPournelle);
 
     larryNiven.addAuthoredBook(theMoteInGodsEye);
 
     jerryPournelle.addAuthoredBook(theMoteInGodsEye);
 
-    System.out.println("The Mote in God's Eye should produce a legal string " + theMoteInGodsEye);
+    Book ringWorld = new Book("Ring World");
+
+    ringWorld.addAnAuthor(larryNiven);
+
+    larryNiven.addAuthoredBook(ringWorld);
+
+    LOGGER.warn("The Mote in God's Eye should produce a legal string " + theMoteInGodsEye);
+
+    LOGGER.warn("Larry Niven should produce a legal string " + larryNiven);
+
+    LOGGER.warn("Jerry Pournelle should produce a legal string " + jerryPournelle);
+
+    LOGGER.warn("Ring World should produce a legal string " + ringWorld);
   }
 }
