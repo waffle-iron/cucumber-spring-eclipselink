@@ -90,6 +90,24 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <groupId>org.jboss.tattletale</groupId>
+        <artifactId>tattletale-maven</artifactId>
+        <version>1.2.0.Beta2</version>
+        <configuration>
+          <source>target</source>
+          <destination>target/tattletale-report</destination>
+        </configuration>
+        <executions>
+          <execution>
+            <id>tattletale-report</id>
+            <phase>package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>always</forkMode>
