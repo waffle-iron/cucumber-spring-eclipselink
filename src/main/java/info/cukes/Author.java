@@ -1,5 +1,7 @@
 package info.cukes;
 
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
-import javax.enterprise.inject.Vetoed;
+import javax.inject.Inject;
 
 /**
  * <p>Author class.</p>
@@ -35,7 +37,7 @@ import javax.enterprise.inject.Vetoed;
   pkColumnValue = "author",
   initialValue = 0,
   allocationSize = 1)
-@Vetoed
+@Configurable
 public class Author
 {
 /*
@@ -54,6 +56,7 @@ public class Author
  *  things militate on the side of the anemic domain model spooge
  */
   @Transient
+  @Inject
   BookDelegate bookDelegate;
 
   @Id
@@ -73,16 +76,7 @@ public class Author
   /**
    * <p>Constructor for Author.</p>
    */
-  public Author()
-  {
-    bookDelegate = new BookDelegateImpl();
-
-    AuthorDelegate authorDelegate = new AuthorDelegateImpl();
-
-    bookDelegate.setAuthorDelegate(authorDelegate);
-
-    authorDelegate.setBookDelegate(bookDelegate);
-  }
+  public Author() {}
 
   /**
    * <p>Constructor for Author.</p>

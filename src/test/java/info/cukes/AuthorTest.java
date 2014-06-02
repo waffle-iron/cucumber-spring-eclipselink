@@ -3,6 +3,7 @@ package info.cukes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,6 +18,7 @@ import javax.inject.Inject;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+@EnableLoadTimeWeaving
 public class AuthorTest
 {
   @SuppressWarnings("CdiInjectionPointsInspection")

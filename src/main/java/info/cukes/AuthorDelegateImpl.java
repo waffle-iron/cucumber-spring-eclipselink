@@ -19,7 +19,6 @@ import javax.enterprise.context.ApplicationScoped;
  * @author glick
  */
 @ApplicationScoped
-@Component
 public class AuthorDelegateImpl implements AuthorDelegate
 {
   BookDelegate bookDelegate;

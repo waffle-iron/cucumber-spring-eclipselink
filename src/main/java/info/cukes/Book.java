@@ -1,5 +1,7 @@
 package info.cukes;
 
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
-import javax.enterprise.inject.Vetoed;
+import javax.inject.Inject;
 
 /**
  * <p>Book class.</p>
@@ -48,10 +50,11 @@ import javax.enterprise.inject.Vetoed;
   initialValue = 0,
   allocationSize = 1)
 @Table(name = "book")
-@Vetoed
+@Configurable
 public class Book
 {
   @Transient
+  @Inject
   AuthorDelegate authorDelegate;
 
   @Id
@@ -68,16 +71,7 @@ public class Book
   /**
    * <p>Constructor for Book.</p>
    */
-  public Book()
-  {
-    authorDelegate = new AuthorDelegateImpl();
-
-    BookDelegate bookDelegate = new BookDelegateImpl();
-
-    authorDelegate.setBookDelegate(bookDelegate);
-
-    bookDelegate.setAuthorDelegate(authorDelegate);
-  }
+  public Book() {}
 
   /**
    * <p>Constructor for Book.</p>

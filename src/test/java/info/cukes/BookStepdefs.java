@@ -2,6 +2,7 @@ package info.cukes;
 
 import org.assertj.core.api.Assertions;
 
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import cucumber.api.java.en.When;
  * @author glick
  */
 @ContextConfiguration(locations = "/cucumber.xml")
+@EnableLoadTimeWeaving
 public class BookStepdefs
 {
   @Inject
