@@ -1,12 +1,8 @@
 package info.cukes;
 
-import org.springframework.beans.factory.annotation.Configurable;
-
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.enterprise.inject.Vetoed;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
-
-import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Author class.</p>
@@ -37,7 +33,7 @@ import javax.inject.Inject;
   pkColumnValue = "author",
   initialValue = 0,
   allocationSize = 1)
-@Configurable
+@Vetoed
 public class Author
 {
 /*
@@ -56,9 +52,9 @@ public class Author
  *  things militate on the side of the anemic domain model spooge
  */
   @Transient
-  @Inject
   BookDelegate bookDelegate;
 
+  @SuppressWarnings("UnusedDeclaration")
   @Id
   @GeneratedValue(generator = "author")
   @Column(name = "author")
@@ -76,7 +72,16 @@ public class Author
   /**
    * <p>Constructor for Author.</p>
    */
-  public Author() {}
+  public Author()
+  {
+    bookDelegate = new BookDelegateImpl();
+
+    AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+
+    bookDelegate.setAuthorDelegate(authorDelegate);
+
+    authorDelegate.setBookDelegate(bookDelegate);
+  }
 
   /**
    * <p>Constructor for Author.</p>

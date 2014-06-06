@@ -1,24 +1,17 @@
-<project name="aspectj-1.7.4-ant-tasks" default="weave-aspectj"
+<project name="aspectj-1.8.0-ant-tasks" default="weave-aspectj"
   xmlns:aspectj="antlib:org.aspectj" basedir=".">
 
+  <property file="build.properties"/>
+
   <path id="aspectj.jars.path">
-    <fileset dir="c:/maven-repo/org/aspectj">
-      <include name="**/*1.7.4.jar"/>
-      <exclude name="**/aspectjtools-1.7.4.jar"/>
+    <fileset dir="${maven_local}/org/aspectj">
+      <include name="**/*1.8.0.jar"/>
+      <exclude name="**/aspectjtools-1.8.0.jar"/>
     </fileset>
   </path>
 
   <target name="weave-aspectj"
     description="weave existing compiled classes, attempting to get Spring to inject jpa entities -- so far no luck">
-
-    <mkdir dir="target/unwovenclasses/info/cukes"/>
-
-    <move todir="target/unwovenclasses/info/cukes">
-      <fileset dir="target/classes/info/cukes">
-        <include name="Author.class"/>
-        <include name="Book.class"/>
-      </fileset>
-    </move>
 
     <aspectj:iajc
       classpathref="aspectj.jars.path"
@@ -26,16 +19,14 @@
       showWeaveInfo="true"
       verbose="true">
       <inpath>
-        <pathelement path="target/unwovenclasses"/>
+        <pathelement path="target/classes"/>
       </inpath>
     </aspectj:iajc>
-
   </target>
 
   <target name="printpath"
     description="display the classpath configured for aspectj weaving">
     <echo>$${aspectj.jars.path} ${toString:aspectj.jars.path}</echo>
   </target>
-
 
 </project>

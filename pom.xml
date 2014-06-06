@@ -111,7 +111,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <forkMode>always</forkMode>
-          <argLine>-javaagent:${settings.localRepository}/org/springframework/spring-instrument/4.0.5.RELEASE/spring-instrument-4.0.5.RELEASE.jar</argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -138,35 +137,6 @@
           </dependency>
         </dependencies>
       </plugin>
-
-      <!--<plugin>-->
-        <!--<groupId>org.codehaus.mojo</groupId>-->
-        <!--<artifactId>aspectj-maven-plugin</artifactId>-->
-        <!--<version>1.6</version>-->
-        <!--<dependencies>-->
-          <!--<dependency>-->
-            <!--<groupId>org.aspectj</groupId>-->
-            <!--<artifactId>aspectjtools</artifactId>-->
-            <!--<version>${aspectj.version}</version>-->
-          <!--</dependency>-->
-        <!--</dependencies>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!-- Compile and weave aspects after all classes compiled by javac -->
-            <!--<phase>process-classes</phase>-->
-            <!--<configuration>-->
-              <!--<complianceLevel>1.7</complianceLevel>-->
-              <!--<weaveDirectories>-->
-                <!--<weaveDirectory>${project.build.directory}/classes</weaveDirectory>-->
-              <!--</weaveDirectories>-->
-            <!--</configuration>-->
-            <!--<goals>-->
-              <!--<goal>compile</goal>-->
-            <!--</goals>-->
-          <!--</execution>-->
-        <!--</executions>-->
-      <!--</plugin>-->
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
