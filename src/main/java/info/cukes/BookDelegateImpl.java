@@ -1,5 +1,7 @@
 package info.cukes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Function;
@@ -7,11 +9,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  * <p>BookDelegateImpl class.</p>
@@ -21,6 +26,9 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class BookDelegateImpl implements BookDelegate
 {
+  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @Inject
   AuthorDelegate authorDelegate;
 
   @Override

@@ -1,5 +1,7 @@
 package info.cukes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Function;
@@ -7,20 +9,27 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
 
+import java.lang.invoke.MethodHandles;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  * <p>AuthorDelegateImpl class.</p>
+ *
  *
  * @author glick
  */
 @ApplicationScoped
 public class AuthorDelegateImpl implements AuthorDelegate
 {
+  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @Inject
   BookDelegate bookDelegate;
 
   @Override
@@ -149,11 +158,19 @@ public class AuthorDelegateImpl implements AuthorDelegate
   {
     Map<String, List<String>> authorToBooksMap = new LinkedHashMap<>();
 
-    for (Author author : authors)
+    try
     {
-      List<String> listOfTitlesByAuthor = bookDelegate.getListOfTitles(author.getAuthoredBooks());
+      for (Author author : authors)
+      {
+        List<String> listOfTitlesByAuthor = bookDelegate.getListOfTitles(author.getAuthoredBooks());
 
-      authorToBooksMap.put(author.getAuthorName(), listOfTitlesByAuthor);
+        authorToBooksMap.put(author.getAuthorName(), listOfTitlesByAuthor);
+      }
+    }
+    catch (Throwable t)
+    {
+      LOGGER.warn("exception class is " + t.getClass().getName() + " message is " + t.getMessage());
+      throw t;
     }
 
     return authorToBooksMap;
