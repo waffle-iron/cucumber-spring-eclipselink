@@ -1,23 +1,26 @@
-Cucumber Spring and Eclipselink
-===============================
+Cucumber, Spring and Eclipselink with Spring Data JPA
+====================================================
 
-a simple project -- this one makes use of cucumber to drive Spring and Eclipselink writing
-persistent data to an HSQL in memory DB
+this simple example project contains 2 Cucumber features, each one of which has 1 scenario. Cucumber is being used 
+to drive Spring and Eclipselink which together write persistent data to an HSQL in memory database instance.
 
-There are 2 entity classes Book and Author. There is a bidirectional many to many relationship between them
- as a Book will have one or more Authors, and an Author may contribute to zero or more Books.
+There are 2 JPA entity classes Book and Author. There is a bidirectional many to many relationship between them
+as a Book will have one or more Authors, and an Author may contribute to zero or more Books.
 
-There is a relish project site at https://www.relishapp.com/zrgs-org/cucumber-spring-and-eclipselink/docs
+There is a relish project site at **https://www.relishapp.com/zrgs-org/cucumber-spring-and-eclipselink/docs**
 
-Found the beginnings of this example in the book Cucumber Recipes
+Found the beginnings of this example in the book Cucumber Recipes, you can find the book example at page 92 in 
+chapter 2 Java. The original is Recipe 18 Drive a Spring + Hibernate Project.
 
-There are 2 libraries in use here that aren't being used by TopNG, they are the AssertJ assertions library
-and the QueryDSL JPA querying library.
+I changed out Hibernate for Eclipselink firstly because I prefer Eclipselink and secondly because the project that I 
+am doing at work uses Eclipselink. 
+
+There are 2 libraries in use here that aren't being used by on my project at work, they are the AssertJ assertions 
+library and the QueryDSL JPA querying library.
 
 AssertJ allows for even more expressive fluent assertions than the fest assertions library,
 which I tried out but abandoned once I realized how much more powerful AssertJ is.
 (http://joel-costigliola.github.io/assertj/)
- .
 
 As example difference is the following:
 
@@ -30,8 +33,8 @@ using AssertJ:
     Assertions.assertThat(authorNameList).hasSameSizeAs(authorNamesToFind);
 
 
-QueryDSL allows a good deal more flexibility in querying persistent data, allowing us to derive even more
-benefits from the use of Spring Data JPA. (http://www.querydsl.com/)
+**QueryDSL** provides a good deal more flexibility in querying persistent data than does JQL, allowing us to derive 
+even more benefits from the use of Spring Data JPA. **(http://www.querydsl.com/)**
 
 An example query follows:
 
@@ -62,5 +65,19 @@ containers. I am not actually sure if the JPA managed Entities can be treated as
 containers, that may be the problem. That said, I would have expected the AspectJ weaving to do the injection. I'll 
 have to do a better job of sorting out how AspectJ weaving is supposed to work for non-Spring managed beans and what 
 can be expected from it. 
+
+**Verbose Logging -- Another thing that surprised me as I implemented this small example**
+
+I used slf4j (simple logging for java) to replace any logging to commons-logging, 
+log4j or to the java 4 internal logging package.
+
+I enabled test output logging to standard out (the console) by setting the surefire plugin's useFile property to 
+false (see the properties block in the pom file. What surprised me was that If I configured logback classic in the 
+project then it produced copious debugging output, and if I unconfigured it the test code produced no debugging 
+output, logging only informational log statements.
+  
+I took advantage of this by creating a verbose-logging profile, which when enabled produces the debugging output. Try
+running the test cases with and without enabling the verbose-logging profile. I think that you will be interested to 
+see the difference. 
 
 
