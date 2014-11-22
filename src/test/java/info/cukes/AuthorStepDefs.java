@@ -1,6 +1,7 @@
 package info.cukes;
 
 import org.assertj.core.api.Assertions;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 
 import cucumber.api.java.en.Given;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
  */
 @SuppressWarnings("CdiInjectionPointsInspection")
 @ContextConfiguration(locations = "/cucumber.xml")
+@EnableLoadTimeWeaving
 public class AuthorStepDefs
 {
   @Inject

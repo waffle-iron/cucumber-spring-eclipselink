@@ -21,6 +21,7 @@ import cucumber.api.java.en.When;
  *
  * @author glick
  */
+@SuppressWarnings("CdiInjectionPointsInspection")
 @ContextConfiguration(locations = "/cucumber.xml")
 @EnableLoadTimeWeaving
 public class BookStepdefs
