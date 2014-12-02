@@ -1,2 +1,6 @@
 language: java
+
 script: mvn clean verify
+
+after_success:
+  - mvn clean test jacoco:report coveralls:report -DrepoToken=XkBUcBKdzhG7VnpUuBlyfudlo3S61UKRB
