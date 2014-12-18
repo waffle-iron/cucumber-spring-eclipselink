@@ -75,6 +75,17 @@ containers, that may be the problem. That said, I would have expected the Aspect
 have to do a better job of sorting out how AspectJ weaving is supposed to work for non-Spring managed beans and what
 can be expected from it.
 
+**Cucumber integration with default Spring Test rollback behavior fixed**
+
+Before the cucumber 1.2.0 release evn when Cucumber tests loaded the spring-test jar the cucumber-spring integration
+wasn't implementing the default contract for spring tests where the default behavior is to rollback database transactions
+that are created by the code under test.
+
+To test that the capability has actually been added to cucumber as a demonstration I modified the default Eclipselink
+logging behavior from FINE to FINEST and modified the default Spring logging behavior from INFO to DEBUG. Under those
+conditions, which themselves have been rolled back, it was easy to see that the transactions executed by the code under
+test were being rolledback.
+
 **Verbose Logging -- Another thing that surprised me as I implemented this small example**
 
 I used slf4j (simple logging for java) to replace any logging to commons-logging,
@@ -82,11 +93,22 @@ log4j or to the java 4 internal logging package.
 
 I enabled test output logging to standard out (the console) by setting the surefire plugin's useFile property to
 false (see the properties block in the pom file. What surprised me was that If I configured logback classic in the
-project then it produced copious debugging output, and if I unconfigured it the test code produced no debugging
+project then it produced copious Spring debugging output, and if I unconfigured it the test code produced no debugging
 output, logging only informational log statements.
 
 I took advantage of this by creating a verbose-logging profile, which when enabled produces the debugging output. Try
 running the test cases with and without enabling the verbose-logging profile. I think that you will be interested to
 see the difference.
+
+**Future Goals**
+
+Make use of the Hikari Connection Pool
+
+The JUnit version in use today is 4.11. JUnit 4.12 has been released, but there are reported issues between JUnit 4.12
+and Cucumber, so wait for the issues to be fixed before upgrading JUnit.
+
+Investigate the removal of @EnableLoadtimeWeaving annotations. I added them to support AspectJ enablement of dependency
+injection of the AuthorDelegate and the BookDelegate into the entities Author and Book. I couldn't get that to work, so
+the annotation ought to be removed.
 
 

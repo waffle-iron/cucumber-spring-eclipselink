@@ -15,7 +15,7 @@ import cucumber.api.junit.Cucumber;
  * @author glick
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(glue = {"info.cukes", "cucumber.runtime.java.spring.hooks"},
+@CucumberOptions(glue = {"info.cukes", "cucumber.api.spring"},
   format = {"html:target/cucumber-html-report"})
 @Transactional
 @EnableTransactionManagement

@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import cucumber.api.java.en.When;
 @SuppressWarnings("CdiInjectionPointsInspection")
 @ContextConfiguration(locations = "/cucumber.xml")
 @EnableLoadTimeWeaving
+@EnableTransactionManagement
+@Transactional
 public class BookStepdefs
 {
   @Inject

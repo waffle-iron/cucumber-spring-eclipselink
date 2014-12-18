@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.invoke.MethodHandles;
 
@@ -29,6 +31,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableLoadTimeWeaving
+@EnableTransactionManagement
 public class CreateBooksTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -47,6 +50,7 @@ public class CreateBooksTest
   }
 
   @Test
+  @Transactional
   public void testSpringEclipselink()
   {
     List<String> bookTitles = new ArrayList<>();

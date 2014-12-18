@@ -18,7 +18,6 @@ import javax.inject.Inject;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-@EnableLoadTimeWeaving
 public class DelegateInjectionTest
 {
   @Inject

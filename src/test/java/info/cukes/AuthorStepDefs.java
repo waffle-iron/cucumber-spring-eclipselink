@@ -3,6 +3,8 @@ package info.cukes;
 import org.assertj.core.api.Assertions;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,6 +23,8 @@ import javax.inject.Inject;
 @SuppressWarnings("CdiInjectionPointsInspection")
 @ContextConfiguration(locations = "/cucumber.xml")
 @EnableLoadTimeWeaving
+@EnableTransactionManagement
+@Transactional
 public class AuthorStepDefs
 {
   @Inject

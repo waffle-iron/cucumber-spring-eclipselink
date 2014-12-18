@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableLoadTimeWeaving
+@EnableTransactionManagement
 public class AuthorTest
 {
   @SuppressWarnings("CdiInjectionPointsInspection")
@@ -26,6 +29,7 @@ public class AuthorTest
   AuthorRepository authorRepository;
 
   @Test
+  @Transactional
   public void testAuthorAndUseDeclaredMethods()
   {
     Author author = new Author();
@@ -36,6 +40,7 @@ public class AuthorTest
   }
 
   @Test(expected = UnsupportedOperationException.class)
+  @Transactional
   public void testBookAuthorsAreImmutableCannotAdd()
   {
     Book aBook = new Book("One Hundred and FortyEight Below");
@@ -54,6 +59,7 @@ public class AuthorTest
   }
 
   @Test(expected = UnsupportedOperationException.class)
+  @Transactional
   public void testBookAuthorsAreImmutableCannotRemove()
   {
     Book aBook = new Book("One Hundred and FortyEight Below");

@@ -38,6 +38,7 @@
     <property name="jpaPropertyMap">
       <props>
         <prop key="eclipselink.weaving">false</prop>
+        <prop key="eclipselink.logging.level">FINE</prop>
       </props>
     </property>
   </bean>

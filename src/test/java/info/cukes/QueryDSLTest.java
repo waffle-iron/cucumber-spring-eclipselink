@@ -8,6 +8,8 @@ import org.assertj.core.api.Assertions;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Iterables;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableLoadTimeWeaving
+@EnableTransactionManagement
 public class QueryDSLTest
 {
   @Inject
@@ -40,6 +43,7 @@ public class QueryDSLTest
   BookRepository bookRepository;
 
   @Test
+  @Transactional
   public void testQuerySome()
   {
     List<String> moreAuthorNames = Arrays.asList("Mark Shead", "Andy Glick", "Christian Garcia",

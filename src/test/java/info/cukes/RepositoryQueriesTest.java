@@ -80,6 +80,7 @@ public class RepositoryQueriesTest
   }
 
     @Test
+    @Transactional
     public void testFindBookByTitle()
     {
         List<String> authorNames = Arrays.asList("T. S. Eliot");
