@@ -161,8 +161,7 @@ public class Author
 
     Author author = (Author) o;
 
-    return authorName.equals(author.authorName)
-      && bookDelegate.compareBookLists(getAuthoredBooks(), author.getAuthoredBooks());
+    return authorName.equals(author.authorName);
   }
 
   /** {@inheritDoc} */

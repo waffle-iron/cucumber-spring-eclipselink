@@ -9,6 +9,10 @@ import org.assertj.core.api.Assertions;
 import org.apache.deltaspike.cdise.api.CdiContainer;
 import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -19,6 +23,8 @@ import javax.enterprise.context.ApplicationScoped;
  */
 public class CdiContainerInitTest
 {
+  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   CdiContainer cdiContainer;
   ContextControl contextControl;
 
@@ -34,7 +40,7 @@ public class CdiContainerInitTest
 
     Assertions.assertThat(contextControl).isNotNull();
 
-    System.out.println("contextControl is " + contextControl);
+    LOGGER.info("contextControl is " + contextControl);
 
     // Starting the application-context allows to use @ApplicationScoped beans
     contextControl.startContext(ApplicationScoped.class);

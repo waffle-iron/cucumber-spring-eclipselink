@@ -1,5 +1,6 @@
 package info.cukes;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,5 +54,33 @@ public class BookTest
     List<Author> authors = book.getBookAuthors();
 
     authors.remove(0);
+  }
+
+  @Test
+  public void testAnAuthorIsNotABook()
+  {
+    Book book = new Book();
+
+    Author author = new Author();
+
+    Assertions.assertThat(book).isNotEqualTo(author);
+  }
+
+  @Test
+  public void testVerifyBooksNotSame()
+  {
+    Book hamlet = new Book("Hamlet");
+
+    Author shakespeare = new Author("William Shakespeare");
+
+    hamlet.addAnAuthor(shakespeare);
+
+    Book romeoAndJuliet = new Book("Romeo and Juliet");
+
+    romeoAndJuliet.addAnAuthor(shakespeare);
+
+    Assert.assertFalse(hamlet.equals(romeoAndJuliet));
+
+    Assertions.assertThat(hamlet).isNotEqualTo(romeoAndJuliet);
   }
 }

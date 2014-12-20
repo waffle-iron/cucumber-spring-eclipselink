@@ -3,6 +3,7 @@ package info.cukes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.assertj.core.api.Assertions;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -73,5 +74,15 @@ public class AuthorTest
     List<Book> books = anAuthor.getAuthoredBooks();
 
     books.remove(0);
+  }
+
+  @Test
+  public void testABookIsNotAnAuthor()
+  {
+    Book book = new Book("Hamlet");
+
+    Author author = new Author("William Shakespeare");
+
+    Assertions.assertThat(author).isNotEqualTo(book);
   }
 }

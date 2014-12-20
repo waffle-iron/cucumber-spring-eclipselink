@@ -2,19 +2,13 @@ package info.cukes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapDifference;
-import com.google.common.collect.Maps;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -26,6 +20,7 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class BookDelegateImpl implements BookDelegate
 {
+  @SuppressWarnings("UnusedDeclaration")
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Inject
@@ -80,71 +75,5 @@ public class BookDelegateImpl implements BookDelegate
     builder.append("}");
 
     return builder.toString();
-  }
-
-  /**
-   * start with the lists of the books of the current author and that of the author to compare,
-   * if the size of the lists differ no match - return false
-   *
-   * for matching lists then for each of the books find the authors of that book and put the
-   * results in a map book -> authors
-   * compare the maps of the books and their authors using the Maps.difference method from the
-   * Guava libraries return true if they are the same else false
-   */
-  @Override
-  public boolean compareBookLists(List<Book> booksOfThisAuthor, List<Book> booksOfThatAuthor)
-  {
-    if (booksOfThisAuthor.size() != booksOfThatAuthor.size())
-    {
-      return false;
-    }
-    else if (booksOfThisAuthor.size() > 0)
-    {
-      List<String> titlesForBooksOfThisAuthor = getListOfTitles(booksOfThisAuthor);
-
-      List<String> titlesForBooksOfThatAuthor = getListOfTitles(booksOfThatAuthor);
-
-      if (!titlesForBooksOfThisAuthor.containsAll(titlesForBooksOfThatAuthor)
-        || !titlesForBooksOfThatAuthor.containsAll(titlesForBooksOfThisAuthor))
-      {
-        return false;
-      }
-      else
-      {
-        Map<String, List<String>> thisAuthorsTitlesToTheirAuthorsMap
-          = getTitleToAuthorsMap(booksOfThisAuthor);
-        Map<String, List<String>> thatAuthorsTitlesToTheirAuthorsMap
-          = getTitleToAuthorsMap(booksOfThatAuthor);
-
-        MapDifference<String, List<String>> titlesMapDifferences
-          = Maps.difference(thisAuthorsTitlesToTheirAuthorsMap, thatAuthorsTitlesToTheirAuthorsMap);
-
-        if (!titlesMapDifferences.areEqual())
-        {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  /**
-   * given a list of books
-   * @param books list
-   * @return a Map which represents a list of authors per title for each title in the list
-   */
-  private Map<String, List<String>> getTitleToAuthorsMap(List<Book> books)
-  {
-    Map<String, List<String>> titleToAuthorsMap = new HashMap<>();
-
-    for (Book book : books)
-    {
-      List<String> authorNameList = authorDelegate.getListOfAuthorNames(book.getBookAuthors());
-
-      titleToAuthorsMap.put(book.getTitle(), authorNameList);
-    }
-
-    return titleToAuthorsMap;
   }
 }

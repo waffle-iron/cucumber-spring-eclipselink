@@ -1,14 +1,15 @@
 package info.cukes;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.inject.Inject;
+import java.lang.invoke.MethodHandles;
 
 /**
  * <p>DomainEntityToStringTest test class.</p>
@@ -20,12 +21,14 @@ import javax.inject.Inject;
 @EnableLoadTimeWeaving
 public class DomainEntityToStringTest
 {
+  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   @Test
   public void testAuthor_NoBooks_ToString()
   {
     Author tomBrown = new Author("Tom Brown");
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.info("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -37,7 +40,7 @@ public class DomainEntityToStringTest
 
     tomBrown.addAuthoredBook(theSearch);
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.info("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -57,7 +60,7 @@ public class DomainEntityToStringTest
 
     theTracker.addAnAuthor(tomBrown);
 
-    System.out.println("Tom Brown should produce a legal string " + tomBrown);
+    LOGGER.info("Tom Brown should produce a legal string " + tomBrown);
   }
 
   @Test
@@ -65,7 +68,7 @@ public class DomainEntityToStringTest
   {
     Book theSearch = new Book("The Search");
 
-    System.out.println("The Search should produce a legal string " + theSearch);
+    LOGGER.info("The Search should produce a legal string " + theSearch);
   }
 
   @Test
@@ -77,7 +80,7 @@ public class DomainEntityToStringTest
 
     theSearch.addAnAuthor(tomBrown);
 
-    System.out.println("The Search should produce a legal string " + theSearch);
+    LOGGER.info("The Search should produce a legal string " + theSearch);
   }
 
   @Test
@@ -97,6 +100,6 @@ public class DomainEntityToStringTest
 
     jerryPournelle.addAuthoredBook(theMoteInGodsEye);
 
-    System.out.println("The Mote in God's Eye should produce a legal string " + theMoteInGodsEye);
+    LOGGER.info("The Mote in God's Eye should produce a legal string " + theMoteInGodsEye);
   }
 }

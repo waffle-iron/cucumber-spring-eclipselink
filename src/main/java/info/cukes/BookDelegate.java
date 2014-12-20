@@ -14,6 +14,4 @@ public interface BookDelegate
   List<String> getListOfTitles(List<Book> bookList);
 
   String recursionSafeBooksToString(List<Book> books);
-
-  boolean compareBookLists(List<Book> thisAuthorsBooks, List<Book> thatAuthorsBooks);
 }
