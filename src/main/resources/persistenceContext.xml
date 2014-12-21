@@ -15,16 +15,24 @@
 
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+  <bean id="databaseDriverInstance" class="org.h2.Driver"/>
+
+  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
     p:driverClassName="${database.driver}"
-    p:url="${database.url}"
+    p:jdbcUrl="${database.url}"
     p:username="${database.user}"
-    p:password="${database.password}"/>
+    p:password="${database.password}"
+    p:registerMbeans="true"/>
+
+  <!-- p:dataSourceClassName="${database.dataSource}" -->
+  <!-- p:driverClassName="${database.driver}" -->
 
   <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
      p:showSql="true"
      p:generateDdl="true"
-     p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform"/>
+     p:databasePlatform="org.eclipse.persistence.platform.database.H2Platform"/>
+
+  <!-- p:databasePlatform="org.eclipse.persistence.platform.database.HSQLPlatform" -->
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
     p:persistenceUnitName="cucumber-spring-and-eclipselink"
@@ -37,7 +45,7 @@
     </property>
     <property name="jpaPropertyMap">
       <props>
-        <prop key="eclipselink.weaving">false</prop>
+        <prop key="eclipselink.weaving">static</prop>
         <prop key="eclipselink.logging.level">FINE</prop>
       </props>
     </property>

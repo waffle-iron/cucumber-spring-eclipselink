@@ -8,8 +8,5 @@
     <class>info.cukes.Book</class>
     <class>org.springframework.data.jpa.domain.AbstractAuditable</class>
     <class>org.springframework.data.jpa.domain.AbstractPersistable</class>
-    <properties>
-      <property name="eclipselink.weaving" value="static"/>
-    </properties>
   </persistence-unit>
 </persistence>

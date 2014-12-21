@@ -1,21 +1,23 @@
 package info.cukes;
 
 import org.assertj.core.api.Assertions;
-
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
+import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * <p>BookStepdefs cucumber glue class.</p>
@@ -23,23 +25,22 @@ import cucumber.api.java.en.When;
  * @author glick
  */
 @SuppressWarnings("CdiInjectionPointsInspection")
-@ContextConfiguration(locations = "/cucumber.xml")
-@EnableLoadTimeWeaving
+@ContextConfiguration(locations = "classpath:cucumber.xml")
 @EnableTransactionManagement
 @Transactional
 public class BookStepdefs
 {
+  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   @Inject
   BookDelegate bookDelegate;
 
   @Inject
   AuthorDelegate authorDelegate;
 
-  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   private BookRepository bookRepository;
 
-  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   private AuthorRepository authorRepository;
 
@@ -54,8 +55,12 @@ public class BookStepdefs
   int authorsAdded = 0;
 
   @Before
-  public void beforeStepDefs()
+  public void beforeStepDefs(Scenario scenario)
   {
+    LOGGER.info("");
+    LOGGER.info("executing cucumber scenario " + scenario.getName());
+    LOGGER.info("");
+
     bookRepository.deleteAll();
     authorRepository.deleteAll();
   }
