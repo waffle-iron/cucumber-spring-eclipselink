@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.assertj.core.api.Assertions;
-
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -22,18 +20,16 @@ import javax.inject.Inject;
  *
  * @author glick
  */
+@SuppressWarnings("CdiInjectionPointsInspection")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @Transactional
 @EnableTransactionManagement
-@EnableLoadTimeWeaving
 public class RepositoryQueriesTest
 {
-  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   AuthorRepository authorRepository;
 
-  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   BookRepository bookRepository;
 
@@ -41,101 +37,101 @@ public class RepositoryQueriesTest
   @Ignore
   public void testFindByAuthorName()
   {
-      List<String> authorNames = Arrays.asList("Andy Glick", "James La Spada");
+    List<String> authorNames = Arrays.asList("Andy Glick", "James La Spada");
 
-      saveAuthorsToPersistentStore(authorNames);
+    saveAuthorsToPersistentStore(authorNames);
 
-      validatePersistenceOfTheAuthors(authorNames);
+    validatePersistenceOfTheAuthors(authorNames);
   }
 
   public void validatePersistenceOfTheAuthors(List<String> authorNames)
   {
-      for (String authorName : authorNames)
-      {
-          validateAuthorPersistence(authorName);
-      }
+    for (String authorName : authorNames)
+    {
+      validateAuthorPersistence(authorName);
+    }
   }
 
-    public void saveAuthorsToPersistentStore(List<String> authorNames)
+  public void saveAuthorsToPersistentStore(List<String> authorNames)
   {
     for (String authorName : authorNames)
     {
-        saveAuthorToPersistentStore(authorName);
+      saveAuthorToPersistentStore(authorName);
     }
   }
 
   public void saveAuthorToPersistentStore(String authorName)
   {
-      Author anAuthor = new Author(authorName);
+    Author anAuthor = new Author(authorName);
 
-      authorRepository.save(anAuthor);
+    authorRepository.save(anAuthor);
   }
 
   public void validateAuthorPersistence(String authorName)
   {
-      Author anAuthor = authorRepository.findByAuthorName(authorName);
+    Author anAuthor = authorRepository.findByAuthorName(authorName);
 
-      Assertions.assertThat(anAuthor).isNotNull();
-      Assertions.assertThat(anAuthor.getAuthorName()).isEqualTo(authorName);
+    Assertions.assertThat(anAuthor).isNotNull();
+    Assertions.assertThat(anAuthor.getAuthorName()).isEqualTo(authorName);
   }
 
-    @Test
-    @Transactional
-    public void testFindBookByTitle()
+  @Test
+  @Transactional
+  public void testFindBookByTitle()
+  {
+    List<String> authorNames = Arrays.asList("T. S. Eliot");
+
+    saveAuthorsToPersistentStore(authorNames);
+
+    validatePersistenceOfTheAuthors(authorNames);
+
+    Author tsEliot = authorRepository.findByAuthorName("T. S. Eliot");
+
+    List<String> bookTitles = Arrays.asList("The Wasteland and Other Poems",
+      "Four Quartets");
+
+    saveBooksToPersistentStore(bookTitles, tsEliot);
+
+    validatePersistenceOfBooks(bookTitles, tsEliot);
+  }
+
+  public void validatePersistenceOfBooks(List<String> bookTitles, Author tsEliot)
+  {
+    for (String bookTitle : bookTitles)
     {
-        List<String> authorNames = Arrays.asList("T. S. Eliot");
+      validatePersistenceOfBook(bookTitle, tsEliot);
+    }
+  }
 
-        saveAuthorsToPersistentStore(authorNames);
-
-        validatePersistenceOfTheAuthors(authorNames);
-
-        Author tsEliot = authorRepository.findByAuthorName("T. S. Eliot");
-
-        List<String> bookTitles = Arrays.asList("The Wasteland and Other Poems",
-            "Four Quartets");
-
-        saveBooksToPersistentStore(bookTitles, tsEliot);
-
-        validatePersistenceOfBooks(bookTitles, tsEliot);
+  public void saveBooksToPersistentStore(List<String> bookTitles, Author author)
+  {
+    for (String bookTitle : bookTitles)
+    {
+      saveBookToPersistentStore(bookTitle, author);
     }
 
-    public void validatePersistenceOfBooks(List<String> bookTitles, Author tsEliot)
-    {
-      for (String bookTitle : bookTitles)
-      {
-          validatePersistenceOfBook(bookTitle, tsEliot);
-      }
-    }
+  }
 
-    public void saveBooksToPersistentStore(List<String> bookTitles, Author author)
-    {
-      for(String bookTitle : bookTitles)
-      {
-        saveBookToPersistentStore(bookTitle, author);
-      }
+  public void saveBookToPersistentStore(String bookTitle, Author author)
+  {
+    Book aBook = new Book(bookTitle);
 
-    }
+    aBook.addAnAuthor(author);
 
-    public void saveBookToPersistentStore(String bookTitle, Author author)
-    {
-        Book aBook = new Book(bookTitle);
+    bookRepository.save(aBook);
+  }
 
-        aBook.addAnAuthor(author);
+  public void validatePersistenceOfBook(String title, Author author)
+  {
+    Book persistentBook = bookRepository.findByTitle(title);
 
-        bookRepository.save(aBook);
-    }
+    Assertions.assertThat(persistentBook).isNotNull();
+    Assertions.assertThat(persistentBook.getTitle()).isEqualTo(title);
 
-    public void validatePersistenceOfBook(String title, Author author)
-    {
-        Book persistentBook = bookRepository.findByTitle(title);
+    Assertions.assertThat(persistentBook.getBookAuthors()).hasSize(1);
 
-        Assertions.assertThat(persistentBook).isNotNull();
-        Assertions.assertThat(persistentBook.getTitle()).isEqualTo(title);
+    Author persistentAuthor = persistentBook.getBookAuthors().get(0);
 
-        Assertions.assertThat(persistentBook.getBookAuthors()).hasSize(1);
-
-        Author persistentAuthor = persistentBook.getBookAuthors().get(0);
-
-        Assertions.assertThat(persistentAuthor.getAuthorName()).isEqualTo(author.getAuthorName());
-    }
+    Assertions.assertThat(persistentAuthor.getAuthorName()).isEqualTo(author.getAuthorName());
+  }
 }

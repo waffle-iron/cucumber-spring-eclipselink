@@ -100,15 +100,9 @@ I took advantage of this by creating a verbose-logging profile, which when enabl
 running the test cases with and without enabling the verbose-logging profile. I think that you will be interested to
 see the difference.
 
-**Future Goals**
+Using HikariCP connection pool's DataSource class rather than the Spring DiverManagerDataSource class.
 
-Make use of the Hikari Connection Pool
+**Future Goals**
 
 The JUnit version in use today is 4.11. JUnit 4.12 has been released, but there are reported issues between JUnit 4.12
 and Cucumber, so wait for the issues to be fixed before upgrading JUnit.
-
-Investigate the removal of @EnableLoadtimeWeaving annotations. I added them to support AspectJ enablement of dependency
-injection of the AuthorDelegate and the BookDelegate into the entities Author and Book. I couldn't get that to work, so
-the annotation ought to be removed.
-
-
