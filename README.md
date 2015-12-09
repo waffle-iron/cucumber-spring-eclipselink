@@ -21,6 +21,8 @@ There is a relish project site at **https://www.relishapp.com/zrgs-org/cucumber-
 
 The travis.ci site for this project is **https://travis-ci.org/andyglick/cucumber-spring-eclipselink**
 
+The dependencies registry site for the project is **https://www.versioneye.com/user/projects/5667bd13f376cc003d000f79**
+
 Found the beginnings of this example in the book Cucumber Recipes, you can find the book example at page 92 in
 chapter 2 Java. The original is Recipe 18 Drive a Spring + Hibernate Project.
 
