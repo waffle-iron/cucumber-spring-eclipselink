@@ -13,3 +13,4 @@ implmentation org.springframework.jdbc.datasource.DriverManagerDataSource with c
 rollbacks are supported, the database will be in a clean state after the tests run
 * Removed all @EnableLoadTimeWeaving annotations, they weren't being used
 * upgraded most plugins and dependencies
+* Added badge from versioneye.com which reports on the currentness of the project's dependencies
