@@ -18,6 +18,8 @@ as a Book will have one or more Authors, and an Author may contribute to zero or
 
 There is a relish project site at **https://www.relishapp.com/zrgs-org/cucumber-spring-and-eclipselink/docs**
 
+The travis.ci site for this project is **https://travis-ci.org/andyglick/cucumber-spring-eclipselink**
+
 Found the beginnings of this example in the book Cucumber Recipes, you can find the book example at page 92 in
 chapter 2 Java. The original is Recipe 18 Drive a Spring + Hibernate Project.
 
