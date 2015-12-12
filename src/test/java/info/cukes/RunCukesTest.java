@@ -14,7 +14,9 @@ import cucumber.api.junit.Cucumber;
  * @author glick
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(glue = {"info.cukes", "cucumber.api.spring"}, format = {"html:target/cucumber-html-report"})
+@CucumberOptions(glue = {"info.cukes", "cucumber.api.spring"},
+  plugin = {"pretty", "html:target/site/cucumber-pretty", "usage:target/cucumber-usage.json",
+  "json:target/cucumber.json"})
 @Transactional
 @EnableTransactionManagement
 public class RunCukesTest
