@@ -86,7 +86,7 @@ can be expected from it.
 
 **Cucumber integration with default Spring Test rollback behavior fixed**
 
-Before the cucumber 1.2.0 release evn when Cucumber tests loaded the spring-test jar the cucumber-spring integration
+Before the cucumber 1.2.0 release even when Cucumber tests loaded the spring-test jar, the cucumber-spring integration
 wasn't implementing the default contract for spring tests where the default behavior is to rollback database transactions
 that are created by the code under test.
 
@@ -110,8 +110,3 @@ running the test cases with and without enabling the verbose-logging profile. I 
 see the difference.
 
 Using HikariCP connection pool's DataSource class rather than the Spring DiverManagerDataSource class.
-
-**Future Goals**
-
-The JUnit version in use today is 4.11. JUnit 4.12 has been released, but there are reported issues between JUnit 4.12
-and Cucumber, so wait for the issues to be fixed before upgrading JUnit.
