@@ -252,9 +252,21 @@
         <groupId>net.masterthought</groupId>
         <artifactId>maven-cucumber-reporting</artifactId>
         <version>0.1.0</version>
-        <configuration>
-          <enableFlashCharts>true</enableFlashCharts>
-        </configuration>
+        <executions>
+          <execution>
+            <id>execution</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <projectName>cucumber-jvm-example</projectName>
+              <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
+              <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+              <enableFlashCharts>false</enableFlashCharts>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -513,6 +525,12 @@
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
       <version>${eclipselink.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.persistence</groupId>
+          <artifactId>javax.persistence</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
