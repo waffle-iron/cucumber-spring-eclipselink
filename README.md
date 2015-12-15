@@ -2,7 +2,6 @@
 [![Coverage Status](https://coveralls.io/repos/andyglick/cucumber-spring-eclipselink/badge.png)](https://coveralls.io/r/andyglick/cucumber-spring-eclipselink)
 [![Dependency Status](https://www.versioneye.com/user/projects/5667bd13f376cc003d000f79/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5667bd13f376cc003d000f79)
 [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/7280.svg)](https://scan.coverity.com/projects/andyglick-cucumber-spring-eclipselink)
-                    </a>
 Cucumber, Spring and Eclipselink with Spring Data JPA
 ====================================================
 
