@@ -15,8 +15,8 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(glue = {"info.cukes", "cucumber.api.spring"},
-  plugin = {"pretty", "html:target/site/cucumber-pretty", "usage:target/cucumber-usage.json",
-  "json:target/cucumber.json"})
+  plugin = {"pretty", "html:target/site/cucumber-pretty", "usage:target/cucumber-usage/cucumber-usage.json",
+  "json:target/cucumber/cucumber.json"})
 @Transactional
 @EnableTransactionManagement
 public class RunCukesTest

@@ -17,15 +17,14 @@
 
   <bean id="databaseDriverInstance" class="org.h2.Driver"/>
 
-  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+  <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close"
     p:driverClassName="${database.driver}"
     p:jdbcUrl="${database.url}"
     p:username="${database.user}"
     p:password="${database.password}"
     p:registerMbeans="true"/>
 
-  <!-- p:dataSourceClassName="${database.dataSource}" -->
-  <!-- p:driverClassName="${database.driver}" -->
+    <!--p:dataSourceClassName="${database.dataSource}"-->
 
   <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
      p:showSql="true"
