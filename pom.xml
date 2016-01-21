@@ -258,7 +258,7 @@
       <plugin>
         <groupId>net.masterthought</groupId>
         <artifactId>maven-cucumber-reporting</artifactId>
-        <version>0.1.1-a</version>
+        <version>0.1.0</version>
         <executions>
           <execution>
             <id>execution</id>
@@ -278,7 +278,7 @@
           <projectName>${cucumber.report.title}</projectName>
           <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
           <cucumberOutput>${project.build.directory}/cucumber</cucumberOutput>
-          <enableFlashCharts>false</enableFlashCharts>
+          <enableFlashCharts>true</enableFlashCharts>
         </configuration>
       </plugin>
 
