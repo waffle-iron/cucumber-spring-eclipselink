@@ -19,7 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * <p>CreateBooksTest test class.</p>
+ * <p>CreateBooksIT test class.</p>
  *
  * @author glick
  */
@@ -27,7 +27,7 @@ import javax.inject.Inject;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableTransactionManagement
-public class CreateBooksTest
+public class CreateBooksIT
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

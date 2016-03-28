@@ -1,6 +1,6 @@
-@txn
 Feature: Books
 
+  @txn @accepted @completed
   Scenario: Save books
 
     Given "Jeffrey Braxton" has contributed to the following titles:

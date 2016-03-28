@@ -1,6 +1,6 @@
-@txn
 Feature: Authors
 
+  @txn @accepted @completed
   Scenario: Store authors and a book
 
     Given "Andy Glick" and "Jim Laspada" are authors

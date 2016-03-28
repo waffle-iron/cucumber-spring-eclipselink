@@ -11,7 +11,7 @@
   http://www.springframework.org/schema/tx
   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-  <context:property-placeholder location="classpath:jdbc.properties"/>
+  <context:property-placeholder location="classpath:META-INF/dataSource.properties"/>
 
   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
@@ -24,7 +24,8 @@
     p:password="${database.password}"
     p:registerMbeans="true"/>
 
-    <!--p:dataSourceClassName="${database.dataSource}"-->
+    <!-- p:driverClassName="${database.driver}" -->
+    <!-- p:dataSourceClassName="${database.dataSourceClassName}" -->
 
   <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
      p:showSql="true"

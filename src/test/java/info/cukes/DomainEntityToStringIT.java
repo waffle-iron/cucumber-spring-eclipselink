@@ -11,13 +11,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.lang.invoke.MethodHandles;
 
 /**
- * <p>DomainEntityToStringTest test class.</p>
+ * <p>DomainEntityToStringIT test class.</p>
  *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class DomainEntityToStringTest
+public class DomainEntityToStringIT
 {
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

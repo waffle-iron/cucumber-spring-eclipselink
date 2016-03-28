@@ -19,14 +19,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * <p>QueryDSLTest test class.</p>
+ * <p>QueryDSLIT test class.</p>
  *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableTransactionManagement
-public class QueryDSLTest
+public class QueryDSLIT
 {
   @Inject
   AuthorDelegate authorDelegate;

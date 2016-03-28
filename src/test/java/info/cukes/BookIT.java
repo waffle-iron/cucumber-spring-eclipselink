@@ -9,11 +9,11 @@ import org.assertj.core.api.Assertions;
 import java.util.List;
 
 /**
- * <p>BookTest test class.</p>
+ * <p>BookIT test class.</p>
  *
  * @author glick
  */
-public class BookTest
+public class BookIT
 {
   Book book;
 

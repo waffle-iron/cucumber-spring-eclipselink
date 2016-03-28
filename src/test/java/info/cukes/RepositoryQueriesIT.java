@@ -16,7 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * <p>RepositoryQueriesTest test class.</p>
+ * <p>RepositoryQueriesIT test class.</p>
  *
  * @author glick
  */
@@ -25,7 +25,7 @@ import javax.inject.Inject;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @Transactional
 @EnableTransactionManagement
-public class RepositoryQueriesTest
+public class RepositoryQueriesIT
 {
   @Inject
   AuthorRepository authorRepository;
@@ -34,7 +34,7 @@ public class RepositoryQueriesTest
   BookRepository bookRepository;
 
   @Test
-  @Ignore
+  // @Ignore
   public void testFindByAuthorName()
   {
     List<String> authorNames = Arrays.asList("Andy Glick", "James La Spada");

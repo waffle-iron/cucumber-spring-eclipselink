@@ -10,13 +10,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.inject.Inject;
 
 /**
- * <p>DelegateInjectionTest test class.</p>
+ * <p>DelegateInjectionIT test class.</p>
  *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class DelegateInjectionTest
+public class DelegateInjectionIT
 {
   @Inject
   AuthorDelegate authorDelegate;

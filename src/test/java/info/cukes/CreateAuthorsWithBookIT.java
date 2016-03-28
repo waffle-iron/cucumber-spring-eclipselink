@@ -19,7 +19,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * <p>CreateAuthorsWithBookTest test class.</p>
+ * <p>CreateAuthorsWithBookIT test class.</p>
  *
  * @author glick
  */
@@ -28,7 +28,7 @@ import javax.inject.Inject;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @Transactional
 @EnableTransactionManagement
-public class CreateAuthorsWithBookTest
+public class CreateAuthorsWithBookIT
 {
   @Inject
   AuthorDelegate authorDelegate;

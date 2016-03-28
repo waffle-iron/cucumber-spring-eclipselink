@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * <p>AuthorTest test class.</p>
+ * <p>AuthorIT test class.</p>
  *
  * @author glick
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @EnableTransactionManagement
-public class AuthorTest
+public class AuthorIT
 {
   @Test
   @Transactional

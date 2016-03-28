@@ -41,7 +41,7 @@ public class AuthorDelegateImpl implements AuthorDelegate
   @Override
   public List<String> getListOfAuthorNames(List<Author> authorList)
   {
-    List<String> listOfAuthorNames = Lists.transform(authorList, new Function<Author, String>()
+    List<String> listOfAuthorNames = Lists.transform(authorList, new Function<Author, String>() // NOSONAR
     {
       @Override
       public String apply(Author author)
@@ -56,7 +56,7 @@ public class AuthorDelegateImpl implements AuthorDelegate
   @Override
   public List<Author> assignBookToAuthors(List<Author> authorList, final Book book)
   {
-    List<Author> transformedAuthors = Lists.transform(authorList, new Function<Author, Author>()
+    List<Author> transformedAuthors = Lists.transform(authorList, new Function<Author, Author>() // NOSONAR
     {
       @Override
       public Author apply(Author author)
@@ -113,7 +113,7 @@ public class AuthorDelegateImpl implements AuthorDelegate
     {
       result = false;
     }
-    else if (authorsOfThisBook.size() > 0)
+    else if (authorsOfThisBook.isEmpty())
     {
       List<String> namesOfAuthorsOfThisBook = getListOfAuthorNames(authorsOfThisBook);
       List<String> namesOfAuthorsOfThatBook = getListOfAuthorNames(authorsOfThatBook);
