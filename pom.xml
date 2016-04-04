@@ -27,6 +27,7 @@
   </prerequisites>
 
   <properties>
+    <buildNumber>1</buildNumber>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
     <aspectj.version>1.8.9</aspectj.version>
     <cucumber.jvm.version>1.2.4</cucumber.jvm.version>
@@ -35,7 +36,7 @@
     <guava.version>19.0</guava.version>
     <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
-    <logback.version>1.1.6</logback.version>
+    <logback.version>1.1.7</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -47,7 +48,7 @@
     <querydsl.version>3.7.2</querydsl.version>
     <spring.data.jpa.version>1.9.4.RELEASE</spring.data.jpa.version>
     <spring.version>4.2.5.RELEASE</spring.version>
-    <slf4j.version>1.7.19</slf4j.version>
+    <slf4j.version>1.7.20</slf4j.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
@@ -303,32 +304,27 @@
         </executions>
       </plugin>
 
-      <!--<plugin>-->
-        <!--<groupId>net.masterthought</groupId>-->
-        <!--<artifactId>maven-cucumber-reporting</artifactId>-->
-        <!--<version>2.0.0</version>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<id>execution</id>-->
-            <!--<phase>verify</phase>-->
-            <!--<goals>-->
-              <!--<goal>generate</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<projectName>${cucumber.report.title}</projectName>-->
-              <!--<outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>-->
-              <!--<cucumberOutput>${project.build.directory}/cucumber</cucumberOutput>-->
-              <!--<enableFlashCharts>true</enableFlashCharts>-->
-            <!--</configuration>-->
-          <!--</execution>-->
-        <!--</executions>-->
-        <!--<configuration>-->
-          <!--<projectName>${cucumber.report.title}</projectName>-->
-          <!--<outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>-->
-          <!--<cucumberOutput>${project.build.directory}/cucumber</cucumberOutput>-->
-          <!--<enableFlashCharts>true</enableFlashCharts>-->
-        <!--</configuration>-->
-      <!--</plugin>-->
+      <plugin>
+        <groupId>net.masterthought</groupId>
+        <artifactId>maven-cucumber-reporting</artifactId>
+        <version>2.0.0</version>
+        <executions>
+          <execution>
+            <id>execution</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <buildNumber>1</buildNumber>
+          <projectName>${cucumber.report.title}</projectName>
+          <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
+          <cucumberOutput>${project.build.directory}/cucumber</cucumberOutput>
+          <enableFlashCharts>true</enableFlashCharts>
+        </configuration>
+      </plugin>
 
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
@@ -812,7 +808,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.3.0</version>
+      <version>3.4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
