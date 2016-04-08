@@ -237,6 +237,18 @@
             <configuration>
               <rules>
                 <DependencyConvergence/>
+                <bannedDependencies>
+                  <excludes>
+                    <exclude>commons-logging</exclude>
+                    <!-- use slf4j -->
+                    <exclude>log4j</exclude>
+                    <!-- use slf4j -->
+                    <exclude>jdom:jdom</exclude>
+                    <!-- use org.jdom -->
+                    <exclude>org.apache.commons:commons-io</exclude>
+                    <!-- use commons-io:commons-io -->
+                  </excludes>
+                </bannedDependencies>
               </rules>
             </configuration>
           </execution>
