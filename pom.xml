@@ -27,6 +27,7 @@
   </prerequisites>
 
   <properties>
+    <arquillian.bom.version>1.1.11.Final</arquillian.bom.version>
     <buildNumber>1</buildNumber>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
     <aspectj.version>1.8.9</aspectj.version>
@@ -46,10 +47,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <querydsl.version>4.1.0</querydsl.version>
-    <spring.data.releasetrain>Hopper-SR1</spring.data.releasetrain>
-    <spring.data.jpa.version>1.10.0.RELEASE</spring.data.jpa.version>
-    <spring.version>4.2.5.RELEASE</spring.version>
+    <shrinkwrap.version>1.2.3</shrinkwrap.version>
     <slf4j.version>1.7.21</slf4j.version>
+    <spring.data.releasetrain.version>Hopper-SR1</spring.data.releasetrain.version>
+    <springframework.version>4.2.5.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
@@ -454,14 +455,33 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>${arquillian.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-artifact</artifactId>
         <version>${maven.artifact.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.shrinkwrap</groupId>
+        <artifactId>shrinkwrap-bom</artifactId>
+        <version>${shrinkwrap.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-releasetrain</artifactId>
-        <version>${spring.data.releasetrain}</version>
+        <version>${spring.data.releasetrain.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${springframework.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -827,7 +847,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aspects</artifactId>
-      <version>${spring.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.aspectj</groupId>
@@ -838,7 +857,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
-      <version>${spring.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -849,7 +867,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -860,17 +877,14 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
-      <version>${spring.version}</version>
     </dependency>
 
     <dependency>
@@ -900,7 +914,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
