@@ -31,7 +31,7 @@
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
     <aspectj.version>1.8.9</aspectj.version>
     <cucumber.jvm.version>1.2.4</cucumber.jvm.version>
-    <deltaspike.version>1.5.4</deltaspike.version>
+    <deltaspike.version>1.6.0</deltaspike.version>
     <eclipselink.version>2.6.2</eclipselink.version>
     <guava.version>19.0</guava.version>
     <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
@@ -46,13 +46,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <querydsl.version>3.7.2</querydsl.version>
-    <spring.data.jpa.version>1.9.4.RELEASE</spring.data.jpa.version>
+    <spring.data.jpa.version>1.10.0.RELEASE</spring.data.jpa.version>
     <spring.version>4.2.5.RELEASE</spring.version>
     <slf4j.version>1.7.21</slf4j.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
     <surefire.version>2.19.1</surefire.version>
+    <versioneye.project_id>5667bd13f376cc003d000f79</versioneye.project_id>
+    <versioneye.version>3.9.1</versioneye.version>
   </properties>
 
   <build>
@@ -73,6 +75,14 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>com.versioneye</groupId>
+          <artifactId>versioneye-maven-plugin</artifactId>
+          <version>${versioneye.version}</version>
+          <configuration>
+            <projectId>${versioneye.project_id}</projectId>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>chronos-surefire-maven-plugin</artifactId>
@@ -156,6 +166,10 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <groupId>com.versioneye</groupId>
+        <artifactId>versioneye-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>chronos-surefire-maven-plugin</artifactId>
@@ -435,6 +449,12 @@
   </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>com.versioneye</groupId>
+      <artifactId>versioneye-maven-plugin</artifactId>
+      <version>${versioneye.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.maven</groupId>
