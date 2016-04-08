@@ -45,7 +45,8 @@
     <owb.version>1.6.3</owb.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <querydsl.version>3.7.2</querydsl.version>
+    <querydsl.version>4.1.0</querydsl.version>
+    <spring.data.releasetrain>Hopper-SR1</spring.data.releasetrain>
     <spring.data.jpa.version>1.10.0.RELEASE</spring.data.jpa.version>
     <spring.version>4.2.5.RELEASE</spring.version>
     <slf4j.version>1.7.21</slf4j.version>
@@ -445,6 +446,13 @@
         <artifactId>maven-artifact</artifactId>
         <version>${maven.artifact.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-releasetrain</artifactId>
+        <version>${spring.data.releasetrain}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -454,11 +462,28 @@
       <groupId>com.versioneye</groupId>
       <artifactId>versioneye-maven-plugin</artifactId>
       <version>${versioneye.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-utils</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.enterprise</groupId>
+          <artifactId>cdi-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -466,6 +491,26 @@
       <artifactId>chronos-surefire-maven-plugin</artifactId>
       <version>1.1.0</version>
       <exclusions>
+        <exclusion>
+          <groupId>org.javassist</groupId>
+          <artifactId>javassist</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-model</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-settings</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-repository-metadata</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-interpolation</artifactId>
+        </exclusion>
         <exclusion>
           <groupId>org.apache.maven</groupId>
           <artifactId>maven-artifact</artifactId>
@@ -495,6 +540,11 @@
           <artifactId>maven-plugin-api</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
     </dependency>
 
     <dependency>
@@ -604,7 +654,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.mysema.querydsl</groupId>
+      <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
       <version>${querydsl.version}</version>
       <exclusions>
@@ -623,7 +673,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.mysema.querydsl</groupId>
+      <groupId>com.querydsl</groupId>
       <artifactId>querydsl-apt</artifactId>
       <version>${querydsl.version}</version>
       <classifier>jpa</classifier>
@@ -847,7 +897,6 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>${spring.data.jpa.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.aspectj</groupId>
