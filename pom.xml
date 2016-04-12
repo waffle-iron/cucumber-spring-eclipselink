@@ -28,10 +28,11 @@
 
   <properties>
     <arquillian.bom.version>1.1.11.Final</arquillian.bom.version>
-    <buildNumber>1</buildNumber>
-    <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
     <aspectj.version>1.8.9</aspectj.version>
+    <buildNumber>1</buildNumber>
+    <chronos.version>1.1.0</chronos.version>
     <cucumber.jvm.version>1.2.4</cucumber.jvm.version>
+    <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
     <deltaspike.version>1.6.0</deltaspike.version>
     <eclipselink.version>2.6.2</eclipselink.version>
     <guava.version>19.0</guava.version>
@@ -88,14 +89,24 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>chronos-surefire-maven-plugin</artifactId>
-          <version>1.1.0</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.apache.maven</groupId>
-              <artifactId>maven-artifact</artifactId>
-              <version>${maven.artifact.version}</version>
-            </dependency>
-          </dependencies>
+          <version>${chronos.version}</version>
+          <!--<dependencies>-->
+            <!--<dependency>-->
+              <!--<groupId>org.apache.maven</groupId>-->
+              <!--<artifactId>maven-artifact</artifactId>-->
+              <!--<version>${maven.artifact.version}</version>-->
+            <!--</dependency>-->
+          <!--</dependencies>-->
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>chronos-report-maven-plugin</artifactId>
+          <version>${chronos.version}</version>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>chronos-jmeter-maven-plugin</artifactId>
+            <version>${chronos.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -175,6 +186,14 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>chronos-surefire-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-report-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.jboss.tattletale</groupId>
@@ -413,7 +432,7 @@
           <plugin>
             <groupId>com.github.temyers</groupId>
             <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
             <executions>
               <execution>
                 <id>generateRunners</id>
@@ -458,6 +477,13 @@
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-bom</artifactId>
         <version>${arquillian.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.deltaspike.distribution</groupId>
+        <artifactId>distributions-bom</artifactId>
+        <version>${deltaspike.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -557,6 +583,10 @@
         </exclusion>
         <exclusion>
           <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-nop</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
           <artifactId>jul-to-slf4j</artifactId>
         </exclusion>
         <exclusion>
@@ -637,31 +667,25 @@
     <dependency>
       <groupId>org.apache.deltaspike.core</groupId>
       <artifactId>deltaspike-core-api</artifactId>
-      <version>${deltaspike.version}</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.deltaspike.core</groupId>
       <artifactId>deltaspike-core-impl</artifactId>
-      <version>${deltaspike.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.deltaspike.modules</groupId>
       <artifactId>deltaspike-test-control-module-api</artifactId>
-      <version>${deltaspike.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.deltaspike.modules</groupId>
       <artifactId>deltaspike-test-control-module-impl</artifactId>
-      <version>${deltaspike.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.deltaspike.cdictrl</groupId>
       <artifactId>deltaspike-cdictrl-api</artifactId>
-      <version>${deltaspike.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -669,6 +693,12 @@
       <artifactId>openwebbeans-impl</artifactId>
       <version>${owb.version}</version>
       <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-spi</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.openwebbeans</groupId>
@@ -908,7 +938,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.4.0</version>
+      <version>3.4.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
