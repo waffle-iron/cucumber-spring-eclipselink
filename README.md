@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/andyglick/cucumber-spring-eclipselink.png)](https://travis-ci.org/andyglick/cucumber-spring-eclipselink)
 [![Coverage Status](https://coveralls.io/repos/andyglick/cucumber-spring-eclipselink/badge.png)](https://coveralls.io/r/andyglick/cucumber-spring-eclipselink)
-[![Dependency Status](https://www.versioneye.com/user/projects/5667bd13f376cc003d000f79/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35)
+[![Dependency Status](https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35)
 [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/7280.svg)](https://scan.coverity.com/projects/andyglick-cucumber-spring-eclipselink)
 [ ![Codeship Status for andyglick/cucumber-spring-eclipselink](https://codeship.com/projects/cb03e2e0-851e-0133-3da7-7eac26a59959/status?branch=master)](https://codeship.com/projects/122178)
 Cucumber, Spring and Eclipselink with Spring Data JPA
