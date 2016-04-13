@@ -25,7 +25,7 @@ The travis.ci site for this project is **https://travis-ci.org/andyglick/cucumbe
 
 The coveralls site for the project is **https://coveralls.io/r/andyglick/cucumber-spring-eclipselink**
 
-The dependencies registry site for the project is **https://www.versioneye.com/user/projects/5667bd13f376cc003d000f79**
+The dependencies registry site for the project is **https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35**
 
 Found the beginnings of this example in the book Cucumber Recipes, you can find the book example at page 92 in
 chapter 2 Java. The original is Recipe 18 Drive a Spring + Hibernate Project.
