@@ -50,7 +50,7 @@
     <querydsl.version>4.1.0</querydsl.version>
     <shrinkwrap.version>1.2.3</shrinkwrap.version>
     <slf4j.version>1.7.21</slf4j.version>
-    <spring.data.releasetrain.version>Hopper-SR1</spring.data.releasetrain.version>
+    <spring.data.jpa.version>1.10.1.RELEASE</spring.data.jpa.version>
     <springframework.version>4.2.5.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
@@ -90,13 +90,6 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>chronos-surefire-maven-plugin</artifactId>
           <version>${chronos.version}</version>
-          <!--<dependencies>-->
-            <!--<dependency>-->
-              <!--<groupId>org.apache.maven</groupId>-->
-              <!--<artifactId>maven-artifact</artifactId>-->
-              <!--<version>${maven.artifact.version}</version>-->
-            <!--</dependency>-->
-          <!--</dependencies>-->
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -112,6 +105,11 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.5.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>2.5</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -179,6 +177,18 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>jxr</goal>
+              <goal>test-jxr</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.versioneye</groupId>
         <artifactId>versioneye-maven-plugin</artifactId>
@@ -405,6 +415,14 @@
         <artifactId>javancss-maven-plugin</artifactId>
         <version>2.1</version>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
     </plugins>
   </reporting>
 
@@ -496,13 +514,6 @@
         <groupId>org.jboss.shrinkwrap</groupId>
         <artifactId>shrinkwrap-bom</artifactId>
         <version>${shrinkwrap.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-releasetrain</artifactId>
-        <version>${spring.data.releasetrain.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
@@ -956,6 +967,7 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
+      <version>${spring.data.jpa.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.aspectj</groupId>
