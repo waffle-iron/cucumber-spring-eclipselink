@@ -33,11 +33,12 @@
     <chronos.version>1.1.0</chronos.version>
     <cucumber.jvm.version>1.2.4</cucumber.jvm.version>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
-    <deltaspike.version>1.6.0</deltaspike.version>
-    <eclipselink.version>2.6.2</eclipselink.version>
+    <deltaspike.version>1.6.1</deltaspike.version>
+    <eclipselink.version>2.6.3</eclipselink.version>
     <guava.version>19.0</guava.version>
     <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
+    <jdepend.plugin.version>2.0</jdepend.plugin.version>
     <logback.version>1.1.7</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
@@ -51,13 +52,13 @@
     <shrinkwrap.version>1.2.3</shrinkwrap.version>
     <slf4j.version>1.7.21</slf4j.version>
     <spring.data.jpa.version>1.10.1.RELEASE</spring.data.jpa.version>
-    <springframework.version>4.2.5.RELEASE</springframework.version>
+    <springframework.version>4.2.6.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
     <surefire.version>2.19.1</surefire.version>
     <versioneye.project_id>5667bd13f376cc003d000f79</versioneye.project_id>
-    <versioneye.version>3.9.1</versioneye.version>
+    <versioneye.version>3.9.2</versioneye.version>
   </properties>
 
   <build>
@@ -177,6 +178,11 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+        <version>${jdepend.plugin.version}</version>
+      </plugin>
       <plugin>
         <artifactId>maven-jxr-plugin</artifactId>
         <executions>
@@ -418,7 +424,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0</version>
+        <version>${jdepend.plugin.version}</version>
       </plugin>
       <plugin>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -731,6 +737,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.20.0-GA</version>
+    </dependency>
+    <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
       <version>${querydsl.version}</version>
@@ -758,6 +769,10 @@
         <exclusion>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.javassist</groupId>
+          <artifactId>javassist</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
