@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,7 +80,7 @@ public class RepositoryQueriesIT
   @Transactional
   public void testFindBookByTitle()
   {
-    List<String> authorNames = Arrays.asList("T. S. Eliot");
+    List<String> authorNames = Collections.singletonList("T. S. Eliot");
 
     saveAuthorsToPersistentStore(authorNames);
 
@@ -109,7 +110,6 @@ public class RepositoryQueriesIT
     {
       saveBookToPersistentStore(bookTitle, author);
     }
-
   }
 
   public void saveBookToPersistentStore(String bookTitle, Author author)

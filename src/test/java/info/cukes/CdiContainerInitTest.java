@@ -24,8 +24,7 @@ public class CdiContainerInitTest
 {
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  CdiContainer cdiContainer;
-  ContextControl contextControl;
+  private CdiContainer cdiContainer;
 
   @Before
   public void setUp()
@@ -35,7 +34,7 @@ public class CdiContainerInitTest
 
     Assertions.assertThat(cdiContainer.getContextControl()).isNotNull();
 
-    contextControl = cdiContainer.getContextControl();
+    ContextControl contextControl = cdiContainer.getContextControl();
 
     Assertions.assertThat(contextControl).isNotNull();
 

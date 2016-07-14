@@ -44,15 +44,15 @@ public class BookStepdefs
   @Inject
   private AuthorRepository authorRepository;
 
-  List<Author> authors = new ArrayList<>();
+  private List<Author> authors = new ArrayList<>();
 
-  List<String> bookTitles = null;
+  private List<String> bookTitles = null;
 
-  List<String> authorNames;
+  private List<String> authorNames;
 
-  int booksAdded = 0;
+  private int booksAdded = 0;
 
-  int authorsAdded = 0;
+  private int authorsAdded = 0;
 
   @Before
   public void beforeStepDefs(Scenario scenario)
@@ -83,11 +83,11 @@ public class BookStepdefs
 
     // authorRepository.save(anAuthor);
 
-    List<Author> authorList = new ArrayList<>();
+    authors = new ArrayList<>();
 
-    authorList.add(anAuthor);
+    authors.add(anAuthor);
 
-    authorNames = authorDelegate.getListOfAuthorNames(authorList);
+    authorNames = authorDelegate.getListOfAuthorNames(authors);
 
     for (Book book : books)
     {

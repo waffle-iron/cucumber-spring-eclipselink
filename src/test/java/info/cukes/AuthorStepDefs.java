@@ -41,9 +41,9 @@ public class AuthorStepDefs
   @Inject
   AuthorDelegate authorDelegate;
 
-  List<String> authorNames = new ArrayList<>();
+  private List<String> authorNames = new ArrayList<>();
 
-  List<Author> authorList = new ArrayList<>();
+  private List<Author> authorList = new ArrayList<>();
 
   private int authorsAdded;
   private int booksAdded;
