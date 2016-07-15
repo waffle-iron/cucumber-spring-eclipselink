@@ -62,7 +62,7 @@
     <surefire.useFile>false</surefire.useFile>
     <surefire.version>2.19.1</surefire.version>
     <versioneye.project_id>570d35bffcd19a0045440b35</versioneye.project_id>
-    <versioneye.version>3.9.2</versioneye.version>
+    <versioneye.version>3.10.0</versioneye.version>
   </properties>
 
   <build>
@@ -88,16 +88,16 @@
         <!--<artifactId>chronos-surefire-maven-plugin</artifactId>-->
         <!--<version>${chronos.version}</version>-->
         <!--</plugin>-->
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>chronos-report-maven-plugin</artifactId>
-          <version>${chronos.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>chronos-jmeter-maven-plugin</artifactId>
-          <version>${chronos.version}</version>
-        </plugin>
+        <!--<plugin>-->
+          <!--<groupId>org.codehaus.mojo</groupId>-->
+          <!--<artifactId>chronos-report-maven-plugin</artifactId>-->
+          <!--<version>${chronos.version}</version>-->
+        <!--</plugin>-->
+        <!--<plugin>-->
+          <!--<groupId>org.codehaus.mojo</groupId>-->
+          <!--<artifactId>chronos-jmeter-maven-plugin</artifactId>-->
+          <!--<version>${chronos.version}</version>-->
+        <!--</plugin>-->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -191,14 +191,14 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>chronos-report-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>chronos-jmeter-maven-plugin</artifactId>
-      </plugin>
+      <!--<plugin>-->
+        <!--<groupId>org.codehaus.mojo</groupId>-->
+        <!--<artifactId>chronos-report-maven-plugin</artifactId>-->
+      <!--</plugin>-->
+      <!--<plugin>-->
+        <!--<groupId>org.codehaus.mojo</groupId>-->
+        <!--<artifactId>chronos-jmeter-maven-plugin</artifactId>-->
+      <!--</plugin>-->
       <plugin>
         <groupId>org.jboss.tattletale</groupId>
         <artifactId>tattletale-maven</artifactId>
@@ -398,6 +398,11 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
         <version>2.1</version>
+      </plugin>
+      <plugin>
+        <groupId>com.versioneye</groupId>
+        <artifactId>versioneye-maven-plugin</artifactId>
+        <version>${versioneye.version}</version>
       </plugin>
     </plugins>
   </build>
