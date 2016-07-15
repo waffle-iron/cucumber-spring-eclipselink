@@ -84,9 +84,9 @@
     <pluginManagement>
       <plugins>
         <!--<plugin>-->
-          <!--<groupId>org.codehaus.mojo</groupId>-->
-          <!--<artifactId>chronos-surefire-maven-plugin</artifactId>-->
-          <!--<version>${chronos.version}</version>-->
+        <!--<groupId>org.codehaus.mojo</groupId>-->
+        <!--<artifactId>chronos-surefire-maven-plugin</artifactId>-->
+        <!--<version>${chronos.version}</version>-->
         <!--</plugin>-->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -94,9 +94,9 @@
           <version>${chronos.version}</version>
         </plugin>
         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>chronos-jmeter-maven-plugin</artifactId>
-            <version>${chronos.version}</version>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>chronos-jmeter-maven-plugin</artifactId>
+          <version>${chronos.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -483,25 +483,53 @@
     </profile>
   </profiles>
 
-  <!--
-[INFO]   org.jboss.shrinkwrap:shrinkwrap-depchain .............. 1.2.3 -> 1.2.6
-[INFO]   org.jboss.shrinkwrap:shrinkwrap-depchain-java7 ........ 1.2.3 -> 1.2.6
-[INFO]   org.jboss.shrinkwrap:shrinkwrap-impl-nio2 ............. 1.2.3 -> 1.2.6
-[INFO]   org.jboss.shrinkwrap.descriptors:shrinkwrap-descriptors-depchain ...
-[INFO]                                          2.0.0-alpha-8 -> 2.0.0-alpha-10
-[INFO]   org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-depchain ...
-[INFO]                                                           2.2.0 -> 2.2.2
-[INFO]   org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-gradle-depchain ...
-[INFO]                                                           2.2.0 -> 2.2.2
-[INFO]   org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-maven-plugin ...
-[INFO]                                                           2.2.0 -> 2.2.2
-  -->
   <dependencyManagement>
     <dependencies>
       <dependency>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>chronos-surefire-maven-plugin</artifactId>
-          <version>${chronos.version}</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-surefire-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
         <exclusions>
           <exclusion>
             <groupId>org.hibernate</groupId>
@@ -509,94 +537,48 @@
           </exclusion>
         </exclusions>
       </dependency>
+
       <dependency>
-        <groupId>org.jboss.arquillian</groupId>
-        <artifactId>arquillian-bom</artifactId>
-        <version>${arquillian.bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <groupId>org.jboss.arquillian.config</groupId>
+        <artifactId>arquillian-config-impl-base</artifactId>
+        <version>1.1.11.Final</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.deltaspike.distribution</groupId>
-        <artifactId>distributions-bom</artifactId>
+        <groupId>org.jboss.arquillian.config</groupId>
+        <artifactId>arquillian-config-spi</artifactId>
+        <version>1.1.11.Final</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.deltaspike.core</groupId>
+        <artifactId>deltaspike-core-api</artifactId>
         <version>${deltaspike.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>org.apache.deltaspike.core</groupId>
+        <artifactId>deltaspike-core-impl</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.deltaspike.modules</groupId>
+        <artifactId>deltaspike-test-control-module-api</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.deltaspike.modules</groupId>
+        <artifactId>deltaspike-test-control-module-impl</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.deltaspike.cdictrl</groupId>
+        <artifactId>deltaspike-cdictrl-api</artifactId>
+        <version>${deltaspike.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-artifact</artifactId>
         <version>${maven.artifact.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-bom</artifactId>
-        <version>${shrinkwrap.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-api</artifactId>
-        <version>${shrinkwrap.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-api-nio2</artifactId>
-        <version>${shrinkwrap.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-spi</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-      <groupId>org.jboss.shrinkwrap</groupId>
-      <artifactId>shrinkwrap-impl-nio2</artifactId>
-      <version>${shrinkwrap.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-depchain</artifactId>
-        <version>${shrinkwrap.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-depchain-java7</artifactId>
-        <version>${shrinkwrap.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-impl-base</artifactId>
-        <version>${shrinkwrap.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-spi</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap</groupId>
-        <artifactId>shrinkwrap-spi</artifactId>
-        <version>${shrinkwrap.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.shrinkwrap</groupId>
-            <artifactId>shrinkwrap-api</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
 
       <dependency>
@@ -655,73 +637,6 @@
         <version>${shrinkwrap.descriptors.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-api</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-api-gradle-embedded-archive</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-api-maven</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-api-maven-archive</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-depchain</artifactId>
-        <version>2.2.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-gradle-depchain</artifactId>
-        <version>2.2.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-impl-gradle-embedded-archive</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
-        <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.shrinkwrap.resolver</groupId>
-        <artifactId>shrinkwrap-resolver-maven-plugin</artifactId>
-        <version>2.2.2</version>
-      </dependency>
-      <dependency>
-      <groupId>org.jboss.shrinkwrap.resolver</groupId>
-      <artifactId>shrinkwrap-resolver-spi</artifactId>
-      <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-      <groupId>org.jboss.shrinkwrap.resolver</groupId>
-      <artifactId>shrinkwrap-resolver-spi-maven</artifactId>
-      <version>${shrinkwrap.resolver.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>${springframework.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>org.apache.openwebbeans</groupId>
         <artifactId>openwebbeans-impl</artifactId>
@@ -941,6 +856,18 @@
           <groupId>org.jboss.shrinkwrap</groupId>
           <artifactId>shrinkwrap-api</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.jboss.arquillian.config</groupId>
+          <artifactId>arquillian-config-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.arquillian.core</groupId>
+          <artifactId>arquillian-core-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jboss.arquillian.core</groupId>
+          <artifactId>arquillian-core-spi</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -1112,10 +1039,6 @@
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-core</artifactId>
         </exclusion>
-        <!--
-        [INFO] |  +- :log4j-api:jar:2.5:test
-[INFO] |  +- org.apache.logging.log4j:log4j-core:jar:2.5:test
-        -->
       </exclusions>
     </dependency>
 
