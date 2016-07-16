@@ -384,6 +384,9 @@
         <groupId>com.versioneye</groupId>
         <artifactId>versioneye-maven-plugin</artifactId>
         <version>${versioneye.version}</version>
+        <configuration>
+          <projectId>${versioneye.project_id}</projectId>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -430,7 +433,7 @@
           <plugin>
             <groupId>com.github.temyers</groupId>
             <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-            <version>1.2.1</version>
+            <version>1.3.0</version>
             <executions>
               <execution>
                 <id>generateRunners</id>
