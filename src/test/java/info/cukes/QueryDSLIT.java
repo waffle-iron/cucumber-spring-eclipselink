@@ -1,5 +1,6 @@
 package info.cukes;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -10,8 +11,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Iterables;
+import com.querydsl.codegen.ClassPathUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +31,12 @@ import javax.inject.Inject;
 @EnableTransactionManagement
 public class QueryDSLIT
 {
+  @BeforeClass
+  public static void onlyOnce() throws IOException
+  {
+    ClassPathUtils.scanPackage(Thread.currentThread().getContextClassLoader(), "info.cukes");
+  }
+
   @Inject
   AuthorDelegate authorDelegate;
 
