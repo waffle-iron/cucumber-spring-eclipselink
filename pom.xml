@@ -125,7 +125,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.3</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -246,14 +246,13 @@
             <DependencyConvergence/>
             <bannedDependencies>
               <excludes>
+                <!-- use slf4j -->
                 <exclude>commons-logging</exclude>
-                <!-- use slf4j -->
                 <exclude>log4j</exclude>
-                <!-- use slf4j -->
-                <exclude>jdom:jdom</exclude>
                 <!-- use org.jdom -->
-                <exclude>org.apache.commons:commons-io</exclude>
+                <exclude>jdom:jdom</exclude>
                 <!-- use commons-io:commons-io -->
+                <exclude>org.apache.commons:commons-io</exclude>
               </excludes>
             </bannedDependencies>
           </rules>
