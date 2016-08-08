@@ -695,6 +695,25 @@
       </dependency>
 
       <dependency>
+        <groupId>io.magentys</groupId>
+        <artifactId>cherry</artifactId>
+        <version>1.0.7</version>
+      </dependency>
+
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>2.9.4</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>2.4.7</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
         <version>${slf4j.version}</version>
@@ -727,7 +746,6 @@
     <dependency>
       <groupId>io.magentys</groupId>
       <artifactId>cherry</artifactId>
-      <version>1.0.7</version>
     </dependency>
     <dependency>
       <groupId>io.magentys</groupId>
@@ -744,8 +762,6 @@
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
-      <version>2.4.7</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -791,7 +807,6 @@
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.9.4</version>
     </dependency>
 
     <dependency>
