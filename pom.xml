@@ -723,6 +723,31 @@
   </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>io.magentys</groupId>
+      <artifactId>cherry</artifactId>
+      <version>1.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>io.magentys</groupId>
+      <artifactId>cherry-junit</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>1.1-groovy-2.4-rc-1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>2.4.7</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.jboss.arquillian.config</groupId>
       <artifactId>arquillian-config-impl-base</artifactId>
