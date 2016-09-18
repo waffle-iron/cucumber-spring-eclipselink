@@ -1,28 +1,29 @@
 package info.cukes;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
+
 /**
  * <p>BookDelegateImpl class.</p>
  *
  * @author glick
  */
+@SuppressWarnings("SpringAutowiredFieldsWarningInspection")
 @ApplicationScoped
 public class BookDelegateImpl implements BookDelegate
 {
   @SuppressWarnings("UnusedDeclaration")
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
   AuthorDelegate authorDelegate;
 
@@ -41,14 +42,7 @@ public class BookDelegateImpl implements BookDelegate
   @Override
   public List<String> getListOfTitles(List<Book> bookList)
   {
-    List<String> titlesOfBooks = Lists.transform(bookList, new Function<Book, String>()
-    {
-      @Override
-      public String apply(Book book)
-      {
-        return book.getTitle();
-      }
-    });
+    List<String> titlesOfBooks = Lists.transform(bookList, Book::getTitle);
 
     return titlesOfBooks;
   }

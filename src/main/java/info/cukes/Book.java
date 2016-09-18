@@ -36,7 +36,7 @@ import java.util.List;
  *  injectors don't have access to those classes. I'm not sure what the secret sauce needs to be. once again
  *  things militate on the side of the anemic domain model spooge
  */
-@SuppressWarnings("JpaDataSourceORMInspection")
+@SuppressWarnings({"JpaDataSourceORMInspection", "WeakerAccess", "DefaultAnnotationParam"})
 @Entity
 @TableGenerator(name="book",
   table="sequences",
@@ -139,6 +139,16 @@ public class Book
   public Long getBook()
   {
     return book;
+  }
+
+  /**
+   * <p>determines if this author is an author of the book</p>
+   * @param author the potential author
+   * @return boolean was this an author of this book
+   */
+  public boolean hasAsAuthor(Author author)
+  {
+    return getBookAuthors().contains(author);
   }
 
   /** {@inheritDoc} */

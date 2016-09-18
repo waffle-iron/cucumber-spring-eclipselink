@@ -1,16 +1,15 @@
 package info.cukes;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
 
 /**
  * <p>AuthorDelegateImpl class.</p>
@@ -23,6 +22,7 @@ public class AuthorDelegateImpl implements AuthorDelegate
   @SuppressWarnings("UnusedDeclaration")
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
   @Inject
   BookDelegate bookDelegate;
 
@@ -41,14 +41,7 @@ public class AuthorDelegateImpl implements AuthorDelegate
   @Override
   public List<String> getListOfAuthorNames(List<Author> authorList)
   {
-    List<String> listOfAuthorNames = Lists.transform(authorList, new Function<Author, String>() // NOSONAR
-    {
-      @Override
-      public String apply(Author author)
-      {
-        return author.getAuthorName();
-      }
-    });
+    List<String> listOfAuthorNames = Lists.transform(authorList, Author::getAuthorName);
 
     return listOfAuthorNames;
   }
@@ -56,17 +49,14 @@ public class AuthorDelegateImpl implements AuthorDelegate
   @Override
   public List<Author> assignBookToAuthors(List<Author> authorList, final Book book)
   {
-    List<Author> transformedAuthors = Lists.transform(authorList, new Function<Author, Author>() // NOSONAR
+    List<Author> transformedAuthors = Lists.transform(authorList, author ->
     {
-      @Override
-      public Author apply(Author author)
-      {
-        author.addAuthoredBook(book);
+      assert author != null;
+      author.addAuthoredBook(book);
 
-        book.addAnAuthor(author);
+      book.addAnAuthor(author);
 
-        return author;
-      }
+      return author;
     });
 
     return transformedAuthors;
@@ -111,9 +101,10 @@ public class AuthorDelegateImpl implements AuthorDelegate
 
     if (authorsOfThisBook.size() != authorsOfThatBook.size())
     {
-      result = false;
+      return false;
     }
-    else if (authorsOfThisBook.isEmpty())
+
+    if (authorsOfThisBook.isEmpty())
     {
       List<String> namesOfAuthorsOfThisBook = getListOfAuthorNames(authorsOfThisBook);
       List<String> namesOfAuthorsOfThatBook = getListOfAuthorNames(authorsOfThatBook);

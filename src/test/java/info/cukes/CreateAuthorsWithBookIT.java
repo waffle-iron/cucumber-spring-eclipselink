@@ -1,22 +1,23 @@
 package info.cukes;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import org.assertj.core.api.Assertions;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>CreateAuthorsWithBookIT test class.</p>
@@ -39,9 +40,7 @@ public class CreateAuthorsWithBookIT
   @Inject
   AuthorRepository authorRepository;
 
-  Book authoredBook;
-
-  List<Author> expectedAuthorList = new ArrayList<>();
+  private List<Author> expectedAuthorList = new ArrayList<>();
 
   @Before
   public void setUp()
@@ -60,19 +59,19 @@ public class CreateAuthorsWithBookIT
   @Test
   public void testCreateAuthorsEachWithOneBook()
   {
-    createAuthorsWithABook();
+    createAbookWithMultipleAuthors();
 
     List<Author> persistentAuthors = authorRepository.findAll();
 
-    Assertions.assertThat(persistentAuthors).isNotNull();
-    Assertions.assertThat(persistentAuthors).hasSize(2);
+    assertThat(persistentAuthors).isNotNull();
+    assertThat(persistentAuthors).hasSize(2);
 
     Book persistentBook = bookRepository.findByTitle("Spring in Action");
 
-    Assertions.assertThat(persistentBook).isNotNull();
-    Assertions.assertThat(persistentBook.getTitle()).isEqualTo("Spring in Action");
+    assertThat(persistentBook).isNotNull();
+    assertThat(persistentBook.getTitle()).isEqualTo("Spring in Action");
 
-    Assertions.assertThat(persistentAuthors).hasSize(2);
+    assertThat(persistentAuthors).hasSize(2);
 
     Assert.assertEquals(2, persistentAuthors.size());
 
@@ -80,28 +79,28 @@ public class CreateAuthorsWithBookIT
 
     List<String> expectedAuthorNameList = authorDelegate.getListOfAuthorNames(expectedAuthorList);
 
-    Assertions.assertThat(persistentAuthorNameList).hasSameSizeAs(persistentAuthors);
+    assertThat(persistentAuthorNameList).hasSameSizeAs(persistentAuthors);
 
-    Assertions.assertThat(persistentAuthorNameList).hasSameSizeAs(expectedAuthorNameList);
+    assertThat(persistentAuthorNameList).hasSameSizeAs(expectedAuthorNameList);
 
-    Assertions.assertThat(expectedAuthorNameList).containsAll(persistentAuthorNameList);
+    assertThat(expectedAuthorNameList).containsAll(persistentAuthorNameList);
 
-    Assertions.assertThat(expectedAuthorNameList).containsAll(persistentAuthorNameList);
+    assertThat(expectedAuthorNameList).containsAll(persistentAuthorNameList);
 
     for (Author author : persistentAuthors)
     {
-      Assertions.assertThat(author.getAuthoredBooks()).hasSize(1);
-      Assertions.assertThat(author.getAuthoredBooks()).contains(persistentBook);
+      assertThat(author.getAuthoredBooks()).hasSize(1);
+      assertThat(author.hasAuthoredBook(persistentBook));
     }
   }
 
-  public void createAuthorsWithABook()
+  public void createAbookWithMultipleAuthors()
   {
     Author andyGlick = new Author("Andy Glick");
 
     Author jimLaSpada = new Author("Jim La Spada");
 
-    authoredBook = new Book("Spring in Action");
+    Book authoredBook = new Book("Spring in Action");
 
     authoredBook.addAnAuthor(andyGlick);
     authoredBook.addAnAuthor(jimLaSpada);
@@ -109,7 +108,9 @@ public class CreateAuthorsWithBookIT
     andyGlick.addAuthoredBook(authoredBook);
     jimLaSpada.addAuthoredBook(authoredBook);
 
-    authorRepository.save(Arrays.asList(andyGlick, jimLaSpada));
+    List<Author> authors = Arrays.asList(andyGlick, jimLaSpada);
+
+    authorRepository.save(authors);
 
     expectedAuthorList.add(andyGlick);
     expectedAuthorList.add(jimLaSpada);

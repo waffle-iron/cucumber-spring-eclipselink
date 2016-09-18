@@ -9,3 +9,7 @@ target/
 *.log
 
 atlassian*.xml
+
+cse.tgz
+cov-int/
+chronostimerdb/

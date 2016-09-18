@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DelegateConfiguration
 {
-  AuthorDelegate authorDelegate = new AuthorDelegateImpl();
-  BookDelegate bookDelegate = new BookDelegateImpl();
+  private AuthorDelegate authorDelegate = new AuthorDelegateImpl();
+  private BookDelegate bookDelegate = new BookDelegateImpl();
 
   @Bean
   public AuthorDelegate getAuthorDelegate()

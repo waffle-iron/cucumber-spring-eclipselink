@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * <p>AuthorStepDefs cucumber glue class.</p>
  *
@@ -62,7 +64,7 @@ public class AuthorStepDefs
    *
    * @param firstAuthorName  author name
    * @param secondAuthorName author name
-   * @throws Throwable
+   * @throws Throwable an error or an exception may occur @ToDo what can throw the throwable
    */
   @Given("^\"(.*?)\" and \"(.*?)\" are authors$")
   public void and_are_authors(String firstAuthorName, String secondAuthorName) throws Throwable
@@ -88,7 +90,7 @@ public class AuthorStepDefs
    * spring/eclipselink dirty checking will cause the authors to be updated
    *
    * @param bookTitle the book title
-   * @throws Throwable
+   * @throws Throwable Cucumber steps may throw a Throwable
    */
   @When("^they write a book entitled \"(.*?)\"$")
   public void they_write_a_book_entitled(String bookTitle) throws Throwable
@@ -108,22 +110,27 @@ public class AuthorStepDefs
   {
     List<Author> persistentAuthors = authorRepository.findAll();
 
-    Assertions.assertThat(persistentAuthors).hasSize(authorsAdded);
+    assertThat(persistentAuthors).hasSize(authorsAdded);
 
     List<Book> books = bookRepository.findAll();
 
-    Assertions.assertThat(books).hasSize(booksAdded);
+    assertThat(books).hasSize(booksAdded);
 
     for (Author author : persistentAuthors)
     {
-      Assertions.assertThat(authorNames).contains(author.getAuthorName());
+      assertThat(authorNames).contains(author.getAuthorName());
 
-      Assertions.assertThat(books).containsAll(author.getAuthoredBooks());
+      assertThat(books).containsAll(author.getAuthoredBooks());
 
-      for (Book book : books)
-      {
-        Assertions.assertThat(book.getBookAuthors()).contains(author);
-      }
+      validate_author_has_authored_books(author, books);
+    }
+  }
+
+  private void validate_author_has_authored_books(Author author, List<Book> books)
+  {
+    for (Book book : books)
+    {
+      assertThat(book.hasAsAuthor(author));
     }
   }
 }

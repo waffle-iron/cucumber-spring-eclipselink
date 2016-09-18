@@ -1,6 +1,7 @@
 package info.cukes;
 
-import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.CascadeType;
@@ -15,15 +16,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * <p>Author class.</p>
  *
  * @author glick
  */
-@SuppressWarnings("JpaDataSourceORMInspection")
+@SuppressWarnings({"JpaDataSourceORMInspection", "DefaultAnnotationParam"})
 @Entity
 @Table(name = "author")
 @TableGenerator(name="author",
@@ -52,7 +53,7 @@ public class Author
  *  things militate on the side of the anemic domain model spooge
  */
   @Transient
-  BookDelegate bookDelegate;
+  private BookDelegate bookDelegate;
 
   @SuppressWarnings("UnusedDeclaration")
   @Id
@@ -129,6 +130,7 @@ public class Author
    *
    * @param book a {@link info.cukes.Book} object.
    */
+  @SuppressWarnings("WeakerAccess")
   public void addAuthoredBook(Book book)
   {
     booksAuthored.add(book);
@@ -139,11 +141,18 @@ public class Author
    *
    * @return a {@link java.util.List} object.
    */
+  @SuppressWarnings("WeakerAccess")
   public List<Book> getAuthoredBooks()
   {
     List<Book> immutableListOfBooksAuthored = ImmutableList.copyOf(booksAuthored);
 
     return immutableListOfBooksAuthored;
+  }
+
+  @SuppressWarnings("WeakerAccess")
+  public boolean hasAuthoredBook(Book aBook)
+  {
+    return booksAuthored.contains(aBook);
   }
 
   /** {@inheritDoc} */
