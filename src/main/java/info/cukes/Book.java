@@ -1,5 +1,7 @@
 package info.cukes;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.google.common.collect.ImmutableList;
 
 import javax.enterprise.inject.Vetoed;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,12 +60,15 @@ public class Book
   @Id
   @GeneratedValue(generator = "book")
   @Column(name= "book")
+  @NotNull
   private Long book;
 
   @Column(name = "title", nullable = false)
+  @NotEmpty
   private String title;
 
   @ManyToMany(mappedBy = "booksAuthored", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @NotEmpty
   private List<Author> bookAuthors = new ArrayList<>();
 
   /**

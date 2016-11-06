@@ -16,6 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.google.common.collect.ImmutableList;
 
@@ -59,15 +62,18 @@ public class Author
   @Id
   @GeneratedValue(generator = "author")
   @Column(name = "author")
+  @NotNull
   private Long author;
 
   @Column(name = "authorName", nullable = false)
+  @NotEmpty
   private String authorName;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(name = "book_authors",
     joinColumns = @JoinColumn(name = "author"),
     inverseJoinColumns = @JoinColumn(name="book"))
+  @NotEmpty
   private List<Book> booksAuthored = new ArrayList<>();
 
   /**
