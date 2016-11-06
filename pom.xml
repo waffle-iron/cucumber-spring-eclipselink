@@ -43,6 +43,7 @@
     <eclipselink.version>2.6.4</eclipselink.version>
     <guava.version>20.0</guava.version>
     <hibernate.validator.version>5.3.1.Final</hibernate.validator.version>
+    <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
     <jooq.version>3.8.5</jooq.version>
@@ -90,7 +91,7 @@
       <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
+          <version>3.6.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-jxr-plugin</artifactId>
@@ -423,17 +424,28 @@
             <groupId>org.jboss.tattletale</groupId>
             <artifactId>tattletale-maven</artifactId>
             <version>1.2.0.Beta2</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
+              </dependency>
+            </dependencies>
             <configuration>
-              <source>target</source>
-              <destination>target/tattletale-report</destination>
+              <source>${basedir}/target/cucumber-spring-and-eclipselink-1.0.3-SNAPSHOT.jar</source>
+              <destination>${basedir}/target/tattletale-report</destination>
             </configuration>
             <executions>
               <execution>
                 <id>tattletale-report</id>
-                <phase>package</phase>
+                <phase>verify</phase>
                 <goals>
                   <goal>report</goal>
                 </goals>
+                <configuration>
+                  <source>${basedir}/target/cucumber-spring-and-eclipselink-1.0.3-SNAPSHOT.jar</source>
+                  <destination>${basedir}/target/tattletale-report</destination>
+                </configuration>
               </execution>
             </executions>
           </plugin>
