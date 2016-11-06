@@ -39,14 +39,14 @@
     <chronos.version>1.1.1</chronos.version>
     <cucumber.jvm.version>1.2.5</cucumber.jvm.version>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
-    <deltaspike.version>1.7.1</deltaspike.version>
+    <deltaspike.version>1.7.2</deltaspike.version>
     <eclipselink.version>2.6.4</eclipselink.version>
     <guava.version>20.0</guava.version>
     <hibernate.validator.version>5.3.1.Final</hibernate.validator.version>
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
-    <jooq.version>3.8.5</jooq.version>
+    <jooq.version>3.8.6</jooq.version>
     <logback.version>1.1.7</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
@@ -61,7 +61,7 @@
     <shrinkwrap.resolver.version>2.2.2</shrinkwrap.resolver.version>
     <shrinkwrap.version>1.2.6</shrinkwrap.version>
     <slf4j.version>1.7.21</slf4j.version>
-    <spring.data.jpa.version>1.10.4.RELEASE</spring.data.jpa.version>
+    <spring.data.jpa.version>1.10.5.RELEASE</spring.data.jpa.version>
     <springframework.version>4.3.3.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
@@ -792,7 +792,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.9.4</version>
+        <version>2.9.5</version>
       </dependency>
 
       <dependency>
@@ -857,7 +857,7 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>1.1-groovy-2.4-rc-2</version>
+      <version>1.1-groovy-2.4-rc-3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -1001,7 +1001,7 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.192</version>
+      <version>1.4.193</version>
     </dependency>
 
     <dependency>
@@ -1086,7 +1086,7 @@
     <dependency>
       <groupId>net.masterthought</groupId>
       <artifactId>cucumber-reporting</artifactId>
-      <version>3.1.0</version>
+      <version>3.2.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
