@@ -18,6 +18,9 @@
 
   <jpa:repositories base-package="info.cukes"/>
 
+  <!--<jpa:repositories base-package="info.cukes"
+    factory-class="org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean" />-->
+
   <import resource="persistenceContext.xml"/>
 
 </beans>

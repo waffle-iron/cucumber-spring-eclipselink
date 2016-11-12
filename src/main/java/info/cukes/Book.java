@@ -171,10 +171,10 @@ public class Book
       return false;
     }
 
-    Book book = (Book) o;
+    Book bookObject = (Book) o;
 
-    return title.equals(book.title)
-      && authorDelegate.compareAuthorLists(getBookAuthors(), book.getBookAuthors());
+    return title.equals(bookObject.title)
+      && authorDelegate.compareAuthorLists(getBookAuthors(), bookObject.getBookAuthors());
   }
 
   /** {@inheritDoc} */

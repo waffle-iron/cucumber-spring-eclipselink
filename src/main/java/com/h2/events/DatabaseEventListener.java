@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class DatabaseEventListener implements org.h2.api.DatabaseEventListener {
 
-    private static final transient Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
     public void init(String url) {

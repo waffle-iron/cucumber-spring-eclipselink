@@ -90,7 +90,7 @@ public class CreateAuthorsWithBookIT
     for (Author author : persistentAuthors)
     {
       assertThat(author.getAuthoredBooks()).hasSize(1);
-      assertThat(author.hasAuthoredBook(persistentBook));
+      assertThat(author.hasAuthoredBook(persistentBook)).isTrue();
     }
   }
 

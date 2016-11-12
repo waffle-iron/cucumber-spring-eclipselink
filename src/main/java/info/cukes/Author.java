@@ -174,9 +174,9 @@ public class Author
       return false;
     }
 
-    Author author = (Author) o;
+    Author compareToAuthor = (Author) o;
 
-    return authorName.equals(author.authorName);
+    return authorName.equals(compareToAuthor.authorName);
   }
 
   /** {@inheritDoc} */

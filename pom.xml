@@ -509,12 +509,6 @@
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
           <version>${logback.version}</version>
-          <exclusions>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-            </exclusion>
-          </exclusions>
         </dependency>
       </dependencies>
     </profile>
@@ -791,12 +785,6 @@
         <artifactId>openwebbeans-impl</artifactId>
         <version>${openwebbeans.version}</version>
         <scope>runtime</scope>
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.openwebbeans</groupId>
-            <artifactId>openwebbeans-spi</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.openwebbeans</groupId>
@@ -1065,18 +1053,6 @@
           <groupId>org.jboss.shrinkwrap</groupId>
           <artifactId>shrinkwrap-api</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>org.jboss.arquillian.config</groupId>
-          <artifactId>arquillian-config-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.arquillian.core</groupId>
-          <artifactId>arquillian-core-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.jboss.arquillian.core</groupId>
-          <artifactId>arquillian-core-spi</artifactId>
-        </exclusion>
       </exclusions>
     </dependency>
 
@@ -1308,7 +1284,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-envers</artifactId>
       <version>${spring.data.envers.version}</version>
@@ -1318,7 +1294,7 @@
           <artifactId>jboss-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>org.springframework.data</groupId>

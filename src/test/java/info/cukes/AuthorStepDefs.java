@@ -1,6 +1,13 @@
 package info.cukes;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,14 +19,6 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * <p>AuthorStepDefs cucumber glue class.</p>
@@ -130,7 +129,7 @@ public class AuthorStepDefs
   {
     for (Book book : books)
     {
-      assertThat(book.hasAsAuthor(author));
+      assertThat(book.hasAsAuthor(author)).isTrue();
     }
   }
 }
