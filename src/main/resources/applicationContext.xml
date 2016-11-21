@@ -16,6 +16,8 @@
 
   <context:component-scan base-package="info.cukes"/>
 
+  <!--<context:load-time-weaver/>-->
+
   <jpa:repositories base-package="info.cukes"/>
 
   <!--<jpa:repositories base-package="info.cukes"
