@@ -40,9 +40,10 @@
     <chronos.version>1.1.1</chronos.version>
     <cucumber.jvm.version>1.2.5</cucumber.jvm.version>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
+    <cucumber.reporting.version>3.3.0</cucumber.reporting.version>
     <deltaspike.version>1.7.2</deltaspike.version>
     <eclipselink.version>2.6.4</eclipselink.version>
-    <errorprone.compiler.version>2.0.14</errorprone.compiler.version>
+    <errorprone.compiler.version>2.0.15</errorprone.compiler.version>
     <guava.version>20.0</guava.version>
     <hibernate.validator.version>5.3.3.Final</hibernate.validator.version>
     <javassist.version>3.22.0-CR1</javassist.version>
@@ -305,6 +306,8 @@
         <version>0.7.7.201606060606</version>
         <executions>
           <execution>
+            <id>prepare</id>
+            <phase>process-test-classes</phase>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
@@ -345,7 +348,7 @@
           <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
-            <version>3.2.0</version>
+            <version>${cucumber.reporting.version}</version>
             <exclusions>
               <exclusion>
                 <groupId>org.apache.logging.log4j</groupId>
@@ -467,8 +470,19 @@
               <dependencies>
                 <dependency>
                   <groupId>com.google.errorprone</groupId>
+                  <artifactId>error_prone_annotations</artifactId>
+                  <version>${errorprone.compiler.version}</version>
+                </dependency>
+                <dependency>
+                  <groupId>com.google.errorprone</groupId>
                   <artifactId>error_prone_core</artifactId>
                   <version>${errorprone.compiler.version}</version>
+                  <exclusions>
+                    <exclusion>
+                      <groupId>com.google.errorprone</groupId>
+                      <artifactId>error_prone_annotations</artifactId>
+                    </exclusion>
+                  </exclusions>
                 </dependency>
 
                 <dependency>
@@ -917,8 +931,13 @@
       <groupId>com.google.errorprone</groupId>
       <artifactId>error_prone_core</artifactId>
       <version>${errorprone.compiler.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.errorprone</groupId>
+          <artifactId>error_prone_annotations</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-compiler-javac-errorprone</artifactId>
@@ -1204,7 +1223,7 @@
     <dependency>
       <groupId>net.masterthought</groupId>
       <artifactId>cucumber-reporting</artifactId>
-      <version>3.2.0</version>
+      <version>${cucumber.reporting.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
