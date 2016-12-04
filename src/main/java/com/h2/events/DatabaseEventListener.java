@@ -9,6 +9,7 @@ import java.sql.SQLException;
 /**
  * @author glick
  */
+@SuppressWarnings("unused")
 public class DatabaseEventListener implements org.h2.api.DatabaseEventListener {
 
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
