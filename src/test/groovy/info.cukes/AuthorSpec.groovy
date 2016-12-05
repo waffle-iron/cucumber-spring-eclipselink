@@ -39,7 +39,8 @@ class AuthorSpec extends Specification {
 
     when: "clapton is compared to clapton2 "
 
-    then: "the 2 author pass the equals test -- groovy/spock don't recognize them as diffewrent objects as Java would have"
+    then: "the 2 author pass the equals test -- groovy/spock don't recognize them as different objects using == as Java would"
+    clapton == clapton2
     clapton.equals(clapton2)
     clapton2.equals(clapton)
   }

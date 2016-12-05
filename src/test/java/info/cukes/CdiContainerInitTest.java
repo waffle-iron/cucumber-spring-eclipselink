@@ -7,13 +7,15 @@ import org.junit.Test;
 import org.apache.deltaspike.cdise.api.CdiContainer;
 import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
-import org.assertj.core.api.Assertions;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 
 import javax.enterprise.context.ApplicationScoped;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * <p>CdiContainerInitTest test class.</p>
@@ -32,11 +34,11 @@ public class CdiContainerInitTest
     cdiContainer = CdiContainerLoader.getCdiContainer();
     cdiContainer.boot();
 
-    Assertions.assertThat(cdiContainer.getContextControl()).isNotNull();
+    assertThat(cdiContainer.getContextControl()).isNotNull();
 
     ContextControl contextControl = cdiContainer.getContextControl();
 
-    Assertions.assertThat(contextControl).isNotNull();
+    assertThat(contextControl).isNotNull();
 
     LOGGER.info("contextControl is " + contextControl);
 

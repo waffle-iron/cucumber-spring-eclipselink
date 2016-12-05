@@ -250,11 +250,13 @@
           <rules>
             <DependencyConvergence/>
             <bannedDependencies>
+              <searchTransitive>true</searchTransitive>
               <excludes>
                 <!-- use slf4j -->
                 <exclude>commons-logging</exclude>
                 <exclude>log4j</exclude>
                 <exclude>log4j:log4j</exclude>
+                <exclude>slf4j-to-log4j</exclude>
                 <!-- use org.jdom -->
                 <exclude>jdom:jdom</exclude>
                 <!-- use commons-io:commons-io -->
@@ -265,6 +267,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <!-- ToDo figure out how to configure the updateimpact plugin -->
         <groupId>com.updateimpact</groupId>
         <artifactId>updateimpact-maven-plugin</artifactId>
         <version>1.0.12</version>
@@ -277,17 +280,17 @@
         <executions>
           <execution>
             <id>test-reports</id>
+            <phase>prepare-package</phase>
             <goals>
               <goal>report-only</goal>
             </goals>
-            <phase>prepare-package</phase>
           </execution>
           <execution>
             <id>integration-test-reports</id>
+            <phase>post-integration-test</phase>
             <goals>
               <goal>failsafe-report-only</goal>
             </goals>
-            <phase>post-integration-test</phase>
           </execution>
         </executions>
       </plugin>
@@ -573,6 +576,46 @@
           <version>${logback.version}</version>
         </dependency>
       </dependencies>
+    </profile>
+    <profile>
+      <id>duplicate-finder</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.basepom.maven</groupId>
+            <artifactId>duplicate-finder-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <configuration>
+              <exceptions>
+                <exception>
+                  <conflictingDependencies>
+                    <dependency>
+                      <groupId>io.magentys</groupId>
+                      <artifactId>cherry-junit</artifactId>
+                    </dependency>
+                    <dependency>
+                      <groupId>io.magentys</groupId>
+                      <artifactId>cherry</artifactId>
+                    </dependency>
+                  </conflictingDependencies>
+                  <classes>
+                    <class>io.magentys.AgentVerifier</class>
+                  </classes>
+                </exception>
+              </exceptions>
+            </configuration>
+            <executions>
+              <execution>
+                <id>find-duplicates</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>cucumber-jvm-parallel</id>
@@ -1083,7 +1126,7 @@
     <dependency>
       <groupId>javax.enterprise</groupId>
       <artifactId>cdi-api</artifactId>
-      <version>2.0.Alpha5</version>
+      <version>2.0-EDR2</version>
     </dependency>
 
     <dependency>
