@@ -45,12 +45,12 @@
     <eclipselink.version>2.6.4</eclipselink.version>
     <errorprone.compiler.version>2.0.15</errorprone.compiler.version>
     <guava.version>20.0</guava.version>
-    <hibernate.validator.version>5.3.3.Final</hibernate.validator.version>
+    <hibernate.validator.version>5.3.4.Final</hibernate.validator.version>
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
     <jooq.version>3.8.6</jooq.version>
-    <logback.version>1.1.7</logback.version>
+    <logback.version>1.1.8</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -209,19 +209,43 @@
           <forkMode>always</forkMode>
         </configuration>
       </plugin>
+      <!--<plugin>-->
+        <!--<groupId>de.empulse.eclipselink</groupId>-->
+        <!--<artifactId>staticweave-maven-plugin</artifactId>-->
+        <!--<version>1.0.0</version>-->
+        <!--<dependencies>-->
+          <!--<dependency>-->
+            <!--<groupId>org.eclipse.persistence</groupId>-->
+            <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
+            <!--<version>${eclipselink.version}</version>-->
+          <!--</dependency>-->
+        <!--</dependencies>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<phase>process-classes</phase>-->
+            <!--<goals>-->
+              <!--<goal>weave</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<persistenceXMLLocation>target/classes/META-INF/persistence.xml</persistenceXMLLocation>-->
+              <!--<logLevel>FINEST</logLevel>-->
+            <!--</configuration>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
       <plugin>
-        <groupId>de.empulse.eclipselink</groupId>
-        <artifactId>staticweave-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
+        <groupId>au.com.alderaan</groupId>
+        <version>1.0.4</version>
         <executions>
           <execution>
-            <phase>process-classes</phase>
             <goals>
               <goal>weave</goal>
             </goals>
+            <phase>process-classes</phase>
             <configuration>
-              <persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
-              <logLevel>FINE</logLevel>
+              <logLevel>ALL</logLevel>
+              <includeProjectClasspath>true</includeProjectClasspath>
             </configuration>
           </execution>
         </executions>
@@ -297,7 +321,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.1.10</version>
+        <version>1.1.11</version>
         <configuration>
           <targetClasses>
             <param>info.cukes*</param>
@@ -357,7 +381,7 @@
       <plugin>
         <groupId>net.masterthought</groupId>
         <artifactId>maven-cucumber-reporting</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
         <dependencies>
           <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -669,7 +693,7 @@
       <dependency>
         <groupId>com.google.errorprone</groupId>
         <artifactId>error_prone_annotations</artifactId>
-        <version>2.0.14</version>
+        <version>${errorprone.compiler.version}</version>
       </dependency>
 
       <dependency>
