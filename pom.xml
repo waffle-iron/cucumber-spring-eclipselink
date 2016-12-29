@@ -45,7 +45,7 @@
 
   <properties>
     <rhndgPVUDc8WePh6camuhe3yKKpW3NM5/>
-    <arquillian.version>1.1.11.Final</arquillian.version>
+    <arquillian.version>1.1.12.Final</arquillian.version>
     <aspectj.version>1.8.10</aspectj.version>
     <buildNumber>1</buildNumber>
     <chronos.version>1.1.1</chronos.version>
@@ -60,7 +60,7 @@
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
-    <jooq.version>3.8.6</jooq.version>
+    <jooq.version>3.9.0</jooq.version>
     <logback.version>1.1.8</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
@@ -78,8 +78,8 @@
     <shrinkwrap.version>1.2.6</shrinkwrap.version>
     <slf4j.version>1.7.22</slf4j.version>
     <spring.data.envers.version>1.0.5.RELEASE</spring.data.envers.version>
-    <spring.data.jpa.version>1.10.5.RELEASE</spring.data.jpa.version>
-    <springframework.version>4.3.4.RELEASE</springframework.version>
+    <spring.data.jpa.version>1.10.6.RELEASE</spring.data.jpa.version>
+    <springframework.version>4.3.5.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
@@ -214,39 +214,39 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
-             <include>**/*Spec.java</include>
+            <include>**/*Spec.java</include>
             <include>**/*Test.java</include>
           </includes>
           <forkMode>always</forkMode>
         </configuration>
       </plugin>
       <!--<plugin>-->
-        <!--<groupId>de.empulse.eclipselink</groupId>-->
-        <!--<artifactId>staticweave-maven-plugin</artifactId>-->
-        <!--<version>1.0.0</version>-->
-        <!--<dependencies>-->
-          <!--<dependency>-->
-            <!--<groupId>org.eclipse.persistence</groupId>-->
-            <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
-            <!--<version>${eclipselink.version}</version>-->
-          <!--</dependency>-->
-        <!--</dependencies>-->
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<phase>process-classes</phase>-->
-            <!--<goals>-->
-              <!--<goal>weave</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<persistenceXMLLocation>target/classes/META-INF/persistence.xml</persistenceXMLLocation>-->
-              <!--<logLevel>FINEST</logLevel>-->
-            <!--</configuration>-->
-          <!--</execution>-->
-        <!--</executions>-->
+      <!--<groupId>de.empulse.eclipselink</groupId>-->
+      <!--<artifactId>staticweave-maven-plugin</artifactId>-->
+      <!--<version>1.0.0</version>-->
+      <!--<dependencies>-->
+      <!--<dependency>-->
+      <!--<groupId>org.eclipse.persistence</groupId>-->
+      <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
+      <!--<version>${eclipselink.version}</version>-->
+      <!--</dependency>-->
+      <!--</dependencies>-->
+      <!--<executions>-->
+      <!--<execution>-->
+      <!--<phase>process-classes</phase>-->
+      <!--<goals>-->
+      <!--<goal>weave</goal>-->
+      <!--</goals>-->
+      <!--<configuration>-->
+      <!--<persistenceXMLLocation>target/classes/META-INF/persistence.xml</persistenceXMLLocation>-->
+      <!--<logLevel>FINEST</logLevel>-->
+      <!--</configuration>-->
+      <!--</execution>-->
+      <!--</executions>-->
       <!--</plugin>-->
       <plugin>
-        <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
         <groupId>au.com.alderaan</groupId>
+        <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
         <version>1.0.4</version>
         <executions>
           <execution>
@@ -486,6 +486,45 @@
   </reporting>
 
   <profiles>
+    <profile>
+      <id>donut</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.magentys</groupId>
+            <artifactId>donut-maven-plugin</artifactId>
+            <version>0.0.5</version>
+            <executions>
+              <execution>
+                <id>execution</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <sourceDirectory>${project.build.directory}/cucumber</sourceDirectory>
+                  <outputDirectory>${project.build.directory}/donut</outputDirectory>
+                  <!--<timestamp>${maven.build.timestamp}</timestamp>-->
+                  <template>default</template>
+                  <projectName>${project.name}</projectName>
+                  <!-- optional -->
+                  <customAttributes>
+                    <customAttribute>
+                      <name>My Custom 1</name>
+                      <value>custom123</value>
+                    </customAttribute>
+                    <customAttribute>
+                      <name>App Name</name>
+                      <value>${project.name}</value>
+                    </customAttribute>
+                  </customAttributes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>modernizer</id>
       <build>
@@ -784,7 +823,7 @@
       <dependency>
         <groupId>org.jboss.arquillian.config</groupId>
         <artifactId>arquillian-config-spi</artifactId>
-        <version>1.1.11.Final</version>
+        <version>${arquillian.version}</version>
       </dependency>
 
       <dependency>
@@ -976,7 +1015,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.9.6</version>
+        <version>2.9.7</version>
       </dependency>
 
       <dependency>
@@ -1161,7 +1200,7 @@
     <dependency>
       <groupId>javax.enterprise</groupId>
       <artifactId>cdi-api</artifactId>
-      <version>2.0.Beta1</version>
+      <version>2.0-EDR2</version>
     </dependency>
 
     <dependency>
