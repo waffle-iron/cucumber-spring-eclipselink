@@ -47,12 +47,6 @@
       <props>
         <prop key="eclipselink.weaving">static</prop>
         <prop key="eclipselink.logging.level">FINE</prop>
-        <!--
-        private Map<String, String> jpaProperties() {
-		return Collections.singletonMap("org.hibernate.envers.audit_strategy", org.hibernate.envers.strategy.ValidityAuditStrategy.class.getName());
-	}
-	      -->
-        <!--<prop key="org.hibernate.envers.audit_strategy">org.hibernate.envers.strategy.ValidityAuditStrategy.class</prop>-->
       </props>
     </property>
   </bean>

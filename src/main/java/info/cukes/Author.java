@@ -27,7 +27,7 @@ import com.google.common.collect.ImmutableList;
  *
  * @author glick
  */
-@SuppressWarnings({"JpaDataSourceORMInspection", "DefaultAnnotationParam"})
+@SuppressWarnings({"JpaDataSourceORMInspection", "DefaultAnnotationParam", "WeakerAccess", "SameParameterValue"})
 @Entity
 @Table(name = "author")
 @TableGenerator(name="author",

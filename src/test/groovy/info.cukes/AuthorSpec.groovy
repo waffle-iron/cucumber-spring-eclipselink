@@ -3,6 +3,9 @@ package info.cukes
 import spock.lang.Shared
 import spock.lang.Specification
 
+import static groovy.support.GroovySupport.isDifferentObject as isDifferentObject
+import static groovy.support.GroovySupport.isSameObject as isSameObject
+
 /**
  * @author glick
  */
@@ -11,15 +14,17 @@ class AuthorSpec extends Specification {
 
   @Shared Author clapton = new Author("clapton")
 
+  @SuppressWarnings("ChangeToOperator")
   def "the same author objects are equal by object equality"() {
 
     when: "an author is compared to iself"
 
     then: "the same author object equals itself"
-      clapton == clapton
+      isSameObject(clapton, clapton)
       clapton.equals(clapton)
   }
 
+  @SuppressWarnings("ChangeToOperator")
   def "different author objects are not equal"() {
     given: "another author named winwood"
     def winwood = new Author("winwood")
@@ -27,9 +32,9 @@ class AuthorSpec extends Specification {
     when: "clapton is compared to winwood"
 
     then: "the authors are different"
-    clapton != winwood
+    isDifferentObject(clapton, winwood)
     !clapton.equals(winwood)
-    winwood != clapton
+    isDifferentObject(winwood, clapton)
     !winwood.equals(clapton)
   }
 
@@ -39,8 +44,9 @@ class AuthorSpec extends Specification {
 
     when: "clapton is compared to clapton2 "
 
-    then: "the 2 author pass the equals test -- groovy/spock don't recognize them as different objects using == as Java would"
-    clapton == clapton2
+    then: "the 2 author pass the equals test -- groovy/spock doesn't recognize them as different objects using == as Java would"
+    isDifferentObject(clapton, clapton2)
+
     clapton.equals(clapton2)
     clapton2.equals(clapton)
   }

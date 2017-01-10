@@ -6,7 +6,7 @@
   <persistence-unit name="cucumber-spring-and-eclipselink" transaction-type="RESOURCE_LOCAL">
     <class>info.cukes.Author</class>
     <class>info.cukes.Book</class>
-    <class>org.springframework.data.jpa.domain.AbstractAuditable</class>
-    <class>org.springframework.data.jpa.domain.AbstractPersistable</class>
+    <!--<class>org.springframework.data.jpa.domain.AbstractAuditable</class>-->
+    <!--<class>org.springframework.data.jpa.domain.AbstractPersistable</class>-->
   </persistence-unit>
 </persistence>
