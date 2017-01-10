@@ -51,7 +51,7 @@
     <chronos.version>1.1.1</chronos.version>
     <cucumber.jvm.version>1.2.5</cucumber.jvm.version>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
-    <cucumber.reporting.version>3.3.0</cucumber.reporting.version>
+    <cucumber.reporting.version>3.4.0</cucumber.reporting.version>
     <deltaspike.version>1.7.2</deltaspike.version>
     <eclipselink.version>2.6.4</eclipselink.version>
     <errorprone.compiler.version>2.0.15</errorprone.compiler.version>
@@ -67,7 +67,7 @@
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <openwebbeans.version>1.7.0</openwebbeans.version>
+    <openwebbeans.version>1.7.1</openwebbeans.version>
     <plexus.compiler.version>2.8.1</plexus.compiler.version>
     <plexus.utils.version>3.0.24</plexus.utils.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

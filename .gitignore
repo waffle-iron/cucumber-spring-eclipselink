@@ -10,6 +10,8 @@ target/
 
 atlassian*.xml
 
+pom.xml.versionsBackup
+
 cse.tgz
 cov-int/
 chronostimerdb/
