@@ -595,7 +595,7 @@ org/owasp/dependency-check-maven/1.4.4.1
           <plugins>
             <plugin>
               <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.6.0</version>
+              <version>3.6.1</version>
               <configuration>
                 <compilerId>javac-with-errorprone</compilerId>
                 <forceJavacCompilerUse>true</forceJavacCompilerUse>
