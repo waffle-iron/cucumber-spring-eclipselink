@@ -78,8 +78,8 @@
     <shrinkwrap.version>1.2.6</shrinkwrap.version>
     <slf4j.version>1.7.22</slf4j.version>
     <spring.data.envers.version>1.0.5.RELEASE</spring.data.envers.version>
-    <spring.data.jpa.version>1.10.6.RELEASE</spring.data.jpa.version>
-    <springframework.version>4.3.5.RELEASE</springframework.version>
+    <spring.data.jpa.version>1.11.0.RELEASE</spring.data.jpa.version>
+    <springframework.version>4.3.6.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
@@ -569,7 +569,7 @@
           <plugin>
             <groupId>org.gaul</groupId>
             <artifactId>modernizer-maven-plugin</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
             <configuration>
               <javaVersion>1.8</javaVersion>
             </configuration>
@@ -1488,6 +1488,12 @@
       <version>${aspectj.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.github.theangrydev</groupId>
+      <artifactId>zohhak</artifactId>
+      <version>2.0.1</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
