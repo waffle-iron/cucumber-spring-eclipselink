@@ -1,10 +1,12 @@
 sudo: false
 language: java
 
+# env:
+# - 
 jdk:
   - oraclejdk8
   
 script: mvn clean verify
 
 after_success:
-  - mvn clean test jacoco:report coveralls:report -DrepoToken=XkBUcBKdzhG7VnpUuBlyfudlo3S61UKRB
+  - mvn clean test jacoco:report coveralls:report

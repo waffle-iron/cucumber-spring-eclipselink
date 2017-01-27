@@ -99,12 +99,15 @@ public class AuthorDelegateImpl implements AuthorDelegate
   {
     boolean result = false;
 
+    System.out.println("authors of this book = " + authorsOfThisBook);
+    System.out.println("authors of that book = " + authorsOfThatBook);
+
     if (authorsOfThisBook.size() != authorsOfThatBook.size())
     {
       return false;
     }
 
-    if (authorsOfThisBook.isEmpty())
+    if (!authorsOfThisBook.isEmpty())
     {
       List<String> namesOfAuthorsOfThisBook = getListOfAuthorNames(authorsOfThisBook);
       List<String> namesOfAuthorsOfThatBook = getListOfAuthorNames(authorsOfThatBook);

@@ -12,9 +12,10 @@ import static groovy.support.GroovySupport.isSameObject as isSameObject
 
 class AuthorSpec extends Specification {
 
-  @Shared Author clapton = new Author("clapton")
+  @Shared
+  Author clapton = new Author("clapton")
 
-  @SuppressWarnings("ChangeToOperator")
+  @SuppressWarnings(["ChangeToOperator", "GrUnnecessaryDefModifier"])
   def "the same author objects are equal by object equality"() {
 
     when: "an author is compared to iself"
@@ -24,7 +25,7 @@ class AuthorSpec extends Specification {
       clapton.equals(clapton)
   }
 
-  @SuppressWarnings("ChangeToOperator")
+  @SuppressWarnings(["ChangeToOperator", "GrUnnecessaryDefModifier"])
   def "different author objects are not equal"() {
     given: "another author named winwood"
     def winwood = new Author("winwood")
@@ -38,6 +39,7 @@ class AuthorSpec extends Specification {
     !winwood.equals(clapton)
   }
 
+  @SuppressWarnings(["ChangeToOperator", "GrUnnecessaryDefModifier"])
   def "2 authors with the same name aren't the same object but pass equals"() {
     given: "a second author named clapton"
     def clapton2 = new Author("clapton")

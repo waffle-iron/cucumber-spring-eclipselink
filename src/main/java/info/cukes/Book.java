@@ -173,6 +173,10 @@ public class Book
 
     Book bookObject = (Book) o;
 
+    System.out.println();
+    System.out.println("1st book is " + this.title + " " + getBookAuthors());
+    System.out.println("2nd book is " + bookObject.title + " " + bookObject.getBookAuthors());
+
     return title.equals(bookObject.title)
       && authorDelegate.compareAuthorLists(getBookAuthors(), bookObject.getBookAuthors());
   }
