@@ -16,7 +16,7 @@ public class DatabaseEventListener implements org.h2.api.DatabaseEventListener {
 
     @Override
     public void init(String url) {
-        log.warn("DatabaseEventListener received URL is " + url);
+        log.warn(String.format("DatabaseEventListener received URL is %s", url));
     }
 
     @Override
@@ -27,14 +27,14 @@ public class DatabaseEventListener implements org.h2.api.DatabaseEventListener {
     @Override
     public void exceptionThrown(SQLException e, String sql) {
         log.warn("DatabaseEventListener::exceptionThrown");
-        log.warn("sql statement was " + sql);
+        log.warn(String.format("sql statement was %s", sql));
         log.warn("the exception is ", e);
     }
 
     @Override
     public void setProgress(int state, String name, int x, int max) {
         log.warn("DatabaseEventListener::setProgress");
-        log.warn("state is " + state + " name is " + name + " x is " + x + " max is " + max);
+        log.warn(String.format("state is %d name is %s x is %d max is %d", state, name, x, max));
     }
 
     @Override

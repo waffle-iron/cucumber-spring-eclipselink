@@ -2,9 +2,6 @@ package info.cukes
 
 import spock.lang.Specification
 
-
-
-
 /**
  * @author glick
  */
