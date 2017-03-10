@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 public class BookDelegateImpl implements BookDelegate
 {
   @SuppressWarnings("UnusedDeclaration")
-  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @SuppressWarnings("CdiInjectionPointsInspection")
   @Inject
@@ -42,9 +42,7 @@ public class BookDelegateImpl implements BookDelegate
   @Override
   public List<String> getListOfTitles(List<Book> bookList)
   {
-    List<String> titlesOfBooks = Lists.transform(bookList, Book::getTitle);
-
-    return titlesOfBooks;
+    return Lists.transform(bookList, Book::getTitle);
   }
 
   @Override
