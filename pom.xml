@@ -645,7 +645,16 @@
                       <groupId>com.google.errorprone</groupId>
                       <artifactId>error_prone_annotations</artifactId>
                     </exclusion>
+                    <exclusion>
+                      <groupId>com.google.code.findbugs</groupId>
+                      <artifactId>jsr305</artifactId>
+                    </exclusion>
                   </exclusions>
+                </dependency>
+                <dependency>
+                  <groupId>com.google.code.findbugs</groupId>
+                  <artifactId>annotations</artifactId>
+                  <version>3.0.0</version>
                 </dependency>
 
                 <dependency>
@@ -747,6 +756,11 @@
                   </classes>
                 </exception>
               </exceptions>
+              <ignoredResourcePatterns>
+                <ignoredResourcePattern>.*about\.html$</ignoredResourcePattern>
+                <ignoredResourcePattern>.*readme\.html$</ignoredResourcePattern>
+                <ignoredResourcePattern>.*changelog\.txt</ignoredResourcePattern>
+              </ignoredResourcePatterns>
             </configuration>
             <executions>
               <execution>
@@ -1132,6 +1146,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>annotations</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.errorprone</groupId>
       <artifactId>error_prone_annotations</artifactId>
       <version>${errorprone.compiler.version}</version>
@@ -1144,6 +1163,14 @@
         <exclusion>
           <groupId>com.google.errorprone</groupId>
           <artifactId>error_prone_annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.github.stephenc.jcip</groupId>
+          <artifactId>jcip-annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.code.findbugs</groupId>
+          <artifactId>jsr305</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -1329,6 +1356,10 @@
           <groupId>org.javassist</groupId>
           <artifactId>javassist</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>com.google.code.findbugs</groupId>
+          <artifactId>jsr305</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -1340,6 +1371,10 @@
         <exclusion>
           <groupId>org.javassist</groupId>
           <artifactId>javassist</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.code.findbugs</groupId>
+          <artifactId>annotations</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -1366,12 +1401,6 @@
       <artifactId>hibernate-validator</artifactId>
       <version>${hibernate.validator.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>javax.persistence</artifactId>
