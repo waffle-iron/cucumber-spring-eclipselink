@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import org.junit.After;
 import org.junit.Before;
-// import org.junit.Ignore;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -29,6 +28,7 @@ import java.lang.invoke.MethodHandles;
 /**
  * @author glick
  */
+@Ignore
 public class CherryMissionExplorerCdiTest
 {
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -71,8 +71,8 @@ public class CherryMissionExplorerCdiTest
     cdiContainer.shutdown();
   }
 
-  // @Test
-  @Ignore
+  @Test
+  // @Ignore
   public void testCherryMissionProducesResults() {
 
     assertNotNull(bookRepository);
