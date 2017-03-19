@@ -7,7 +7,7 @@ import spock.lang.Specification
  */
 class QBookSpec extends Specification {
 
-  def "exercise QBook for covderage"() {
+  def "exercise QBook for coverage"() {
     given: "QBook weaving artifacts must be exercised for coverage purposes"
     QBook book1 = new QBook("book1");
   }
