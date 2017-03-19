@@ -28,7 +28,7 @@ import java.lang.invoke.MethodHandles;
 /**
  * @author glick
  */
-// @Ignore
+@Ignore
 public class CherryMissionExplorerCdiTest
 {
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
