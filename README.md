@@ -1,5 +1,5 @@
 [![Codeship Status for andyglick/cucumber-spring-eclipselink](https://codeship.com/projects/cb03e2e0-851e-0133-3da7-7eac26a59959/status?branch=master)](https://codeship.com/projects/122178)
-[![CircleCI](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink.svg?style=svg)](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink)
+[![CircleCI](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink.svg?style=shield)](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink)
 [![Build Status](https://travis-ci.org/andyglick/cucumber-spring-eclipselink.png)](https://travis-ci.org/andyglick/cucumber-spring-eclipselink)
 [![Coverage Status](https://coveralls.io/repos/andyglick/cucumber-spring-eclipselink/badge.png)](https://coveralls.io/r/andyglick/cucumber-spring-eclipselink)
 [![Dependency Status](https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570d35bffcd19a0045440b35)
