@@ -1,20 +1,14 @@
 package io.cucumber;
 
-import static io.magentys.AgentProvider.agent;
-import static org.junit.Assert.assertNotNull;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import org.apache.deltaspike.cdise.api.CdiContainer;
 import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.assertj.core.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +19,23 @@ import io.magentys.Agent;
 
 import java.lang.invoke.MethodHandles;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+
+import static io.magentys.AgentProvider.agent;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * @author glick
  */
-@Ignore
-public class CherryMissionExplorerCdiTest
+// @Ignore
+@RunWith(CdiTestRunner.class)
+public class CherryMissionExplorerCdiIT
 {
   private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private CdiContainer cdiContainer;
+  private static CdiContainer cdiContainer;
 
   @Inject
   @NotNull
@@ -43,10 +45,10 @@ public class CherryMissionExplorerCdiTest
   @NotNull
   private AuthorRepository authorRepository;
 
-  private Agent agent;
+  private static Agent agent;
 
-  @Before
-  public void setUp()
+  @BeforeClass
+  public static void setUp()
   {
     cdiContainer = CdiContainerLoader.getCdiContainer();
     cdiContainer.boot();
@@ -65,13 +67,7 @@ public class CherryMissionExplorerCdiTest
     agent = agent();
   }
 
-  @After
-  public void tearDown()
-  {
-    cdiContainer.shutdown();
-  }
-
-  @Test
+  @Test()
   // @Ignore
   public void testCherryMissionProducesResults() {
 
@@ -80,5 +76,11 @@ public class CherryMissionExplorerCdiTest
     assertNotNull(agent);
 
     agent.obtains(bookRepository, authorRepository);
+  }
+
+  @AfterClass
+  public static void tearDown()
+  {
+    cdiContainer.shutdown();
   }
 }

@@ -35,7 +35,7 @@ public class RepositoryQueriesIT
   BookRepository bookRepository;
 
   @Test
-  @Ignore
+  // @Ignore
   public void testFindByAuthorName()
   {
     List<String> authorNames = Arrays.asList("Andy Glick", "James La Spada");

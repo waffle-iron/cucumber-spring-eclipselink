@@ -1,6 +1,8 @@
 package info.cukes;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ImmutableList;
 
@@ -17,6 +19,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,8 @@ import java.util.List;
 @Vetoed
 public class Book
 {
+  private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   @Transient
   AuthorDelegate authorDelegate;
 
@@ -173,9 +178,9 @@ public class Book
 
     Book bookObject = (Book) o;
 
-    System.out.println();
-    System.out.println("1st book is " + this.title + " " + getBookAuthors());
-    System.out.println("2nd book is " + bookObject.title + " " + bookObject.getBookAuthors());
+    log.info("");
+    log.info(String.format("1st book is %s %s", this.title, getBookAuthors()));
+    log.info(String.format("2nd book is %s %s", bookObject.title, bookObject.getBookAuthors()));
 
     return title.equals(bookObject.title)
       && authorDelegate.compareAuthorLists(getBookAuthors(), bookObject.getBookAuthors());

@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
   http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -45,7 +47,7 @@
 
   <properties>
     <rhndgPVUDc8WePh6camuhe3yKKpW3NM5/>
-    <arquillian.version>1.1.12.Final</arquillian.version>
+    <arquillian.version>1.1.13.Final</arquillian.version>
     <aspectj.version>1.8.10</aspectj.version>
     <buildNumber>1</buildNumber>
     <chronos.version>1.1.1</chronos.version>
@@ -56,11 +58,12 @@
     <eclipselink.version>2.6.4</eclipselink.version>
     <errorprone.compiler.version>2.0.19</errorprone.compiler.version>
     <guava.version>21.0</guava.version>
-    <hibernate.validator.version>5.4.0.Final</hibernate.validator.version>
+    <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
     <jooq.version>3.9.1</jooq.version>
+    <junit.version>4.12</junit.version>
     <logback.version>1.2.2</logback.version>
     <maven.artifact.version>3.3.9</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
@@ -132,6 +135,58 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.6.1</version>
+          <configuration>
+            <compilerId>javac-with-errorprone</compilerId>
+            <forceJavacCompilerUse>true</forceJavacCompilerUse>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_annotations</artifactId>
+              <version>${errorprone.compiler.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${errorprone.compiler.version}</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>com.google.errorprone</groupId>
+                  <artifactId>error_prone_annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                  <groupId>com.google.code.findbugs</groupId>
+                  <artifactId>jsr305</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+            <dependency>
+              <groupId>com.google.code.findbugs</groupId>
+              <artifactId>annotations</artifactId>
+              <version>3.0.1u2</version>
+            </dependency>
+
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-compiler-javac-errorprone</artifactId>
+              <version>${plexus.compiler.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-compiler-api</artifactId>
+              <version>${plexus.compiler.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-compiler-manager</artifactId>
+              <version>${plexus.compiler.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-utils</artifactId>
+              <version>${plexus.utils.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <artifactId>maven-jxr-plugin</artifactId>
@@ -266,30 +321,6 @@
           <forkMode>always</forkMode>
         </configuration>
       </plugin>
-      <!--<plugin>-->
-      <!--<groupId>de.empulse.eclipselink</groupId>-->
-      <!--<artifactId>staticweave-maven-plugin</artifactId>-->
-      <!--<version>1.0.0</version>-->
-      <!--<dependencies>-->
-      <!--<dependency>-->
-      <!--<groupId>org.eclipse.persistence</groupId>-->
-      <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
-      <!--<version>${eclipselink.version}</version>-->
-      <!--</dependency>-->
-      <!--</dependencies>-->
-      <!--<executions>-->
-      <!--<execution>-->
-      <!--<phase>process-classes</phase>-->
-      <!--<goals>-->
-      <!--<goal>weave</goal>-->
-      <!--</goals>-->
-      <!--<configuration>-->
-      <!--<persistenceXMLLocation>target/classes/META-INF/persistence.xml</persistenceXMLLocation>-->
-      <!--<logLevel>FINEST</logLevel>-->
-      <!--</configuration>-->
-      <!--</execution>-->
-      <!--</executions>-->
-      <!--</plugin>-->
       <plugin>
         <groupId>au.com.alderaan</groupId>
         <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
@@ -619,72 +650,6 @@
       </build>
     </profile>
     <profile>
-      <id>errorprone-compiler</id>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.6.1</version>
-              <configuration>
-                <compilerId>javac-with-errorprone</compilerId>
-                <forceJavacCompilerUse>true</forceJavacCompilerUse>
-              </configuration>
-              <dependencies>
-                <dependency>
-                  <groupId>com.google.errorprone</groupId>
-                  <artifactId>error_prone_annotations</artifactId>
-                  <version>${errorprone.compiler.version}</version>
-                </dependency>
-                <dependency>
-                  <groupId>com.google.errorprone</groupId>
-                  <artifactId>error_prone_core</artifactId>
-                  <version>${errorprone.compiler.version}</version>
-                  <exclusions>
-                    <exclusion>
-                      <groupId>com.google.errorprone</groupId>
-                      <artifactId>error_prone_annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
-                      <groupId>com.google.code.findbugs</groupId>
-                      <artifactId>jsr305</artifactId>
-                    </exclusion>
-                  </exclusions>
-                </dependency>
-                <dependency>
-                  <groupId>com.google.code.findbugs</groupId>
-                  <artifactId>annotations</artifactId>
-                  <version>3.0.1u2</version>
-                </dependency>
-
-                <dependency>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-compiler-javac-errorprone</artifactId>
-                  <version>${plexus.compiler.version}</version>
-                </dependency>
-                <dependency>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-compiler-api</artifactId>
-                  <version>${plexus.compiler.version}</version>
-                </dependency>
-                <dependency>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-compiler-manager</artifactId>
-                  <version>${plexus.compiler.version}</version>
-                </dependency>
-                <dependency>
-                  <groupId>org.codehaus.plexus</groupId>
-                  <artifactId>plexus-utils</artifactId>
-                  <version>${plexus.utils.version}</version>
-                </dependency>
-
-              </dependencies>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-    <profile>
       <id>tattletale</id>
       <build>
         <plugins>
@@ -727,6 +692,16 @@
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
           <version>${logback.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>simple-logging</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>${slf4j.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -818,6 +793,95 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>weld</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.deltaspike.cdictrl</groupId>
+          <artifactId>deltaspike-cdictrl-weld</artifactId>
+          <version>${deltaspike.version}</version>
+          <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.shrinkwrap</groupId>
+              <artifactId>shrinkwrap-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-weld-embedded</artifactId>
+          <version>2.0.0.Beta4</version>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.weld.se</groupId>
+          <artifactId>weld-se-core</artifactId>
+          <version>3.0.0.CR2</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.spec.javax.el</groupId>
+              <artifactId>jboss-el-api_3.0_spec</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.jboss.spec.javax.interceptor</groupId>
+              <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>openwebbeans</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.deltaspike.cdictrl</groupId>
+          <artifactId>deltaspike-cdictrl-owb</artifactId>
+          <version>${deltaspike.version}</version>
+          <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>org.jboss.shrinkwrap</groupId>
+              <artifactId>shrinkwrap-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+
+        <dependency>
+        <groupId>org.apache.openwebbeans</groupId>
+        <artifactId>openwebbeans-impl</artifactId>
+        <version>${openwebbeans.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-spi</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-resource</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-web</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans</groupId>
+          <artifactId>openwebbeans-jsf</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.openwebbeans.arquillian</groupId>
+          <artifactId>owb-arquillian-standalone</artifactId>
+          <version>${openwebbeans.version}</version>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 
@@ -1053,37 +1117,7 @@
         <version>${shrinkwrap.descriptors.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>org.apache.openwebbeans</groupId>
-        <artifactId>openwebbeans-impl</artifactId>
-        <version>${openwebbeans.version}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.openwebbeans</groupId>
-        <artifactId>openwebbeans-spi</artifactId>
-        <version>${openwebbeans.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.openwebbeans</groupId>
-        <artifactId>openwebbeans-resource</artifactId>
-        <version>${openwebbeans.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.openwebbeans</groupId>
-        <artifactId>openwebbeans-web</artifactId>
-        <version>${openwebbeans.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.openwebbeans</groupId>
-        <artifactId>openwebbeans-jsf</artifactId>
-        <version>${openwebbeans.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.openwebbeans.arquillian</groupId>
-        <artifactId>owb-arquillian-standalone</artifactId>
-        <version>${openwebbeans.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
@@ -1142,7 +1176,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <version>${junit.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -1255,14 +1289,6 @@
       <groupId>org.jboss.arquillian.config</groupId>
       <artifactId>arquillian-config-spi</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-impl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.openwebbeans</groupId>
-      <artifactId>openwebbeans-spi</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -1333,18 +1359,6 @@
       <artifactId>deltaspike-cdictrl-api</artifactId>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.deltaspike.cdictrl</groupId>
-      <artifactId>deltaspike-cdictrl-owb</artifactId>
-      <version>${deltaspike.version}</version>
-      <scope>runtime</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.shrinkwrap</groupId>
-          <artifactId>shrinkwrap-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
 
     <dependency>
       <groupId>org.javassist</groupId>
@@ -1403,6 +1417,12 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>${hibernate.validator.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.eclipse.persistence</groupId>

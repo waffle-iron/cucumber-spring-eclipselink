@@ -20,7 +20,7 @@ import com.google.common.collect.Lists;
 public class AuthorDelegateImpl implements AuthorDelegate
 {
   @SuppressWarnings("UnusedDeclaration")
-  private static final transient Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @SuppressWarnings("SpringAutowiredFieldsWarningInspection")
   @Inject
