@@ -2,7 +2,7 @@ package groovy.support;
 
 /**
  *
- * the GroovySupport class offers Java rather than Groovy sematics for the operagtors == and !=
+ * the GroovySupport class offers Java rather than Groovy semantics for the operators == and !=
  * Groovy naively reports them as the result of the Java equals object, while when testing Java we need
  * them to be implemented in terms of Java semantics
  *
@@ -10,6 +10,8 @@ package groovy.support;
  */
 public class GroovySupport
 {
+  private GroovySupport(){}
+
   public static boolean isSameObject(Object first, Object second) {
     return first == second;
   }

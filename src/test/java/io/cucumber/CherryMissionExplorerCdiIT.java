@@ -2,6 +2,7 @@ package io.cucumber;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * @author glick
  */
-// @Ignore
+@Ignore
 @RunWith(CdiTestRunner.class)
 public class CherryMissionExplorerCdiIT
 {
