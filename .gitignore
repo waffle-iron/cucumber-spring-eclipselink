@@ -15,3 +15,5 @@ pom.xml.versionsBackup
 cse.tgz
 cov-int/
 chronostimerdb/
+/.classpath
+/effective.pom

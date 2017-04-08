@@ -42,7 +42,7 @@
   </pluginRepositories>
 
   <prerequisites>
-    <maven>3.3.9</maven>
+    <maven>${maven.version}</maven>
   </prerequisites>
 
   <properties>
@@ -59,17 +59,19 @@
     <errorprone.compiler.version>2.0.19</errorprone.compiler.version>
     <guava.version>21.0</guava.version>
     <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
+    <java.version>1.8</java.version>
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
     <jooq.version>3.9.1</jooq.version>
     <junit.version>4.12</junit.version>
     <logback.version>1.2.2</logback.version>
-    <maven.artifact.version>3.3.9</maven.artifact.version>
+    <maven.artifact.version>3.5.0</maven.artifact.version>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.version>3.5.0</maven.version>
     <openwebbeans.version>1.7.2</openwebbeans.version>
     <plexus.compiler.version>2.8.1</plexus.compiler.version>
     <plexus.utils.version>3.0.24</plexus.utils.version>
@@ -88,7 +90,7 @@
     <surefire.useFile>false</surefire.useFile>
     <surefire.version>2.19.1</surefire.version>
     <versioneye.project_id>570d35bffcd19a0045440b35</versioneye.project_id>
-    <versioneye.version>3.11.1</versioneye.version>
+    <versioneye.version>3.11.2</versioneye.version>
   </properties>
 
   <build>
@@ -409,7 +411,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.1.11</version>
+        <version>1.2.0</version>
         <configuration>
           <targetClasses>
             <param>info.cukes*</param>
@@ -889,6 +891,12 @@
     <dependencies>
 
       <dependency>
+        <groupId>javax.enterprise</groupId>
+        <artifactId>cdi-api</artifactId>
+        <version>2.0-PFD2</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.apache.bcel</groupId>
         <artifactId>bcel</artifactId>
         <version>6.0</version>
@@ -1117,7 +1125,6 @@
         <version>${shrinkwrap.descriptors.version}</version>
       </dependency>
 
-
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
@@ -1131,7 +1138,7 @@
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
       </dependency>
 
       <dependency>
@@ -1143,7 +1150,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.9.7</version>
+        <version>2.9.9</version>
       </dependency>
 
       <dependency>
@@ -1273,7 +1280,7 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>1.1-groovy-2.4-rc-3</version>
+      <version>1.1-groovy-2.4-rc-4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -1327,12 +1334,12 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.0-b02</version>
+      <version>4.0.0-b05</version>
     </dependency>
     <dependency>
       <groupId>javax.enterprise</groupId>
       <artifactId>cdi-api</artifactId>
-      <version>2.0-PFD</version>
+      <version>2.0-PFD2</version>
     </dependency>
 
     <dependency>
