@@ -377,8 +377,30 @@
                 <exclude>org.apache.commons:commons-io</exclude>
               </excludes>
             </bannedDependencies>
+            <banDuplicateClasses>
+              <ignoreClasses>
+                <!-- example of ignoring one specific class -->
+                <ignoreClass>com.xyz.i18n.Messages</ignoreClass>
+
+                <!-- example of ignoring with wildcards -->
+                <ignoreClass>org.apache.commons.logging.*</ignoreClass>
+                <ignoreClass>net.jcip.*</ignoreClass>
+                <ignoreClass>io.magentys.*</ignoreClass>
+                <ignoreClass>org.aspectj.*</ignoreClass>
+                <ignoreClass>aj.org.objectweb.asm.*</ignoreClass>
+                <ignoreClass>javax.annotation.*</ignoreClass>
+              </ignoreClasses>
+              <findAllDuplicates>true</findAllDuplicates>
+            </banDuplicateClasses>
           </rules>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>extra-enforcer-rules</artifactId>
+            <version>1.0-beta-6</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <!-- ToDo figure out how to configure the updateimpact plugin -->
@@ -1134,11 +1156,6 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>3.0.2</version>
       </dependency>
 
       <dependency>
