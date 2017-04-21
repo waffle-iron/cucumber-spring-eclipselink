@@ -50,6 +50,7 @@
     <arquillian.version>1.1.13.Final</arquillian.version>
     <aspectj.version>1.8.10</aspectj.version>
     <buildNumber>1</buildNumber>
+    <checkerframework.version>2.1.10</checkerframework.version>
     <chronos.version>1.1.1</chronos.version>
     <cucumber.jvm.version>1.2.5</cucumber.jvm.version>
     <cucumber.report.title>Cucumber w/ Spring, Spring Data JPA and Eclipselink</cucumber.report.title>
@@ -63,7 +64,7 @@
     <javassist.version>3.22.0-CR1</javassist.version>
     <javax.persistence.version>2.1.1</javax.persistence.version>
     <jdepend.plugin.version>2.0</jdepend.plugin.version>
-    <jooq.version>3.9.1</jooq.version>
+    <jooq.version>3.9.2</jooq.version>
     <junit.version>4.12</junit.version>
     <logback.version>1.2.2</logback.version>
     <maven.artifact.version>3.5.0</maven.artifact.version>
@@ -83,12 +84,12 @@
     <shrinkwrap.version>1.2.6</shrinkwrap.version>
     <slf4j.version>1.7.25</slf4j.version>
     <spring.data.envers.version>1.0.5.RELEASE</spring.data.envers.version>
-    <spring.data.jpa.version>1.11.1.RELEASE</spring.data.jpa.version>
-    <springframework.version>4.3.7.RELEASE</springframework.version>
+    <spring.data.jpa.version>1.11.3.RELEASE</spring.data.jpa.version>
+    <springframework.version>4.3.8.RELEASE</springframework.version>
     <surefire.forkMode>always</surefire.forkMode>
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
-    <surefire.version>2.19.1</surefire.version>
+    <surefire.version>2.20</surefire.version>
     <versioneye.project_id>570d35bffcd19a0045440b35</versioneye.project_id>
     <versioneye.version>3.11.2</versioneye.version>
   </properties>
@@ -289,7 +290,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-archetype-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
       </plugin>
       <plugin>
         <groupId>com.github.ferstl</groupId>
@@ -379,16 +380,28 @@
             </bannedDependencies>
             <banDuplicateClasses>
               <ignoreClasses>
+                <ignoreClass>com.sun.source.*</ignoreClass>
+                <!--<ignoreClass>com.sun.tools.*</ignoreClass>-->
+                <ignoreClass>javax.lang.*</ignoreClass>
+                <ignoreClass>javax.tools.*</ignoreClass>
                 <!-- example of ignoring one specific class -->
                 <ignoreClass>com.xyz.i18n.Messages</ignoreClass>
 
                 <!-- example of ignoring with wildcards -->
+                <ignoreClass>com.sun.tools.*</ignoreClass>
                 <ignoreClass>org.apache.commons.logging.*</ignoreClass>
                 <ignoreClass>net.jcip.*</ignoreClass>
                 <ignoreClass>io.magentys.*</ignoreClass>
                 <ignoreClass>org.aspectj.*</ignoreClass>
                 <ignoreClass>aj.org.objectweb.asm.*</ignoreClass>
                 <ignoreClass>javax.annotation.*</ignoreClass>
+                <ignoreClass>javax.validation.constraints.NotNull</ignoreClass>
+                <ignoreClass>edu.umd.cs.findbugs.annotations.*</ignoreClass>
+                <ignoreClass>org.apache.commons.io.*</ignoreClass>
+                <ignoreClass>org.apache.commons.lang.*</ignoreClass>
+                <ignoreClass>org.apache.commons.lang3.*</ignoreClass>
+                <ignoreClass>com.google.common.*</ignoreClass>
+                <ignoreClass>org.checkerframework.*</ignoreClass>
               </ignoreClasses>
               <findAllDuplicates>true</findAllDuplicates>
             </banDuplicateClasses>
@@ -401,6 +414,11 @@
             <version>1.0-beta-6</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.7</version>
       </plugin>
       <plugin>
         <!-- ToDo figure out how to configure the updateimpact plugin -->
@@ -781,7 +799,7 @@
           <plugin>
             <groupId>com.github.temyers</groupId>
             <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-            <version>2.2.0</version>
+            <version>4.0.0</version>
             <executions>
               <execution>
                 <id>generateRunners</id>
@@ -911,6 +929,32 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>checker-qual</artifactId>
+        <version>${checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>checker-javacutil</artifactId>
+        <version>${checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>checker</artifactId>
+        <version>${checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>jdk8</artifactId>
+        <version>${checkerframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.checkerframework</groupId>
+        <artifactId>dataflow</artifactId>
+        <version>${checkerframework.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>javax.enterprise</groupId>
@@ -1207,6 +1251,19 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>jdk8</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>annotations</artifactId>
       <version>3.0.1u2</version>
@@ -1429,7 +1486,7 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.3.4</version>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
