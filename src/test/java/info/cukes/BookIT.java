@@ -33,7 +33,7 @@ public class BookIT
 
     Assertions.assertThat(book.getTitle()).isNotEmpty();
 
-    Assertions.assertThat(book.getBook()).isNull();
+    Assertions.assertThat(book.getBook().length()).isEqualTo(36);
 
     Assertions.assertThat(book.getBookAuthors()).hasSize(2);
   }

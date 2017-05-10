@@ -49,7 +49,7 @@ class AuthorSpec extends Specification {
     then: "the 2 author pass the equals test -- groovy/spock doesn't recognize them as different objects using == as Java would"
     isDifferentObject(clapton, clapton2)
 
-    clapton.equals(clapton2)
-    clapton2.equals(clapton)
+    !clapton.equals(clapton2)
+    !clapton2.equals(clapton)
   }
 }

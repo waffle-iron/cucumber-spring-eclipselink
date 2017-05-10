@@ -1,6 +1,5 @@
 package info.cukes;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +16,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>Book class.</p>
@@ -35,7 +37,7 @@ import java.util.List;
  *
  *  also attempted to use the CDI injection system, the @Vetoed annotation is a hold over from that, I didn't
  *  understand how CDI ought to work. Want to explore that some more, used Apache DeltaSpike would like to
- *  try it out in a more orderly
+ *  try it out in a more orderly manner
  *
  *  also want to explore hk2 as an injector and possibly guice
  *
@@ -45,13 +47,6 @@ import java.util.List;
  */
 @SuppressWarnings({"JpaDataSourceORMInspection", "WeakerAccess", "DefaultAnnotationParam"})
 @Entity
-@TableGenerator(name="book",
-  table="sequences",
-  pkColumnName = "sequenceKey",
-  valueColumnName = "sequenceValue",
-  pkColumnValue = "book",
-  initialValue = 0,
-  allocationSize = 1)
 @Table(name = "book")
 @Vetoed
 public class Book
@@ -63,10 +58,9 @@ public class Book
 
   @SuppressWarnings("UnusedDeclaration")
   @Id
-  @GeneratedValue(generator = "book")
   @Column(name= "book")
-  @NotNull
-  private Long book;
+  @Size(min=36, max=36)
+  private String book = UUID.randomUUID().toString().toUpperCase();
 
   @Column(name = "title", nullable = false)
   @NotEmpty
@@ -148,7 +142,7 @@ public class Book
    *
    * @return a {@link Long} object.
    */
-  public Long getBook()
+  public String getBook()
   {
     return book;
   }

@@ -3,7 +3,7 @@ package info.cukes
 /**
  * @author glick
  */
-class AuthorDelegarteImplSpec {
+class AuthorDelegateImplSpec {
 
   def "add books to an authorDelegate"() {
     AuthorDelegate authorDelegate = new AuthorDelegateImpl()
