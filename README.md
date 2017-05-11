@@ -21,9 +21,11 @@ versioneye continues to claim that the dependency is out of date
 and coveralls states that only 56% of the code has been tested. Well
 that's somewhat misleading. Because I'm not a big fan of compile time
 byte code manipulation, at least where a JPA provider is concerned, I
-use static weaving on the JPA entities. Unfortunatley that exposes all
+use static weaving on the JPA entities. Unfortunately that exposes all
 of the generated and not tested code to be scored against me. Oh
 well.........
+
+.... whining completed .....
 
 recently added the coveralls coverage badge. Implemented the integration using the jacoco maven plugin to generate coverage information. When I attempted to
 use cobertura rather than jacoco the QueryDSL integration classes QAuthor.java and QBook.java could not be processed by the cobertura Java parser, so the build
