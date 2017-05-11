@@ -79,7 +79,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.version>3.5.0</maven.version>
-    <openwebbeans.version>1.7.2</openwebbeans.version>
+    <openwebbeans.version>1.7.3</openwebbeans.version>
     <plexus.compiler.version>2.8.1</plexus.compiler.version>
     <plexus.utils.version>3.0.24</plexus.utils.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,7 +96,7 @@
     <surefire.reportFormat>plain</surefire.reportFormat>
     <surefire.useFile>false</surefire.useFile>
     <surefire.version>2.20</surefire.version>
-    <versioneye.project_id>570d35bffcd19a0045440b35</versioneye.project_id>
+    <versioneye.project_id>591264d8da0c25002fa1ad3d</versioneye.project_id>
     <versioneye.version>3.11.2</versioneye.version>
   </properties>
 
@@ -432,7 +432,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
+        <version>3.8</version>
       </plugin>
       <plugin>
         <!-- ToDo figure out how to configure the updateimpact plugin -->

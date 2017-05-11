@@ -1,6 +1,8 @@
 
 target/
 
+.clover/
+
 *.iml
 *.ipr
 *.iws
