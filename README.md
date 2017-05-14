@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/andyglick/cucumber-spring-eclipselink.png?label=ready&title=Ready)](https://waffle.io/andyglick/cucumber-spring-eclipselink?utm_source=badge)
 [![Codeship Status for andyglick/cucumber-spring-eclipselink](https://codeship.com/projects/cb03e2e0-851e-0133-3da7-7eac26a59959/status?branch=master)](https://codeship.com/projects/122178)
 [![CircleCI](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink.svg?style=shield)](https://circleci.com/gh/andyglick/cucumber-spring-eclipselink)
 [![Build Status](https://travis-ci.org/andyglick/cucumber-spring-eclipselink.png)](https://travis-ci.org/andyglick/cucumber-spring-eclipselink)
